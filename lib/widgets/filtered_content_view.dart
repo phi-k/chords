@@ -34,7 +34,9 @@ class FilteredContentView extends ConsumerWidget {
 
     const horizontalPadding = EdgeInsets.symmetric(horizontal: 40);
 
-    if (songs.isEmpty && filterState.activeFilters.isEmpty) {
+    if (songs.isEmpty &&
+        filterState.activeFilters.isEmpty &&
+        filterState.filterText.isEmpty) {
       return _buildEmptyState(context);
     }
 
