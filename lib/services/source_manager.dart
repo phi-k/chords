@@ -1,3 +1,6 @@
+// Copyright (C) 2026 phi-k
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import 'dart:developer' as dev;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/tab_source.dart';

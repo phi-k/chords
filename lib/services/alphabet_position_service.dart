@@ -1,3 +1,6 @@
+// Copyright (C) 2026 phi-k
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import '../data/collections/song.dart';
 import '../utils/string_normalization.dart';
 

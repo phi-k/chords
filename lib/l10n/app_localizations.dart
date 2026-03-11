@@ -2240,10 +2240,166 @@ abstract class AppLocalizations {
   /// **'Export format'**
   String get exportOptExportFormat;
 
+  /// No description provided for @legalAppBarTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'License & Philosophy'**
+  String get legalAppBarTitle;
+
+  /// No description provided for @legalPartLicenseHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'Open-source License'**
+  String get legalPartLicenseHeader;
+
+  /// No description provided for @legalSection1Title.
+  ///
+  /// In en, this message translates to:
+  /// **'1. License and Source Code'**
+  String get legalSection1Title;
+
+  /// No description provided for @legalSection1P1.
+  ///
+  /// In en, this message translates to:
+  /// **'The Chords application is free software distributed under the GNU Affero General Public License v3.0 (AGPL-3.0). The source code is publicly available on the official GitHub repository:'**
+  String get legalSection1P1;
+
+  /// No description provided for @legalSection1Link.
+  ///
+  /// In en, this message translates to:
+  /// **'https://github.com/phi-k/chords'**
+  String get legalSection1Link;
+
+  /// No description provided for @legalSection1P2.
+  ///
+  /// In en, this message translates to:
+  /// **'Under the AGPL-3.0 license, anyone is free to:'**
+  String get legalSection1P2;
+
+  /// No description provided for @legalSection1Bullet1.
+  ///
+  /// In en, this message translates to:
+  /// **'View, copy and fork the source code.'**
+  String get legalSection1Bullet1;
+
+  /// No description provided for @legalSection1Bullet2.
+  ///
+  /// In en, this message translates to:
+  /// **'Modify and redistribute the application, provided the same AGPL-3.0 license is retained.'**
+  String get legalSection1Bullet2;
+
+  /// No description provided for @legalSection1Bullet3.
+  ///
+  /// In en, this message translates to:
+  /// **'Use the application for any purpose, including commercial use.'**
+  String get legalSection1Bullet3;
+
+  /// No description provided for @legalSection1P3.
+  ///
+  /// In en, this message translates to:
+  /// **'Any modified or derived version must be distributed under the same AGPL-3.0 license, include the full license text, and make the source code available. The full license text can be found in the LICENSE file of the repository.'**
+  String get legalSection1P3;
+
+  /// No description provided for @legalSection2Title.
+  ///
+  /// In en, this message translates to:
+  /// **'2. Attribution'**
+  String get legalSection2Title;
+
+  /// No description provided for @legalSection2P1.
+  ///
+  /// In en, this message translates to:
+  /// **'In accordance with the AGPL-3.0 license, copyright and attribution notices must be retained in any copy or derived version of the software. The original application was created by phi-k.'**
+  String get legalSection2P1;
+
+  /// No description provided for @legalSection2P2.
+  ///
+  /// In en, this message translates to:
+  /// **'Contributors are free to add their name to indicate their contributions.'**
+  String get legalSection2P2;
+
+  /// No description provided for @legalSection3Title.
+  ///
+  /// In en, this message translates to:
+  /// **'3. Third-Party Services'**
+  String get legalSection3Title;
+
+  /// No description provided for @legalSection3P1.
+  ///
+  /// In en, this message translates to:
+  /// **'The website \'chords.ovh\' is an entity independent from the open-source application. It provides optional services (setlist sharing) and its source code is not covered by this license.'**
+  String get legalSection3P1;
+
+  /// No description provided for @legalSection3P2.
+  ///
+  /// In en, this message translates to:
+  /// **'Official application updates are published via the GitHub repository. Versions distributed from other sources are not under the responsibility of the original author.'**
+  String get legalSection3P2;
+
+  /// No description provided for @legalSection4Title.
+  ///
+  /// In en, this message translates to:
+  /// **'4. Contact'**
+  String get legalSection4Title;
+
+  /// No description provided for @legalSection4P1.
+  ///
+  /// In en, this message translates to:
+  /// **'To report a bug, suggest an improvement or for any other inquiry, you can contact the creator:'**
+  String get legalSection4P1;
+
+  /// No description provided for @legalPartPhilosophyHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'Project Philosophy'**
+  String get legalPartPhilosophyHeader;
+
+  /// No description provided for @legalPhilosophyIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'The following commitments are not legal obligations, but they represent the founding values of the Chords project. They are detailed in the PHILOSOPHY.md file of the repository.'**
+  String get legalPhilosophyIntro;
+
+  /// No description provided for @legalPhiloQuote.
+  ///
+  /// In en, this message translates to:
+  /// **'Chords is a free music tool, available to everyone, and we hope it will remain so forever.'**
+  String get legalPhiloQuote;
+
+  /// No description provided for @legalPhiloP1.
+  ///
+  /// In en, this message translates to:
+  /// **'The author commits to ensuring that the official version of Chords:'**
+  String get legalPhiloP1;
+
+  /// No description provided for @legalPhiloBullet1.
+  ///
+  /// In en, this message translates to:
+  /// **'Remains free and ad-free.'**
+  String get legalPhiloBullet1;
+
+  /// No description provided for @legalPhiloBullet2.
+  ///
+  /// In en, this message translates to:
+  /// **'Does not collect any personal data.'**
+  String get legalPhiloBullet2;
+
+  /// No description provided for @legalPhiloBullet3.
+  ///
+  /// In en, this message translates to:
+  /// **'Remains a tool for musicians, without commercial compromise.'**
+  String get legalPhiloBullet3;
+
+  /// No description provided for @legalPhiloP2.
+  ///
+  /// In en, this message translates to:
+  /// **'We encourage forks and derived versions to share these values, but the AGPL-3.0 license does not impose any restriction on commercial use or interface modification.'**
+  String get legalPhiloP2;
+
   /// No description provided for @legalDonationTitle.
   ///
   /// In en, this message translates to:
-  /// **'8. Contribution & Support'**
+  /// **'Contribution & Support'**
   String get legalDonationTitle;
 
   /// No description provided for @legalDonationContent.
@@ -2251,6 +2407,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Chords is and will remain free and ad-free. Development is maintained by the author in their spare time. Donations are possible to support the project but are absolutely optional.'**
   String get legalDonationContent;
+
+  /// No description provided for @legalEmailCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Email address copied!'**
+  String get legalEmailCopied;
 }
 
 class _AppLocalizationsDelegate

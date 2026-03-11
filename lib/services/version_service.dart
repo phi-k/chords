@@ -1,3 +1,6 @@
+// Copyright (C) 2026 phi-k
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 class VersionService {
   static const Map<String, String> _versionNames = {
     '1.0': 'The Release',

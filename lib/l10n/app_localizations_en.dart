@@ -1256,9 +1256,105 @@ class AppLocalizationsEn extends AppLocalizations {
   String get exportOptExportFormat => 'Export format';
 
   @override
-  String get legalDonationTitle => '8. Contribution & Support';
+  String get legalAppBarTitle => 'License & Philosophy';
+
+  @override
+  String get legalPartLicenseHeader => 'Open-source License';
+
+  @override
+  String get legalSection1Title => '1. License and Source Code';
+
+  @override
+  String get legalSection1P1 =>
+      'The Chords application is free software distributed under the GNU Affero General Public License v3.0 (AGPL-3.0). The source code is publicly available on the official GitHub repository:';
+
+  @override
+  String get legalSection1Link => 'https://github.com/phi-k/chords';
+
+  @override
+  String get legalSection1P2 =>
+      'Under the AGPL-3.0 license, anyone is free to:';
+
+  @override
+  String get legalSection1Bullet1 => 'View, copy and fork the source code.';
+
+  @override
+  String get legalSection1Bullet2 =>
+      'Modify and redistribute the application, provided the same AGPL-3.0 license is retained.';
+
+  @override
+  String get legalSection1Bullet3 =>
+      'Use the application for any purpose, including commercial use.';
+
+  @override
+  String get legalSection1P3 =>
+      'Any modified or derived version must be distributed under the same AGPL-3.0 license, include the full license text, and make the source code available. The full license text can be found in the LICENSE file of the repository.';
+
+  @override
+  String get legalSection2Title => '2. Attribution';
+
+  @override
+  String get legalSection2P1 =>
+      'In accordance with the AGPL-3.0 license, copyright and attribution notices must be retained in any copy or derived version of the software. The original application was created by phi-k.';
+
+  @override
+  String get legalSection2P2 =>
+      'Contributors are free to add their name to indicate their contributions.';
+
+  @override
+  String get legalSection3Title => '3. Third-Party Services';
+
+  @override
+  String get legalSection3P1 =>
+      'The website \'chords.ovh\' is an entity independent from the open-source application. It provides optional services (setlist sharing) and its source code is not covered by this license.';
+
+  @override
+  String get legalSection3P2 =>
+      'Official application updates are published via the GitHub repository. Versions distributed from other sources are not under the responsibility of the original author.';
+
+  @override
+  String get legalSection4Title => '4. Contact';
+
+  @override
+  String get legalSection4P1 =>
+      'To report a bug, suggest an improvement or for any other inquiry, you can contact the creator:';
+
+  @override
+  String get legalPartPhilosophyHeader => 'Project Philosophy';
+
+  @override
+  String get legalPhilosophyIntro =>
+      'The following commitments are not legal obligations, but they represent the founding values of the Chords project. They are detailed in the PHILOSOPHY.md file of the repository.';
+
+  @override
+  String get legalPhiloQuote =>
+      'Chords is a free music tool, available to everyone, and we hope it will remain so forever.';
+
+  @override
+  String get legalPhiloP1 =>
+      'The author commits to ensuring that the official version of Chords:';
+
+  @override
+  String get legalPhiloBullet1 => 'Remains free and ad-free.';
+
+  @override
+  String get legalPhiloBullet2 => 'Does not collect any personal data.';
+
+  @override
+  String get legalPhiloBullet3 =>
+      'Remains a tool for musicians, without commercial compromise.';
+
+  @override
+  String get legalPhiloP2 =>
+      'We encourage forks and derived versions to share these values, but the AGPL-3.0 license does not impose any restriction on commercial use or interface modification.';
+
+  @override
+  String get legalDonationTitle => 'Contribution & Support';
 
   @override
   String get legalDonationContent =>
       'Chords is and will remain free and ad-free. Development is maintained by the author in their spare time. Donations are possible to support the project but are absolutely optional.';
+
+  @override
+  String get legalEmailCopied => 'Email address copied!';
 }

@@ -412,6 +412,43 @@
   "exportOptSortChrono": "Chronologique (ajout récent)",
   "exportOptExportFormat": "Format d'export",
 
-  "legalDonationTitle": "8. Contribution & Support",
-  "legalDonationContent": "Chords est et restera gratuit et sans publicité. Le développement est maintenu par l'auteur sur son temps libre. Les donations sont possibles pour soutenir le projet mais restent absolument optionnelles."
+  "legalAppBarTitle": "Licence & Philosophie",
+
+  "legalPartLicenseHeader": "Licence open-source",
+
+  "legalSection1Title": "1. Licence et Code Source",
+  "legalSection1P1": "L'application Chords est un logiciel libre distribué sous licence GNU Affero General Public License v3.0 (AGPL-3.0). Le code source est disponible publiquement sur le dépôt GitHub officiel :",
+  "legalSection1Link": "https://github.com/phi-k/chords",
+  "legalSection1P2": "Conformément à la licence AGPL-3.0, toute personne est libre de :",
+  "legalSection1Bullet1": "Consulter, copier et forker le code source.",
+  "legalSection1Bullet2": "Modifier et redistribuer l'application, sous réserve de conserver la même licence AGPL-3.0.",
+  "legalSection1Bullet3": "Utiliser l'application à toute fin, y compris commerciale.",
+  "legalSection1P3": "Toute version modifiée ou dérivée doit être distribuée sous la même licence AGPL-3.0, inclure le texte complet de la licence, et rendre le code source disponible. Le texte intégral de la licence est consultable dans le fichier LICENSE du dépôt.",
+
+  "legalSection2Title": "2. Attribution",
+  "legalSection2P1": "Conformément à la licence AGPL-3.0, les avis de copyright et d'attribution doivent être conservés dans toute copie ou version dérivée du logiciel. L'application originale a été créée par phi-k.",
+  "legalSection2P2": "Les contributeurs sont libres d'ajouter leur nom pour signaler leurs contributions.",
+
+  "legalSection3Title": "3. Services Tiers",
+  "legalSection3P1": "Le site web 'chords.ovh' est une entité indépendante de l'application open-source. Il fournit des services optionnels (partage de setlists) et son code source n'est pas couvert par cette licence.",
+  "legalSection3P2": "Les mises à jour officielles de l'application sont publiées via le dépôt GitHub. Les versions distribuées par d'autres sources ne sont pas sous la responsabilité de l'auteur original.",
+
+  "legalSection4Title": "4. Contact",
+  "legalSection4P1": "Pour signaler un bug, proposer une amélioration ou toute autre question, vous pouvez contacter le créateur :",
+
+  "legalPartPhilosophyHeader": "Philosophie du projet",
+  "legalPhilosophyIntro": "Les engagements suivants ne sont pas des obligations légales, mais ils représentent les valeurs fondatrices du projet Chords. Ils sont détaillés dans le fichier PHILOSOPHY.md du dépôt.",
+
+  "legalPhiloQuote": "Chords est un outil musical gratuit, disponible pour tous, et nous souhaitons qu'il le reste pour toujours.",
+
+  "legalPhiloP1": "L'auteur s'engage à ce que la version officielle de Chords :",
+  "legalPhiloBullet1": "Reste gratuite et sans publicité.",
+  "legalPhiloBullet2": "Ne collecte aucune donnée personnelle.",
+  "legalPhiloBullet3": "Reste un outil au service des musiciens, sans compromis commercial.",
+  "legalPhiloP2": "Nous encourageons les forks et versions dérivées à partager ces valeurs, mais la licence AGPL-3.0 n'impose aucune restriction sur l'usage commercial ou la modification de l'interface.",
+
+  "legalDonationTitle": "Contribution & Support",
+  "legalDonationContent": "Chords est et restera gratuit et sans publicité. Le développement est maintenu par l'auteur sur son temps libre. Les donations sont possibles pour soutenir le projet mais restent absolument optionnelles.",
+
+  "legalEmailCopied": "Adresse email copiée !"
 }

@@ -1268,9 +1268,106 @@ class AppLocalizationsFr extends AppLocalizations {
   String get exportOptExportFormat => 'Format d\'export';
 
   @override
-  String get legalDonationTitle => '8. Contribution & Support';
+  String get legalAppBarTitle => 'Licence & Philosophie';
+
+  @override
+  String get legalPartLicenseHeader => 'Licence open-source';
+
+  @override
+  String get legalSection1Title => '1. Licence et Code Source';
+
+  @override
+  String get legalSection1P1 =>
+      'L\'application Chords est un logiciel libre distribué sous licence GNU Affero General Public License v3.0 (AGPL-3.0). Le code source est disponible publiquement sur le dépôt GitHub officiel :';
+
+  @override
+  String get legalSection1Link => 'https://github.com/phi-k/chords';
+
+  @override
+  String get legalSection1P2 =>
+      'Conformément à la licence AGPL-3.0, toute personne est libre de :';
+
+  @override
+  String get legalSection1Bullet1 =>
+      'Consulter, copier et forker le code source.';
+
+  @override
+  String get legalSection1Bullet2 =>
+      'Modifier et redistribuer l\'application, sous réserve de conserver la même licence AGPL-3.0.';
+
+  @override
+  String get legalSection1Bullet3 =>
+      'Utiliser l\'application à toute fin, y compris commerciale.';
+
+  @override
+  String get legalSection1P3 =>
+      'Toute version modifiée ou dérivée doit être distribuée sous la même licence AGPL-3.0, inclure le texte complet de la licence, et rendre le code source disponible. Le texte intégral de la licence est consultable dans le fichier LICENSE du dépôt.';
+
+  @override
+  String get legalSection2Title => '2. Attribution';
+
+  @override
+  String get legalSection2P1 =>
+      'Conformément à la licence AGPL-3.0, les avis de copyright et d\'attribution doivent être conservés dans toute copie ou version dérivée du logiciel. L\'application originale a été créée par phi-k.';
+
+  @override
+  String get legalSection2P2 =>
+      'Les contributeurs sont libres d\'ajouter leur nom pour signaler leurs contributions.';
+
+  @override
+  String get legalSection3Title => '3. Services Tiers';
+
+  @override
+  String get legalSection3P1 =>
+      'Le site web \'chords.ovh\' est une entité indépendante de l\'application open-source. Il fournit des services optionnels (partage de setlists) et son code source n\'est pas couvert par cette licence.';
+
+  @override
+  String get legalSection3P2 =>
+      'Les mises à jour officielles de l\'application sont publiées via le dépôt GitHub. Les versions distribuées par d\'autres sources ne sont pas sous la responsabilité de l\'auteur original.';
+
+  @override
+  String get legalSection4Title => '4. Contact';
+
+  @override
+  String get legalSection4P1 =>
+      'Pour signaler un bug, proposer une amélioration ou toute autre question, vous pouvez contacter le créateur :';
+
+  @override
+  String get legalPartPhilosophyHeader => 'Philosophie du projet';
+
+  @override
+  String get legalPhilosophyIntro =>
+      'Les engagements suivants ne sont pas des obligations légales, mais ils représentent les valeurs fondatrices du projet Chords. Ils sont détaillés dans le fichier PHILOSOPHY.md du dépôt.';
+
+  @override
+  String get legalPhiloQuote =>
+      'Chords est un outil musical gratuit, disponible pour tous, et nous souhaitons qu\'il le reste pour toujours.';
+
+  @override
+  String get legalPhiloP1 =>
+      'L\'auteur s\'engage à ce que la version officielle de Chords :';
+
+  @override
+  String get legalPhiloBullet1 => 'Reste gratuite et sans publicité.';
+
+  @override
+  String get legalPhiloBullet2 => 'Ne collecte aucune donnée personnelle.';
+
+  @override
+  String get legalPhiloBullet3 =>
+      'Reste un outil au service des musiciens, sans compromis commercial.';
+
+  @override
+  String get legalPhiloP2 =>
+      'Nous encourageons les forks et versions dérivées à partager ces valeurs, mais la licence AGPL-3.0 n\'impose aucune restriction sur l\'usage commercial ou la modification de l\'interface.';
+
+  @override
+  String get legalDonationTitle => 'Contribution & Support';
 
   @override
   String get legalDonationContent =>
       'Chords est et restera gratuit et sans publicité. Le développement est maintenu par l\'auteur sur son temps libre. Les donations sont possibles pour soutenir le projet mais restent absolument optionnelles.';
+
+  @override
+  String get legalEmailCopied => 'Adresse email copiée !';
 }

@@ -1,3 +1,6 @@
+// Copyright (C) 2026 phi-k
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/search_result_model.dart';
 import '../services/genius_service.dart';

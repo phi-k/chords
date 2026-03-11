@@ -1,3 +1,6 @@
+// Copyright (C) 2026 phi-k
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import '../data/collections/song.dart';
