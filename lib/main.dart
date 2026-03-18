@@ -16,6 +16,7 @@ import 'data/collections/song.dart' as isar_song;
 import 'providers/settings_provider.dart';
 import 'screens/home_page.dart';
 import 'screens/playlist_detail_page.dart';
+import 'screens/splash_page.dart';
 import 'screens/playlist_edit_page.dart';
 import 'screens/welcome_page.dart';
 import 'screens/language_selection_page.dart';
@@ -158,7 +159,7 @@ void main() async {
       overrides: [
         isarProvider.overrideWithValue(isarInstance),
       ],
-      child: MyApp(startScreen: initialScreen),
+      child: MyApp(startScreen: SplashPage(nextScreen: initialScreen)),
     ),
   );
 }

@@ -2,7 +2,7 @@ name: chords
 description: "Your ultimate open-source chords and tabs manager."
 publish_to: 'none'
 
-version: 1.1.5+3
+version: 1.1.5+4
 
 environment:
   sdk: '>=3.2.0 <4.0.0'
