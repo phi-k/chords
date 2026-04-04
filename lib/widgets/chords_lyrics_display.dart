@@ -3,6 +3,7 @@
 
 import 'dart:math';
 import 'package:flutter/material.dart';
+import '../utils/chord_detector.dart';
 import 'chord_text.dart';
 
 class ChordLyricsDisplay extends StatelessWidget {
@@ -28,19 +29,6 @@ class ChordLyricsDisplay extends StatelessWidget {
               fontSize: 16,
               color: Colors.black,
             );
-
-  bool isChordToken(String token) {
-    final chordRegex = RegExp(
-        r'^[A-G][#b]?(?:m|maj|min|sus|dim|aug|add|7|9|11|13)?(?:/[A-G][#b]?(?:m|maj|min|sus|dim|aug|add|7|9|11|13)?)?$');
-    return chordRegex.hasMatch(token);
-  }
-
-  bool isChordLine(String line) {
-    if (line.trim().isEmpty) return false;
-    List<String> tokens = line.trim().split(RegExp(r'\s+'));
-    bool hasChord = tokens.any((token) => isChordToken(token));
-    return hasChord && line.contains('  ');
-  }
 
   int nextBreakIndex(String line, int pos, int maxChars) {
     if (pos >= line.length) return line.length;
@@ -127,9 +115,9 @@ class ChordLyricsDisplay extends StatelessWidget {
     while (i < lines.length) {
       String currentLine = lines[i];
 
-      if (isChordLine(currentLine) &&
+      if (ChordDetector.isChordLine(currentLine) &&
           i + 1 < lines.length &&
-          !isChordLine(lines[i + 1])) {
+          !ChordDetector.isChordLine(lines[i + 1])) {
         String chordLine = currentLine;
         String lyricLine = lines[i + 1];
         widgets.addAll(buildChordLyricsPair(chordLine, lyricLine, maxChars));

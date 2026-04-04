@@ -9,6 +9,7 @@ import 'package:printing/printing.dart';
 import 'package:intl/intl.dart';
 import '../models/bottom_bar_model.dart';
 import '../data/collections/song.dart';
+import '../utils/chord_detector.dart';
 
 class PdfExportService {
   static Future<void> exportSongToPdf({
@@ -266,10 +267,9 @@ class PdfExportService {
     final widgets = <pw.Widget>[];
 
     for (int i = 0; i < lines.length; i++) {
-      final currentLine =
-          lines[i].trimRight();
+      final currentLine = lines[i].trimRight();
 
-      if (_isPositionIndicator(currentLine)) {
+      if (ChordDetector.isPositionIndicator(currentLine)) {
         widgets.add(pw.SizedBox(height: 10));
         widgets.add(
           pw.Text(
@@ -286,9 +286,9 @@ class PdfExportService {
         continue;
       }
 
-      if (_isChordLine(currentLine) &&
+      if (ChordDetector.isChordLine(currentLine) &&
           i + 1 < lines.length &&
-          !_isChordLine(lines[i + 1])) {
+          !ChordDetector.isChordLine(lines[i + 1])) {
         final chordLine = currentLine;
         final lyricLine = lines[i + 1].trimRight();
 
@@ -327,20 +327,5 @@ class PdfExportService {
       }
     }
     return widgets;
-  }
-
-  static bool _isChordLine(String line) {
-    final chordRegex = RegExp(
-        r'^[A-G](?:[#b])?(?:m|maj|min|sus|dim|aug|add|7|9|11|13)?(?:\/[A-G](?:[#b])?(?:m|maj|min|sus|dim|aug|add|7|9|11|13)?)?$');
-    final tokens = line.trim().split(RegExp(r'\s+')).where((t) => t.isNotEmpty);
-    if (tokens.isEmpty) return false;
-    return tokens.every((token) => chordRegex.hasMatch(token));
-  }
-
-  static bool _isPositionIndicator(String line) {
-    final positionRegex = RegExp(
-        r'^\[(Intro|Interlude|Verse|Chorus|Refrain|Pont|Couplet|Pre-chorus|Bridge|Break|Solo|Instrumental|Outro)(?:\s+\d+)?\]$',
-        caseSensitive: false);
-    return positionRegex.hasMatch(line.trim());
   }
 }

@@ -1,20 +1,7 @@
 // Copyright (C) 2026 phi-k
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-bool isValidChord(String input) {
-  final String baseChordPattern =
-      r'[A-G](?:#|b)?'
-      r'(?:m|maj|min|dim|aug|sus2|sus4|sus|add9|5|6|7|9|11|13|4|m6|m7|maj7|m9|maj9|dim7|aug7|7sus4|7b9|m11|maj13|7#9|b5|#5|b9|#9|#11|b13)?'
-      r'(?:\([^)]+\))?'
-      r'(?:\/[A-G](?:#|b)?)?'
-      r'\*?';
-
-  final RegExp chordRegex = RegExp(
-      r'^(?:\(' + baseChordPattern + r'\)|' + baseChordPattern + r')$'
-  );
-
-  return chordRegex.hasMatch(input.trim());
-}
+import 'chord_detector.dart';
 
 String simplifyChord(String chord) {
   if (chord.startsWith('(') && chord.endsWith(')')) {
@@ -29,20 +16,9 @@ String simplifyChord(String chord) {
   String kept = match.group(0)!;
   int keepLength = kept.length;
 
-  String tailReplacement = chord.length > keepLength
-      ? ' ' * (chord.length - keepLength)
-      : '';
+  String tailReplacement =
+      chord.length > keepLength ? ' ' * (chord.length - keepLength) : '';
   return kept + tailReplacement;
-}
-
-bool _isChordLine(String line) {
-  final trimmedLine = line.trim();
-  if (trimmedLine.isEmpty) return false;
-  if (trimmedLine.startsWith('[') && trimmedLine.endsWith(']')) return false;
-
-  return trimmedLine
-      .split(RegExp(r'\s+'))
-      .every((token) => token.isEmpty || isValidChord(token));
 }
 
 String simplifyChordsInText(String text) {
@@ -50,18 +26,32 @@ String simplifyChordsInText(String text) {
   final simplifiedLines = <String>[];
 
   for (final line in lines) {
-    if (_isChordLine(line)) {
+    if (ChordDetector.isChordLine(line)) {
       final matches = RegExp(r'\S+').allMatches(line);
       var newLine = StringBuffer();
       int currentPos = 0;
+
       for (var match in matches) {
         newLine.write(line.substring(currentPos, match.start));
         var token = match.group(0)!;
-        if (isValidChord(token)) {
-          newLine.write(simplifyChord(token));
+
+        if (token.contains('-')) {
+          final subTokens = token.split('-');
+          final simplifiedSubs = subTokens.map((sub) {
+            if (ChordDetector.isValidChord(ChordDetector.cleanToken(sub))) {
+              return simplifyChord(sub);
+            }
+            return sub;
+          }).join('-');
+          newLine.write(simplifiedSubs);
         } else {
-          newLine.write(token);
+          if (ChordDetector.isValidChord(ChordDetector.cleanToken(token))) {
+            newLine.write(simplifyChord(token));
+          } else {
+            newLine.write(token);
+          }
         }
+
         currentPos = match.end;
       }
       if (currentPos < line.length) {
