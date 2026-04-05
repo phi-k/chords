@@ -10,6 +10,7 @@ import '../models/search_result_model.dart';
 import '../utils/chord_format_converter.dart';
 import '../widgets/common/app_image.dart';
 import 'song_page.dart';
+import '../widgets/common/custom_loader.dart';
 import '../l10n/app_localizations.dart';
 
 class SearchPage extends ConsumerStatefulWidget {
@@ -50,7 +51,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
 
   Widget _buildBody(SearchState state) {
     if (state.isLoadingInitial) {
-      return const Center(child: CircularProgressIndicator(color: Colors.red));
+      return const CustomLoader();
     }
 
     if (state.error != null && state.songs.isEmpty) {
@@ -73,8 +74,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
           if (state.isLoadingMore) {
             return const Padding(
               padding: EdgeInsets.all(16.0),
-              child:
-                  Center(child: CircularProgressIndicator(color: Colors.red)),
+              child: CustomLoader(size: 30),
             );
           }
           if (state.canLoadMore) {
@@ -184,8 +184,7 @@ class _SongResultGroupWidgetState extends State<_SongResultGroupWidget> {
                   context: context,
                   barrierDismissible: false,
                   builder: (BuildContext context) {
-                    return const Center(
-                        child: CircularProgressIndicator(color: Colors.red));
+                    return const Center(child: CustomLoader());
                   },
                 );
                 final songDetailsMap = await SongService.fetchSongDetails(

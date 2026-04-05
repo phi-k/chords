@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import '../../models/tab_source.dart';
 import '../../services/source_manager.dart';
 import '../../utils/chord_format_converter.dart';
+import '../../widgets/common/custom_loader.dart';
 import '../../l10n/app_localizations.dart';
 
 class EditSourcePage extends StatefulWidget {
@@ -340,7 +341,6 @@ class _EditSourcePageState extends State<EditSourcePage> {
             children: [
               _buildDocCard(),
               const SizedBox(height: 28),
-
               _buildSectionHeader(
                 "1. Connexion serveur",
                 Icons.cloud_outlined,
@@ -366,7 +366,6 @@ class _EditSourcePageState extends State<EditSourcePage> {
               const SizedBox(height: 32),
               _buildDivider(),
               const SizedBox(height: 28),
-
               _buildSectionHeader(
                 "2. Endpoints",
                 Icons.route_outlined,
@@ -386,7 +385,6 @@ class _EditSourcePageState extends State<EditSourcePage> {
               const SizedBox(height: 32),
               _buildDivider(),
               const SizedBox(height: 28),
-
               _buildSectionHeader(
                 "3. Infos Générales",
                 Icons.account_tree_outlined,
@@ -407,7 +405,6 @@ class _EditSourcePageState extends State<EditSourcePage> {
               const SizedBox(height: 32),
               _buildDivider(),
               const SizedBox(height: 28),
-
               _buildSectionHeader(
                 "4. Contenu & Musique",
                 Icons.music_note_outlined,
@@ -427,7 +424,6 @@ class _EditSourcePageState extends State<EditSourcePage> {
               const SizedBox(height: 32),
               _buildDivider(),
               const SizedBox(height: 28),
-
               _buildSectionHeader(
                 "5. Médias & Popularité",
                 Icons.star_outline_rounded,
@@ -444,7 +440,6 @@ class _EditSourcePageState extends State<EditSourcePage> {
               const SizedBox(height: 32),
               _buildDivider(),
               const SizedBox(height: 28),
-
               _buildSectionHeader(
                 "6. Données Avancées",
                 Icons.explore_outlined,
@@ -458,11 +453,9 @@ class _EditSourcePageState extends State<EditSourcePage> {
               const SizedBox(height: 12),
               _buildRowFields("Versions alternatives", _versionsPathCtrl,
                   "Top de l'Artiste", _artistTopTabsPathCtrl),
-
               const SizedBox(height: 36),
               _buildDivider(),
               const SizedBox(height: 28),
-
               OutlinedButton.icon(
                 onPressed: _openTestPage,
                 icon: const Icon(Icons.science_outlined, size: 20),
@@ -1160,12 +1153,7 @@ class _TestSourcePageState extends State<_TestSourcePage> {
       dotChild = const Icon(Icons.check_rounded, size: 14, color: Colors.white);
     } else if (isActive) {
       dotColor = Colors.red.shade100;
-      dotChild = SizedBox(
-        width: 14,
-        height: 14,
-        child: CircularProgressIndicator(
-            strokeWidth: 2, color: Colors.red.shade400),
-      );
+      dotChild = CustomLoader(size: 18, color: Colors.red.shade400);
     } else {
       dotColor = Colors.grey.shade200;
       dotChild = const SizedBox.shrink();
@@ -1575,4 +1563,3 @@ class _TestSourcePageState extends State<_TestSourcePage> {
     );
   }
 }
-

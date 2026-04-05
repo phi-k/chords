@@ -11,6 +11,7 @@ import '../widgets/filter_buttons.dart';
 import '../widgets/filtered_content_view.dart';
 import '../widgets/artist_songs_list_widget.dart';
 import '../widgets/song_list.dart';
+import '../widgets/common/custom_loader.dart';
 import '../services/update_service.dart';
 import '../widgets/update_dialog.dart';
 import '../l10n/app_localizations.dart';
@@ -239,8 +240,7 @@ class _HomePageState extends ConsumerState<HomePage> {
 
                       return asyncSongs.when(
                         skipLoadingOnReload: true,
-                        loading: () =>
-                            const Center(child: CircularProgressIndicator()),
+                        loading: () => const CustomLoader(),
                         error: (error, stackTrace) => Center(
                             child: Text(loc.commonError(error.toString()))),
                         data: (savedSongs) {
@@ -268,8 +268,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                     artistSongsProvider(
                                         filterState.selectedArtist!));
                                 return asyncArtistSongs.when(
-                                  loading: () => const Center(
-                                      child: CircularProgressIndicator()),
+                                  loading: () => const CustomLoader(),
                                   error: (err, stack) => Center(
                                       child: Text(
                                           loc.commonError(err.toString()))),

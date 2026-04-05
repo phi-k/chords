@@ -13,6 +13,7 @@ import '../widgets/recent_songs_view.dart';
 import '../widgets/recent_artists_view.dart';
 import '../widgets/tags_view.dart';
 import '../widgets/song_list.dart';
+import '../widgets/common/custom_loader.dart';
 import '../widgets/empty_library_view.dart';
 import 'alphabet_scroller_wrapper.dart';
 
@@ -89,7 +90,7 @@ class FilteredContentView extends ConsumerWidget {
               reversed: filterState.recentFilterReversed,
             ),
           ),
-          loading: () => const Center(child: CircularProgressIndicator()),
+          loading: () => const CustomLoader(),
           error: (e, s) => Center(child: Text(e.toString())),
         );
       }

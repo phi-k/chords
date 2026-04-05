@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../providers/export_song_list_provider.dart';
 import 'shared_export_widgets.dart';
+import '../../../widgets/common/custom_loader.dart';
 
 class ExportFilterSection extends ConsumerWidget {
   const ExportFilterSection({super.key});
@@ -49,7 +50,7 @@ class ExportFilterSection extends ConsumerWidget {
               padding:
                   const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
               child: playlistsAsync.when(
-                loading: () => const Center(child: CircularProgressIndicator()),
+                loading: () => const CustomLoader(),
                 error: (err, stack) => Text(loc.exportFilterPlaylistLoadError,
                     style: formTextStyle),
                 data: (playlists) {

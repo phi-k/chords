@@ -8,6 +8,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import '../../services/update_service.dart';
 import '../../services/version_service.dart';
 import '../../widgets/update_dialog.dart';
+import '../../widgets/common/custom_loader.dart';
 import '../../l10n/app_localizations.dart';
 
 class VersionPage extends StatefulWidget {
@@ -113,7 +114,7 @@ class _VersionPageState extends State<VersionPage> {
         elevation: 0,
       ),
       body: _isLoading
-          ? const Center(child: CircularProgressIndicator(color: Colors.red))
+          ? const CustomLoader()
           : SingleChildScrollView(
               padding: const EdgeInsets.all(24),
               child: Column(
@@ -265,14 +266,7 @@ class _VersionPageState extends State<VersionPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               if (_isCheckingUpdate)
-                SizedBox(
-                  width: 18,
-                  height: 18,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2,
-                    color: Colors.grey.shade600,
-                  ),
-                )
+                CustomLoader(size: 18, color: Colors.grey.shade600)
               else
                 Icon(Icons.refresh_rounded,
                     color: Colors.grey.shade700, size: 20),

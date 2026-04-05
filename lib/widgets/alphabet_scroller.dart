@@ -25,16 +25,13 @@ class _AlphabetScrollerState extends State<AlphabetScroller> {
 
   List<String> _getFullLetters() {
     List<String> letters =
-    List.generate(26, (i) => String.fromCharCode(65 + i));
+        List.generate(26, (i) => String.fromCharCode(65 + i));
     letters.add("#");
     return letters;
   }
 
-  void _handleDragGesture(
-      double dragPosition,
-      double containerHeight,
-      List<String> displayedLetters,
-      StateSetter setInnerState) {
+  void _handleDragGesture(double dragPosition, double containerHeight,
+      List<String> displayedLetters, StateSetter setInnerState) {
     if (containerHeight <= 0 || displayedLetters.isEmpty) return;
 
     final letterHeight = containerHeight / displayedLetters.length;

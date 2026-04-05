@@ -9,6 +9,7 @@ import 'package:uuid/uuid.dart';
 import '../data/collections/song.dart';
 import '../l10n/app_localizations.dart';
 import '../models/bottom_bar_model.dart';
+import '../widgets/common/custom_loader.dart';
 import '../providers/song_provider.dart';
 
 class CreationPage extends ConsumerStatefulWidget {
@@ -184,16 +185,7 @@ class _CreationPageState extends ConsumerState<CreationPage> {
           Padding(
             padding: const EdgeInsets.only(right: 16.0),
             child: _isSaving
-                ? const Center(
-                    child: SizedBox(
-                      width: 20,
-                      height: 20,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                        color: Colors.red,
-                      ),
-                    ),
-                  )
+                ? const CustomLoader(size: 24)
                 : TextButton.icon(
                     onPressed: _saveSong,
                     icon: const Icon(Icons.check, color: Colors.red),

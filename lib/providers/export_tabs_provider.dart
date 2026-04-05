@@ -181,5 +181,5 @@ class ExportTabsNotifier extends Notifier<ExportTabsState> {
 }
 
 final exportTabsProvider =
-NotifierProvider<ExportTabsNotifier, ExportTabsState>(
-    ExportTabsNotifier.new);
+    NotifierProvider<ExportTabsNotifier, ExportTabsState>(
+        ExportTabsNotifier.new);

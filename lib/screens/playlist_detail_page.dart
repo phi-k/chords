@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../data/collections/song.dart';
 import '../providers/song_provider.dart';
 import '../widgets/song_list.dart';
+import '../widgets/common/custom_loader.dart';
 import '../l10n/app_localizations.dart';
 
 class PlaylistDetailPage extends ConsumerWidget {
@@ -22,7 +23,7 @@ class PlaylistDetailPage extends ConsumerWidget {
       loading: () => Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(elevation: 0, backgroundColor: Colors.white),
-        body: const Center(child: CircularProgressIndicator()),
+        body: const CustomLoader(),
       ),
       error: (err, stack) => Scaffold(
         body: Center(child: Text(loc.commonError(err.toString()))),
@@ -75,7 +76,7 @@ class PlaylistDetailPage extends ConsumerWidget {
             }),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
+                return const CustomLoader();
               }
               if (snapshot.hasError) {
                 return Center(child: Text(loc.playlistSongLoadError));

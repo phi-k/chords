@@ -10,6 +10,7 @@ import '../providers/song_provider.dart';
 import '../widgets/common/app_image.dart';
 import '../widgets/search_bar.dart';
 import '../models/bottom_bar_model.dart';
+import '../widgets/common/custom_loader.dart';
 import '../l10n/app_localizations.dart';
 
 class PlaylistEditPage extends ConsumerStatefulWidget {
@@ -84,7 +85,7 @@ class _PlaylistEditPageState extends ConsumerState<PlaylistEditPage> {
     return asyncPlaylist.when(
       loading: () => Scaffold(
         appBar: AppBar(backgroundColor: Colors.white, elevation: 0),
-        body: const Center(child: CircularProgressIndicator()),
+        body: const CustomLoader(),
       ),
       error: (e, s) =>
           Scaffold(body: Center(child: Text(loc.commonError(e.toString())))),
@@ -171,8 +172,7 @@ class _PlaylistEditPageState extends ConsumerState<PlaylistEditPage> {
               const SizedBox(height: 10),
               Expanded(
                 child: asyncSongs.when(
-                  loading: () =>
-                      const Center(child: CircularProgressIndicator()),
+                  loading: () => const CustomLoader(),
                   error: (err, stack) =>
                       Center(child: Text(loc.commonError(err.toString()))),
                   data: (allSongs) {

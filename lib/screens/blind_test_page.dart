@@ -9,6 +9,7 @@ import '../widgets/chords_lyrics_display.dart';
 import '../screens/song_page.dart';
 import '../utils/blind_test_utils.dart';
 import '../widgets/common/app_image.dart';
+import '../widgets/common/custom_loader.dart';
 import '../l10n/app_localizations.dart';
 
 class BlindTestPage extends ConsumerStatefulWidget {
@@ -147,7 +148,7 @@ class _BlindTestPageState extends ConsumerState<BlindTestPage> {
           const SizedBox(height: 10),
           Expanded(
             child: asyncSongs.when(
-              loading: () => const Center(child: CircularProgressIndicator()),
+              loading: () => const CustomLoader(),
               error: (err, stack) =>
                   Center(child: Text(loc.commonError(err.toString()))),
               data: (allSongs) {
@@ -155,7 +156,7 @@ class _BlindTestPageState extends ConsumerState<BlindTestPage> {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     _processSongs(allSongs);
                   });
-                  return const Center(child: CircularProgressIndicator());
+                  return const CustomLoader();
                 }
 
                 if (blindTestSongs.isEmpty) {

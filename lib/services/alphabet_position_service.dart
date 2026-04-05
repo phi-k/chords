@@ -6,7 +6,7 @@ import '../utils/string_normalization.dart';
 
 class AlphabetPositionService {
   static final AlphabetPositionService _instance =
-  AlphabetPositionService._internal();
+      AlphabetPositionService._internal();
 
   factory AlphabetPositionService() {
     return _instance;
@@ -67,8 +67,7 @@ class AlphabetPositionService {
     if (autresCount > 0) {
       presentLetters.add("Autres");
       actualPositions["Autres"] = currentOffset;
-      currentOffset +=
-          _headerHeight + _headerTopPadding + _headerBottomPadding;
+      currentOffset += _headerHeight + _headerTopPadding + _headerBottomPadding;
       currentOffset +=
           autresCount * (_itemHeight + _itemTopPadding + _itemBottomPadding);
     }
@@ -184,7 +183,8 @@ class AlphabetPositionService {
     return Map<String, double>.from(_letterPositions);
   }
 
-  void adjustPositionFromRealMeasurements(String letter, double actualPosition) {
+  void adjustPositionFromRealMeasurements(
+      String letter, double actualPosition) {
     if (_letterPositions.containsKey(letter)) {
       double diff = actualPosition - _letterPositions[letter]!;
 

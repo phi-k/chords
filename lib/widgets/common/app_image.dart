@@ -34,13 +34,12 @@ class AppImage extends StatelessWidget {
         width: width,
         height: height,
         fit: fit,
-        memCacheWidth: (width * MediaQuery.of(context).devicePixelRatio).round(),
-        memCacheHeight: (height * MediaQuery.of(context).devicePixelRatio).round(),
-
+        memCacheWidth:
+            (width * MediaQuery.of(context).devicePixelRatio).round(),
+        memCacheHeight:
+            (height * MediaQuery.of(context).devicePixelRatio).round(),
         fadeInDuration: const Duration(milliseconds: 300),
-
         placeholder: (context, url) => _buildShimmerPlaceholder(),
-
         errorWidget: (context, url, error) => _buildStaticPlaceholder(),
       ),
     );

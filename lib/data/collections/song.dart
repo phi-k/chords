@@ -53,7 +53,7 @@ class Song {
     String? originalTitle = map['title'];
     String? cleanTitle = originalTitle
         ?.replaceAll(
-        RegExp(r'\s*\((ver|version)\s*\d+\)', caseSensitive: false), '')
+            RegExp(r'\s*\((ver|version)\s*\d+\)', caseSensitive: false), '')
         .trim();
 
     return Song(
@@ -68,9 +68,9 @@ class Song {
       transpose: map['transpose'] ?? 0,
       simplified: map['simplified'] ?? false,
       addedDate:
-      map['addedDate'] != null ? DateTime.tryParse(map['addedDate']) : null,
+          map['addedDate'] != null ? DateTime.tryParse(map['addedDate']) : null,
       savedDate:
-      map['savedDate'] != null ? DateTime.tryParse(map['savedDate']) : null,
+          map['savedDate'] != null ? DateTime.tryParse(map['savedDate']) : null,
       playCount: map['playCount'] ?? 0,
       lastPlayed: map['lastPlayed'] != null
           ? DateTime.tryParse(map['lastPlayed'])

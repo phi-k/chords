@@ -12,6 +12,7 @@ import 'package:share_plus/share_plus.dart';
 import '../../l10n/app_localizations.dart';
 import '../../models/tab_source.dart';
 import '../../services/source_manager.dart';
+import '../../widgets/common/custom_loader.dart';
 import 'edit_source_page.dart';
 
 class DataSourcesPage extends StatefulWidget {
@@ -625,7 +626,7 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
             )
           : null,
       body: _isLoading
-          ? const Center(child: CircularProgressIndicator(color: Colors.red))
+          ? const CustomLoader()
           : _sources.isEmpty
               ? _buildEmptyState()
               : _buildList(),

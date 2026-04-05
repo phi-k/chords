@@ -26,8 +26,10 @@ class SongTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const titleStyle = TextStyle(fontFamily: 'Cormorant', fontSize: 20, color: Colors.red);
-    const artistStyle = TextStyle(fontFamily: 'Cormorant', fontSize: 16, color: Colors.black);
+    const titleStyle =
+        TextStyle(fontFamily: 'Cormorant', fontSize: 20, color: Colors.red);
+    const artistStyle =
+        TextStyle(fontFamily: 'Cormorant', fontSize: 16, color: Colors.black);
 
     return InkWell(
       splashColor: Colors.transparent,
@@ -57,7 +59,8 @@ class SongTile extends StatelessWidget {
                         Expanded(
                           child: Text(
                             song.artist ?? "",
-                            style: getDynamicTextStyle(song.artist ?? "", artistStyle),
+                            style: getDynamicTextStyle(
+                                song.artist ?? "", artistStyle),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           ),

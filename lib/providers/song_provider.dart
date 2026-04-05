@@ -14,7 +14,7 @@ final databaseServiceProvider = Provider<DatabaseService>((ref) {
 });
 
 final homeFilterProvider =
-NotifierProvider<HomeFilterNotifier, HomeFilterState>(
+    NotifierProvider<HomeFilterNotifier, HomeFilterState>(
   HomeFilterNotifier.new,
 );
 
@@ -25,7 +25,7 @@ final allSongsProvider = StreamProvider<List<Song>>((ref) {
 });
 
 final artistSongsProvider =
-StreamProvider.family<List<Song>, String>((ref, artistName) {
+    StreamProvider.family<List<Song>, String>((ref, artistName) {
   final dbService = ref.watch(databaseServiceProvider);
   return dbService.watchSongsByArtist(artistName);
 });
@@ -89,7 +89,7 @@ class HomeFilterState {
       activeFilters: activeFilters ?? this.activeFilters,
       recentFilterReversed: recentFilterReversed ?? this.recentFilterReversed,
       selectedArtist:
-      clearSelectedArtist ? null : selectedArtist ?? this.selectedArtist,
+          clearSelectedArtist ? null : selectedArtist ?? this.selectedArtist,
       selectedPlaylist: clearSelectedPlaylist
           ? null
           : selectedPlaylist ?? this.selectedPlaylist,
@@ -128,7 +128,8 @@ class HomeFilterNotifier extends Notifier<HomeFilterState> {
 
     state = state.copyWith(activeFilters: newFilters);
 
-    if (mode == FilterMode.artists && !newFilters.contains(FilterMode.artists)) {
+    if (mode == FilterMode.artists &&
+        !newFilters.contains(FilterMode.artists)) {
       state = state.copyWith(clearSelectedArtist: true);
     }
     if (mode == FilterMode.playlists &&

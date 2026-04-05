@@ -8,6 +8,7 @@ import '../../providers/song_provider.dart';
 import '../../providers/export_song_list_provider.dart';
 import '../../data/collections/song.dart';
 import '../../data/collections/playlist.dart';
+import '../../widgets/common/custom_loader.dart';
 import '../../widgets/tools/song_multi_select_sheet.dart';
 import '../../l10n/app_localizations.dart';
 
@@ -188,7 +189,7 @@ class ExportTabsPage extends ConsumerWidget {
       ),
       backgroundColor: Colors.white,
       body: allSongsAsync.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
+        loading: () => const CustomLoader(),
         error: (e, s) => Center(child: Text(loc.commonError(e.toString()))),
         data: (allSongs) {
           if (allSongs.isEmpty) {
@@ -248,11 +249,7 @@ class ExportTabsPage extends ConsumerWidget {
                             await notifier.export(allSongs, playlists);
                           },
                     icon: state.isLoading
-                        ? const SizedBox(
-                            width: 20,
-                            height: 20,
-                            child: CircularProgressIndicator(
-                                color: Colors.white, strokeWidth: 2))
+                        ? const CustomLoader(size: 20, color: Colors.white)
                         : const Icon(Icons.picture_as_pdf, color: Colors.white),
                     label: Text(
                       state.isLoading
@@ -387,7 +384,10 @@ class ExportTabsPage extends ConsumerWidget {
             borderRadius: BorderRadius.circular(12),
           );
         },
-        loading: () => const LinearProgressIndicator(color: Colors.red),
+        loading: () => const Padding(
+          padding: EdgeInsets.symmetric(vertical: 8),
+          child: Center(child: CustomLoader(size: 30)),
+        ),
         error: (_, __) => const SizedBox(),
       );
     }
@@ -415,7 +415,10 @@ class ExportTabsPage extends ConsumerWidget {
             borderRadius: BorderRadius.circular(12),
           );
         },
-        loading: () => const LinearProgressIndicator(color: Colors.red),
+        loading: () => const Padding(
+          padding: EdgeInsets.symmetric(vertical: 8),
+          child: Center(child: CustomLoader(size: 30)),
+        ),
         error: (_, __) => const SizedBox(),
       );
     }

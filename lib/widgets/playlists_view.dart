@@ -8,6 +8,7 @@ import '../data/collections/playlist.dart';
 import '../providers/song_provider.dart';
 import '../models/bottom_bar_model.dart';
 import 'common/app_image.dart';
+import 'common/custom_loader.dart';
 
 class PlaylistsView extends ConsumerWidget {
   final Function(Playlist)? onPlaylistSelected;
@@ -254,7 +255,7 @@ class PlaylistsView extends ConsumerWidget {
     final asyncPlaylists = ref.watch(playlistsStreamProvider);
 
     return asyncPlaylists.when(
-      loading: () => const Center(child: CircularProgressIndicator()),
+      loading: () => const CustomLoader(),
       error: (err, stack) =>
           Center(child: Text(loc.commonError(err.toString()))),
       data: (playlists) {
