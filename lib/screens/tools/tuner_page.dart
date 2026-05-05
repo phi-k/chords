@@ -205,21 +205,18 @@ class _TunerPageState extends State<TunerPage>
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     final bool isPerfect = _targetDiff.abs() < 0.1 && _frequency > 0;
-    final Color activeColor = isPerfect ? const Color(0xFF4CAF50) : Colors.red;
+    final Color activeColor = isPerfect ? Color(0xFF4CAF50) : Theme.of(context).primaryColor;
 
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
           loc.tunerTitle,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Cormorant',
             fontWeight: FontWeight.bold,
             fontSize: 22,
           ),
         ),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
         elevation: 0,
         centerTitle: false,
       ),
@@ -242,13 +239,13 @@ class _TunerPageState extends State<TunerPage>
                   fontFamily: 'Cormorant',
                   fontSize: 20,
                   color: isPerfect
-                      ? const Color(0xFF4CAF50)
+                      ? Color(0xFF4CAF50)
                       : Colors.grey.shade500,
                   fontStyle: FontStyle.italic,
                 ),
               ),
             ),
-            const SizedBox(height: 40),
+            SizedBox(height: 40),
             AnimatedSwitcher(
               duration: const Duration(milliseconds: 200),
               child: Text(
@@ -272,7 +269,7 @@ class _TunerPageState extends State<TunerPage>
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 50),
+            SizedBox(height: 50),
             SizedBox(
               height: 130,
               width: 280,
@@ -284,30 +281,30 @@ class _TunerPageState extends State<TunerPage>
                 ),
               ),
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: 30),
             Material(
               color: Colors.transparent,
               child: InkWell(
                 onTap: _toggleMic,
                 borderRadius: BorderRadius.circular(40),
                 splashColor: _isListening
-                    ? Colors.red.withValues(alpha: 0.15)
+                    ? Theme.of(context).primaryColor.withValues(alpha: 0.15)
                     : Colors.green.withValues(alpha: 0.15),
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 300),
                   curve: Curves.easeInOut,
-                  padding: const EdgeInsets.symmetric(
+                  padding: EdgeInsets.symmetric(
                     horizontal: 28,
                     vertical: 14,
                   ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(40),
                     color: _isListening
-                        ? Colors.red.withValues(alpha: 0.08)
+                        ? Theme.of(context).primaryColor.withValues(alpha: 0.08)
                         : Colors.grey.withValues(alpha: 0.08),
                     border: Border.all(
                       color: _isListening
-                          ? Colors.red.withValues(alpha: 0.3)
+                          ? Theme.of(context).primaryColor.withValues(alpha: 0.3)
                           : Colors.grey.withValues(alpha: 0.3),
                       width: 1.5,
                     ),
@@ -320,11 +317,11 @@ class _TunerPageState extends State<TunerPage>
                         child: Icon(
                           _isListening ? Icons.mic : Icons.mic_off,
                           key: ValueKey(_isListening),
-                          color: _isListening ? Colors.red : Colors.grey,
+                          color: _isListening ? Theme.of(context).primaryColor : Colors.grey,
                           size: 24,
                         ),
                       ),
-                      const SizedBox(width: 10),
+                      SizedBox(width: 10),
                       AnimatedSwitcher(
                         duration: const Duration(milliseconds: 200),
                         child: Text(
@@ -337,7 +334,7 @@ class _TunerPageState extends State<TunerPage>
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
                             color: _isListening
-                                ? Colors.red
+                                ? Theme.of(context).primaryColor
                                 : Colors.grey.shade600,
                           ),
                         ),

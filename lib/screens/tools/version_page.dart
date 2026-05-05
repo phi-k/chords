@@ -10,6 +10,7 @@ import '../../services/version_service.dart';
 import '../../widgets/update_dialog.dart';
 import '../../widgets/common/custom_loader.dart';
 import '../../l10n/app_localizations.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 class VersionPage extends StatefulWidget {
   const VersionPage({super.key});
@@ -99,41 +100,39 @@ class _VersionPageState extends State<VersionPage> {
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         title: Text(
           loc.versionTitle,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Cormorant',
             fontWeight: FontWeight.bold,
             fontSize: 22,
           ),
         ),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         elevation: 0,
       ),
       body: _isLoading
           ? const CustomLoader()
           : SingleChildScrollView(
-              padding: const EdgeInsets.all(24),
+              padding: EdgeInsets.all(24),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildCurrentVersionCard(),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20),
                   _buildCheckUpdateButton(),
                   if (_updateStatus != null) ...[
-                    const SizedBox(height: 12),
+                    SizedBox(height: 12),
                     Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           if (_updateStatus == 'up_to_date')
-                            const Icon(Icons.check_circle_outline,
+                            Icon(Icons.check_circle_outline,
                                 color: Colors.green, size: 18),
-                          if (_updateStatus == 'up_to_date')
-                            const SizedBox(width: 6),
+                          if (_updateStatus == 'up_to_date') SizedBox(width: 6),
                           Text(
                             _updateStatus == 'up_to_date'
                                 ? loc.versionUpToDate
@@ -145,24 +144,27 @@ class _VersionPageState extends State<VersionPage> {
                               fontSize: 15,
                               color: _updateStatus == 'up_to_date'
                                   ? Colors.green.shade600
-                                  : Colors.grey.shade600,
+                                  : Theme.of(context)
+                                      .colorScheme
+                                      .onSurface
+                                      .withValues(alpha: 0.5),
                             ),
                           ),
                         ],
                       ),
                     ),
                   ],
-                  const SizedBox(height: 40),
+                  SizedBox(height: 40),
                   Text(
                     loc.versionHistory,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Cormorant',
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black87,
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16),
                   if (_releases.isEmpty)
                     Center(
                       child: Text(
@@ -170,7 +172,10 @@ class _VersionPageState extends State<VersionPage> {
                         style: TextStyle(
                           fontFamily: 'Cormorant',
                           fontSize: 16,
-                          color: Colors.grey.shade600,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSurface
+                              .withValues(alpha: 0.5),
                         ),
                       ),
                     )
@@ -185,10 +190,13 @@ class _VersionPageState extends State<VersionPage> {
   Widget _buildCurrentVersionCard() {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
+      padding: EdgeInsets.symmetric(vertical: 32, horizontal: 24),
       decoration: BoxDecoration(
-        color: Colors.grey.shade900,
+        color: Theme.of(context).primaryColor.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: Theme.of(context).primaryColor.withValues(alpha: 0.2),
+        ),
       ),
       child: Column(
         children: [
@@ -202,7 +210,7 @@ class _VersionPageState extends State<VersionPage> {
                 style: GoogleFonts.cormorant(
                   fontSize: 42,
                   fontWeight: FontWeight.bold,
-                  color: Colors.red,
+                  color: Theme.of(context).primaryColor,
                 ),
               ),
               Text(
@@ -210,16 +218,16 @@ class _VersionPageState extends State<VersionPage> {
                 style: GoogleFonts.cormorant(
                   fontSize: 42,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.onSurface,
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+            padding: EdgeInsets.symmetric(horizontal: 14, vertical: 6),
             decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.1),
+              color: Theme.of(context).primaryColor.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Text(
@@ -227,19 +235,22 @@ class _VersionPageState extends State<VersionPage> {
               style: GoogleFonts.ubuntuMono(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
-                color: Colors.white70,
+                color: Theme.of(context).primaryColor,
                 letterSpacing: 1,
               ),
             ),
           ),
           if (_versionCodename.isNotEmpty) ...[
-            const SizedBox(height: 8),
+            SizedBox(height: 8),
             Text(
               _versionCodename.replaceFirst(' - ', ''),
               style: GoogleFonts.cormorant(
                 fontSize: 16,
                 fontStyle: FontStyle.italic,
-                color: Colors.grey.shade500,
+                color: Theme.of(context)
+                    .colorScheme
+                    .onSurface
+                    .withValues(alpha: 0.5),
               ),
             ),
           ],
@@ -257,20 +268,33 @@ class _VersionPageState extends State<VersionPage> {
         borderRadius: BorderRadius.circular(12),
         child: Container(
           width: double.infinity,
-          padding: const EdgeInsets.symmetric(vertical: 16),
+          padding: EdgeInsets.symmetric(vertical: 16),
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey.shade300),
+            border: Border.all(
+                color: Theme.of(context)
+                    .colorScheme
+                    .onSurface
+                    .withValues(alpha: 0.5)),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               if (_isCheckingUpdate)
-                CustomLoader(size: 18, color: Colors.grey.shade600)
+                CustomLoader(
+                    size: 18,
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withValues(alpha: 0.5))
               else
                 Icon(Icons.refresh_rounded,
-                    color: Colors.grey.shade700, size: 20),
-              const SizedBox(width: 10),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withValues(alpha: 0.5),
+                    size: 20),
+              SizedBox(width: 10),
               Text(
                 _isCheckingUpdate
                     ? loc.versionChecking
@@ -279,7 +303,10 @@ class _VersionPageState extends State<VersionPage> {
                   fontFamily: 'Cormorant',
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
-                  color: Colors.grey.shade800,
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onSurface
+                      .withValues(alpha: 0.5),
                 ),
               ),
             ],
@@ -297,17 +324,17 @@ class _VersionPageState extends State<VersionPage> {
 
     return Container(
       width: double.infinity,
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(16),
+      margin: EdgeInsets.only(bottom: 16),
+      padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: isCurrentVersion
-            ? Colors.red.withValues(alpha: 0.05)
-            : Colors.white,
+            ? Theme.of(context).primaryColor.withValues(alpha: 0.05)
+            : Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: isCurrentVersion
-              ? Colors.red.withValues(alpha: 0.3)
-              : Colors.grey.shade200,
+              ? Theme.of(context).primaryColor.withValues(alpha: 0.3)
+              : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
         ),
       ),
       child: Column(
@@ -316,10 +343,14 @@ class _VersionPageState extends State<VersionPage> {
           Row(
             children: [
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
-                  color: isCurrentVersion ? Colors.red : Colors.grey.shade200,
+                  color: isCurrentVersion
+                      ? Theme.of(context).primaryColor
+                      : Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withValues(alpha: 0.5),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
@@ -328,36 +359,47 @@ class _VersionPageState extends State<VersionPage> {
                     fontFamily: 'UbuntuMono',
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
-                    color: isCurrentVersion ? Colors.white : Colors.black87,
+                    color: isCurrentVersion
+                        ? Theme.of(context).colorScheme.surface
+                        : Colors.black87,
                   ),
                 ),
               ),
               if (codename.isNotEmpty) ...[
-                const SizedBox(width: 8),
+                SizedBox(width: 8),
                 Text(
                   codename,
                   style: TextStyle(
                     fontFamily: 'Cormorant',
                     fontSize: 14,
                     fontStyle: FontStyle.italic,
-                    color: Colors.grey.shade600,
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withValues(alpha: 0.5),
                   ),
                 ),
               ],
               if (isCurrentVersion) ...[
                 const Spacer(),
-                const Icon(Icons.check_circle, color: Colors.red, size: 20),
+                Icon(Icons.check_circle,
+                    color: Theme.of(context).primaryColor, size: 20),
               ],
             ],
           ),
-          const SizedBox(height: 12),
-          Text(
-            changelog,
-            style: TextStyle(
-              fontFamily: 'Cormorant',
-              fontSize: 15,
-              color: Colors.grey.shade700,
-              height: 1.4,
+          SizedBox(height: 12),
+          MarkdownBody(
+            data: changelog,
+            styleSheet: MarkdownStyleSheet(
+              p: TextStyle(
+                fontFamily: 'Cormorant',
+                fontSize: 15,
+                color: Theme.of(context)
+                    .colorScheme
+                    .onSurface
+                    .withValues(alpha: 0.5),
+                height: 1.4,
+              ),
             ),
           ),
         ],

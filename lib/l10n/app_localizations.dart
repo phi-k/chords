@@ -2413,6 +2413,144 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Email address copied!'**
   String get legalEmailCopied;
+
+  /// No description provided for @themeCreatorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create'**
+  String get themeCreatorTitle;
+
+  /// No description provided for @themeNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get themeNameHint;
+
+  /// No description provided for @themeDescHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get themeDescHint;
+
+  /// No description provided for @themeCoverHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Cover'**
+  String get themeCoverHint;
+
+  /// No description provided for @themeColorPrimary.
+  ///
+  /// In en, this message translates to:
+  /// **'Primary'**
+  String get themeColorPrimary;
+
+  /// No description provided for @themeColorBackground.
+  ///
+  /// In en, this message translates to:
+  /// **'Background'**
+  String get themeColorBackground;
+
+  /// No description provided for @themeColorText.
+  ///
+  /// In en, this message translates to:
+  /// **'Text'**
+  String get themeColorText;
+
+  /// No description provided for @themeLightName.
+  ///
+  /// In en, this message translates to:
+  /// **'Light Chords'**
+  String get themeLightName;
+
+  /// No description provided for @themeLightDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Original light theme of Chords'**
+  String get themeLightDesc;
+
+  /// No description provided for @themeDarkName.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark Chords'**
+  String get themeDarkName;
+
+  /// No description provided for @themeDarkDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark theme, the most comfortable'**
+  String get themeDarkDesc;
+
+  /// No description provided for @themeDarkSideName.
+  ///
+  /// In en, this message translates to:
+  /// **'B&W Chords'**
+  String get themeDarkSideName;
+
+  /// No description provided for @themeDarkSideDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Pure black and white high-contrast palette'**
+  String get themeDarkSideDesc;
+
+  /// No description provided for @themeNevermindName.
+  ///
+  /// In en, this message translates to:
+  /// **'Golden Chords'**
+  String get themeNevermindName;
+
+  /// No description provided for @themeNevermindDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Everything You\'ve Come To Expect'**
+  String get themeNevermindDesc;
+
+  /// No description provided for @themeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get themeTitle;
+
+  /// No description provided for @themeImport.
+  ///
+  /// In en, this message translates to:
+  /// **'Import'**
+  String get themeImport;
+
+  /// No description provided for @themeExport.
+  ///
+  /// In en, this message translates to:
+  /// **'Export'**
+  String get themeExport;
+
+  /// No description provided for @themeCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create'**
+  String get themeCreate;
+
+  /// No description provided for @themeCustoms.
+  ///
+  /// In en, this message translates to:
+  /// **'Customs'**
+  String get themeCustoms;
+
+  /// No description provided for @themeNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please provide a name for your theme'**
+  String get themeNameRequired;
+
+  /// No description provided for @themeFollowSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow system'**
+  String get themeFollowSystem;
+
+  /// No description provided for @themeFollowSystemDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Match device\'s light/dark mode'**
+  String get themeFollowSystemDesc;
 }
 
 class _AppLocalizationsDelegate

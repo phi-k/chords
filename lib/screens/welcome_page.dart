@@ -70,7 +70,8 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     final bool isLastPage = _currentPage == 4;
-    final Color backgroundColor = isLastPage ? Colors.black : Colors.white;
+    final Color backgroundColor =
+        isLastPage ? Colors.black : Theme.of(context).colorScheme.surface;
 
     final bool isVisible = _showContent && !_isExiting;
 
@@ -107,7 +108,7 @@ class _WelcomePageState extends State<WelcomePage> {
                             child: Text(
                               AppLocalizations.of(context)!.welcomePass,
                               style: GoogleFonts.ubuntuMono(
-                                color: Colors.grey,
+                                color: Theme.of(context).colorScheme.onSurface,
                                 fontWeight: FontWeight.bold,
                                 letterSpacing: 1.5,
                               ),
@@ -180,10 +181,15 @@ class _WelcomePageState extends State<WelcomePage> {
                               width: _currentPage == index ? 24 : 6,
                               decoration: BoxDecoration(
                                 color: _currentPage == index
-                                    ? Colors.red
+                                    ? Theme.of(context).colorScheme.primary
                                     : (isLastPage
-                                        ? Colors.grey.shade800
-                                        : Colors.grey.shade200),
+                                        ? Theme.of(context)
+                                            .colorScheme
+                                            .onSurface
+                                        : Theme.of(context)
+                                            .colorScheme
+                                            .onSurface
+                                            .withValues(alpha: 0.2)),
                                 borderRadius: BorderRadius.circular(3),
                               ),
                             );
@@ -206,13 +212,15 @@ class _WelcomePageState extends State<WelcomePage> {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 24, vertical: 14),
                             decoration: BoxDecoration(
-                              color: Colors.red,
+                              color: Theme.of(context).colorScheme.primary,
                               borderRadius: BorderRadius.circular(30),
                               boxShadow: isLastPage
                                   ? [
                                       BoxShadow(
-                                          color:
-                                              Colors.red.withValues(alpha: 0.4),
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary
+                                              .withValues(alpha: 0.4),
                                           blurRadius: 15)
                                     ]
                                   : [],
@@ -226,7 +234,8 @@ class _WelcomePageState extends State<WelcomePage> {
                                       : AppLocalizations.of(context)!
                                           .welcomeNext,
                                   style: GoogleFonts.ubuntuMono(
-                                    color: Colors.white,
+                                    color:
+                                        Theme.of(context).colorScheme.surface,
                                     fontWeight: FontWeight.bold,
                                     letterSpacing: 1,
                                   ),
@@ -236,7 +245,7 @@ class _WelcomePageState extends State<WelcomePage> {
                                   isLastPage
                                       ? Icons.rocket_launch
                                       : Icons.arrow_forward,
-                                  color: Colors.white,
+                                  color: Theme.of(context).colorScheme.surface,
                                   size: 16,
                                 ),
                               ],
@@ -280,7 +289,7 @@ class _WelcomePageState extends State<WelcomePage> {
                     fontSize: 42,
                     fontWeight: FontWeight.bold,
                     height: 1.0,
-                    color: Colors.black,
+                    color: Theme.of(context).colorScheme.onSurface,
                   ),
                 ),
               ),
@@ -294,7 +303,10 @@ class _WelcomePageState extends State<WelcomePage> {
                   style: GoogleFonts.ubuntuMono(
                     fontSize: 15,
                     height: 1.4,
-                    color: Colors.grey.shade600,
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withValues(alpha: 0.7),
                   ),
                 ),
               ),
@@ -311,17 +323,25 @@ class _WelcomePageState extends State<WelcomePage> {
                 : const EdgeInsets.only(left: 40, right: 40, top: 50),
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.surface,
                 borderRadius:
                     const BorderRadius.vertical(top: Radius.circular(20)),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.1),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withValues(alpha: 0.1),
                     blurRadius: 30,
                     offset: const Offset(0, 10),
                   ),
                 ],
-                border: Border.all(color: Colors.grey.shade200, width: 4),
+                border: Border.all(
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withValues(alpha: 0.1),
+                    width: 4),
               ),
               child: ClipRRect(
                 borderRadius:
@@ -361,7 +381,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 Text("C",
                     style: GoogleFonts.cormorant(
                         fontSize: 60,
-                        color: Colors.red,
+                        color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.bold)),
                 Text("hords",
                     style: GoogleFonts.cormorant(
@@ -371,14 +391,17 @@ class _WelcomePageState extends State<WelcomePage> {
               ],
             ),
             const SizedBox(height: 30),
-            Container(height: 1, width: 60, color: Colors.red),
+            Container(
+                height: 1,
+                width: 60,
+                color: Theme.of(context).colorScheme.primary),
             const SizedBox(height: 30),
             Text(
               AppLocalizations.of(context)!.welcomeFinalSubtitle,
               textAlign: TextAlign.center,
               style: GoogleFonts.ubuntuMono(
                 fontSize: 16,
-                color: Colors.grey.shade400,
+                color: Colors.white,
                 height: 1.5,
               ),
             ),
@@ -440,17 +463,20 @@ class _MockHomeScreenState extends State<MockHomeScreen>
             textBaseline: TextBaseline.alphabetic,
             children: [
               Text("C",
-                  style:
-                      GoogleFonts.cormorant(fontSize: 40, color: Colors.red)),
+                  style: GoogleFonts.cormorant(
+                      fontSize: 40,
+                      color: Theme.of(context).colorScheme.primary)),
               Text("hords",
-                  style:
-                      GoogleFonts.cormorant(fontSize: 40, color: Colors.black)),
+                  style: GoogleFonts.cormorant(
+                      fontSize: 40,
+                      color: Theme.of(context).colorScheme.onSurface)),
             ],
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          child: Divider(color: Colors.black, height: 1),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Divider(
+              color: Theme.of(context).colorScheme.onSurface, height: 1),
         ),
         const SizedBox(height: 15),
         Padding(
@@ -501,16 +527,28 @@ class _MockHomeScreenState extends State<MockHomeScreen>
                                   errorBuilder: (c, e, s) => Container(
                                       width: 50,
                                       height: 50,
-                                      color: Colors.grey.shade300,
-                                      child: const Icon(Icons.music_note,
-                                          color: Colors.grey)),
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface
+                                          .withValues(alpha: 0.1),
+                                      child: Icon(Icons.music_note,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onSurface
+                                              .withValues(alpha: 0.5))),
                                 )
                               : Container(
                                   width: 50,
                                   height: 50,
-                                  color: Colors.grey.shade200,
-                                  child: const Icon(Icons.music_note,
-                                      color: Colors.grey)),
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSurface
+                                      .withValues(alpha: 0.1),
+                                  child: Icon(Icons.music_note,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface
+                                          .withValues(alpha: 0.5))),
                         ),
                         const SizedBox(width: 12),
                         Expanded(
@@ -520,13 +558,17 @@ class _MockHomeScreenState extends State<MockHomeScreen>
                               Text(songs[index]["t"]!,
                                   style: GoogleFonts.cormorant(
                                       fontSize: 20,
-                                      color: Colors.red,
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
                                       fontWeight: FontWeight.normal),
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1),
                               Text(songs[index]["a"]!,
                                   style: GoogleFonts.cormorant(
-                                      fontSize: 16, color: Colors.black)),
+                                      fontSize: 16,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface)),
                             ],
                           ),
                         )
@@ -546,14 +588,17 @@ class _MockHomeScreenState extends State<MockHomeScreen>
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       decoration: BoxDecoration(
-        color: active ? const Color(0xFFFEE0E0) : Colors.white,
-        border: Border.all(color: Colors.black, width: 1),
+        color: active
+            ? Theme.of(context).primaryColor.withAlpha(30)
+            : Theme.of(context).colorScheme.surface,
+        border: Border.all(
+            color: Theme.of(context).colorScheme.onSurface, width: 1),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Text(text,
           style: GoogleFonts.cormorant(
               fontSize: 12,
-              color: Colors.black,
+              color: Theme.of(context).colorScheme.onSurface,
               fontWeight: active ? FontWeight.bold : FontWeight.normal)),
     );
   }
@@ -570,8 +615,9 @@ class MockSearchScreen extends StatelessWidget {
         AppBar(
           title: Text('Résultats pour "Queen"',
               style: GoogleFonts.cormorant(
-                  color: Colors.black, fontWeight: FontWeight.normal)),
-          backgroundColor: Colors.white,
+                  color: Theme.of(context).colorScheme.onSurface,
+                  fontWeight: FontWeight.normal)),
+          backgroundColor: Theme.of(context).colorScheme.surface,
           elevation: 0,
           scrolledUnderElevation: 0,
           centerTitle: false,
@@ -582,10 +628,11 @@ class MockSearchScreen extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(16, 10, 16, 100),
             physics: const BouncingScrollPhysics(),
             children: [
-              _buildExpandedGroup("Bohemian Rhapsody", "Queen", coverUrl),
-              _buildCollapsedGroup("Don't Stop Me Now", "Queen", 1),
-              _buildCollapsedGroup("Love of My Life", "Queen", 2),
-              _buildCollapsedGroup("We Will Rock You", "Queen", 3),
+              _buildExpandedGroup(
+                  context, "Bohemian Rhapsody", "Queen", coverUrl),
+              _buildCollapsedGroup(context, "Don't Stop Me Now", "Queen", 1),
+              _buildCollapsedGroup(context, "Love of My Life", "Queen", 2),
+              _buildCollapsedGroup(context, "We Will Rock You", "Queen", 3),
             ],
           ),
         )
@@ -593,12 +640,14 @@ class MockSearchScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildExpandedGroup(String title, String artist, String imgUrl) {
+  Widget _buildExpandedGroup(
+      BuildContext context, String title, String artist, String imgUrl) {
     return Card(
       elevation: 2,
       margin: const EdgeInsets.symmetric(vertical: 8),
-      color: Colors.white,
-      shadowColor: Colors.black.withValues(alpha: 0.1),
+      color: Theme.of(context).colorScheme.surface,
+      shadowColor:
+          Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.1),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Column(
         children: [
@@ -614,7 +663,12 @@ class MockSearchScreen extends StatelessWidget {
                     height: 50,
                     fit: BoxFit.cover,
                     errorBuilder: (c, e, s) => Container(
-                        width: 50, height: 50, color: Colors.grey.shade200),
+                        width: 50,
+                        height: 50,
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withValues(alpha: 0.1)),
                   ),
                 ),
                 const SizedBox(width: 15),
@@ -623,35 +677,42 @@ class MockSearchScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(title,
-                          style: const TextStyle(
+                          style: TextStyle(
                               fontFamily: 'Cormorant',
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
-                              color: Colors.red)),
+                              color: Theme.of(context).colorScheme.primary)),
                       Text(artist,
                           style: TextStyle(
                               fontFamily: 'Cormorant',
                               fontSize: 16,
-                              color: Colors.grey.shade700)),
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurface
+                                  .withValues(alpha: 0.7))),
                     ],
                   ),
                 ),
-                const Icon(Icons.expand_less, color: Colors.black),
+                Icon(Icons.expand_less,
+                    color: Theme.of(context).colorScheme.onSurface),
               ],
             ),
           ),
-          _buildVersionRow("Version 1 - Chords", "4.9 (5214 avis)", true),
-          _buildVersionRow("Version 2 - Chords", "4.5 (800 avis)", false),
-          _buildVersionRow("Version 3 - Tab", "4.2 (120 avis)", false),
+          _buildVersionRow(
+              context, "Version 1 - Chords", "4.9 (5214 avis)", true),
+          _buildVersionRow(
+              context, "Version 2 - Chords", "4.5 (800 avis)", false),
+          _buildVersionRow(context, "Version 3 - Tab", "4.2 (120 avis)", false),
           const SizedBox(height: 10),
         ],
       ),
     );
   }
 
-  Widget _buildVersionRow(String title, String note, bool isBest) {
+  Widget _buildVersionRow(
+      BuildContext context, String title, String note, bool isBest) {
     return Material(
-      color: Colors.grey.shade50,
+      color: Theme.of(context).colorScheme.onSurface.withAlpha(10),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
         child: Row(
@@ -672,7 +733,10 @@ class MockSearchScreen extends StatelessWidget {
                     style: TextStyle(
                         fontFamily: 'Cormorant',
                         fontSize: 14,
-                        color: Colors.grey.shade800)),
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withValues(alpha: 0.8))),
               ],
             ),
           ],
@@ -681,7 +745,8 @@ class MockSearchScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildCollapsedGroup(String title, String artist, int delay) {
+  Widget _buildCollapsedGroup(
+      BuildContext context, String title, String artist, int delay) {
     return TweenAnimationBuilder<double>(
       tween: Tween(begin: 0.0, end: 1.0),
       duration: Duration(milliseconds: 600 + (delay * 200)),
@@ -696,8 +761,9 @@ class MockSearchScreen extends StatelessWidget {
       child: Card(
         elevation: 2,
         margin: const EdgeInsets.symmetric(vertical: 8),
-        color: Colors.white,
-        shadowColor: Colors.black.withValues(alpha: 0.1),
+        color: Theme.of(context).colorScheme.surface,
+        shadowColor:
+            Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.1),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -707,9 +773,16 @@ class MockSearchScreen extends StatelessWidget {
                 width: 50,
                 height: 50,
                 decoration: BoxDecoration(
-                    color: Colors.grey.shade200,
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8)),
-                child: const Icon(Icons.music_note, color: Colors.grey),
+                child: Icon(Icons.music_note,
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withValues(alpha: 0.5)),
               ),
               const SizedBox(width: 15),
               Expanded(
@@ -717,20 +790,24 @@ class MockSearchScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(title,
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontFamily: 'Cormorant',
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: Colors.red)),
+                            color: Theme.of(context).colorScheme.primary)),
                     Text(artist,
                         style: TextStyle(
                             fontFamily: 'Cormorant',
                             fontSize: 16,
-                            color: Colors.grey.shade700)),
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSurface
+                                .withValues(alpha: 0.7))),
                   ],
                 ),
               ),
-              const Icon(Icons.expand_more, color: Colors.black),
+              Icon(Icons.expand_more,
+                  color: Theme.of(context).colorScheme.onSurface),
             ],
           ),
         ),
@@ -757,13 +834,14 @@ class MockSongScreen extends StatelessWidget {
                     style: GoogleFonts.cormorant(
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black)),
+                        color: Theme.of(context).colorScheme.onSurface)),
                 Text("Jeff Buckley",
                     style: GoogleFonts.cormorant(
-                        fontSize: 22, color: Colors.black)),
+                        fontSize: 22,
+                        color: Theme.of(context).colorScheme.onSurface)),
               ],
             ),
-            const Icon(Icons.favorite, color: Colors.red),
+            Icon(Icons.favorite, color: Theme.of(context).colorScheme.primary),
           ],
         ),
         const SizedBox(height: 10),
@@ -792,7 +870,10 @@ class MockSongScreen extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               decoration: BoxDecoration(
-                  color: Colors.grey.shade100,
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onSurface
+                      .withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(20)),
               child: Row(
                 children: [
@@ -811,22 +892,27 @@ class MockSongScreen extends StatelessWidget {
         RichText(
           text: TextSpan(
             style: GoogleFonts.ubuntuMono(
-                fontSize: 16, color: Colors.black, height: 1.5),
-            children: const [
+                fontSize: 16,
+                color: Theme.of(context).colorScheme.onSurface,
+                height: 1.5),
+            children: [
               TextSpan(
                   text: "G               Em\n",
                   style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.black)),
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onSurface)),
               TextSpan(text: "I heard there was a secret chord\n"),
               TextSpan(
                   text: "G                   Em\n",
                   style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.black)),
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onSurface)),
               TextSpan(text: "That David played and it pleased the Lord\n"),
               TextSpan(
                   text: "    C                D             G        D\n",
                   style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.black)),
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onSurface)),
               TextSpan(
                   text: "But you don't really care for music, do you?\n\n"),
               TextSpan(
@@ -835,7 +921,8 @@ class MockSongScreen extends StatelessWidget {
               TextSpan(
                   text: "C           D           Em\n",
                   style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.black)),
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onSurface)),
               TextSpan(text: "Hallelujah, Hallelujah\n"),
             ],
           ),
@@ -864,7 +951,10 @@ class MockStatsScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               boxShadow: [
                 BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.2),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withValues(alpha: 0.2),
                     blurRadius: 10,
                     offset: const Offset(0, 5))
               ],
@@ -875,8 +965,16 @@ class MockStatsScreen extends StatelessWidget {
                 coverUrl,
                 fit: BoxFit.cover,
                 errorBuilder: (c, e, s) => Container(
-                    color: Colors.grey.shade200,
-                    child: const Icon(Icons.music_note, size: 50)),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withValues(alpha: 0.1),
+                    child: Icon(Icons.music_note,
+                        size: 50,
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withValues(alpha: 0.5))),
               ),
             ),
           ),
@@ -886,13 +984,17 @@ class MockStatsScreen extends StatelessWidget {
                   fontSize: 26, fontWeight: FontWeight.bold)),
           Text("Jeff Buckley",
               style: GoogleFonts.cormorant(
-                  fontSize: 18, color: Colors.grey.shade700)),
+                  fontSize: 18,
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onSurface
+                      .withValues(alpha: 0.7))),
           const SizedBox(height: 30),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _stat("Joué", "84", "fois"),
-              _stat("Dernier", "Auj.", "10:24"),
+              _stat(context, "Joué", "84", "fois"),
+              _stat(context, "Dernier", "Auj.", "10:24"),
             ],
           ),
           const SizedBox(height: 30),
@@ -947,13 +1049,15 @@ class MockStatsScreen extends StatelessWidget {
     );
   }
 
-  Widget _stat(String label, String val, String sub) {
+  Widget _stat(BuildContext context, String label, String val, String sub) {
     return Column(
       children: [
         Text(label, style: GoogleFonts.cormorant(fontSize: 16)),
         Text(val,
             style: GoogleFonts.ubuntuMono(
-                fontSize: 32, fontWeight: FontWeight.bold, color: Colors.red)),
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.primary)),
         Text(sub, style: GoogleFonts.cormorant(fontSize: 14)),
       ],
     );

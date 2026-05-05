@@ -26,7 +26,7 @@ class ToolsPage extends ConsumerWidget {
       context: context,
       builder: (ctx) => StatefulBuilder(
         builder: (ctx, setDialogState) => Dialog(
-          backgroundColor: Colors.white,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           child: Padding(
@@ -40,10 +40,15 @@ class ToolsPage extends ConsumerWidget {
                     Container(
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        color: Colors.red.withValues(alpha: 0.1),
+                        color: Theme.of(context)
+                            .colorScheme
+                            .primary
+                            .withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: const Icon(Icons.key, color: Colors.red, size: 22),
+                      child: Icon(Icons.key,
+                          color: Theme.of(context).colorScheme.primary,
+                          size: 22),
                     ),
                     const SizedBox(width: 14),
                     Expanded(
@@ -64,44 +69,59 @@ class ToolsPage extends ConsumerWidget {
                   style: TextStyle(
                     fontFamily: 'Cormorant',
                     fontSize: 14,
-                    color: Colors.grey.shade600,
+                    color:
+                        Theme.of(context).colorScheme.onSurface.withAlpha(150),
                   ),
                 ),
                 const SizedBox(height: 20),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade50,
-                    borderRadius: BorderRadius.circular(14),
-                    border: Border.all(color: Colors.grey.shade200),
+                TextField(
+                  controller: ctrl,
+                  obscureText: obscure,
+                  style: const TextStyle(
+                    fontFamily: 'UbuntuMono',
+                    fontSize: 14,
                   ),
-                  child: TextField(
-                    controller: ctrl,
-                    obscureText: obscure,
-                    style: const TextStyle(
-                      fontFamily: 'UbuntuMono',
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor:
+                        Theme.of(context).colorScheme.onSurface.withAlpha(15),
+                    hintText: loc.settingsPasteApiKey,
+                    hintStyle: TextStyle(
+                      fontFamily: 'Cormorant',
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withAlpha(100),
                       fontSize: 14,
                     ),
-                    decoration: InputDecoration(
-                      hintText: loc.settingsPasteApiKey,
-                      hintStyle: TextStyle(
-                        fontFamily: 'Cormorant',
-                        color: Colors.grey.shade400,
-                        fontSize: 14,
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(
+                          color: Theme.of(context).colorScheme.primary,
+                          width: 2),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSurface
+                              .withAlpha(30)),
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 14),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        obscure
+                            ? Icons.visibility_off_outlined
+                            : Icons.visibility_outlined,
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withAlpha(100),
+                        size: 20,
                       ),
-                      border: InputBorder.none,
-                      contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 14),
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          obscure
-                              ? Icons.visibility_off_outlined
-                              : Icons.visibility_outlined,
-                          color: Colors.grey.shade400,
-                          size: 20,
-                        ),
-                        onPressed: () =>
-                            setDialogState(() => obscure = !obscure),
-                      ),
+                      onPressed: () => setDialogState(() => obscure = !obscure),
                     ),
                   ),
                 ),
@@ -115,7 +135,11 @@ class ToolsPage extends ConsumerWidget {
                           padding: const EdgeInsets.symmetric(vertical: 14),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
-                            side: BorderSide(color: Colors.grey.shade300),
+                            side: BorderSide(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSurface
+                                    .withAlpha(30)),
                           ),
                         ),
                         child: Text(
@@ -124,7 +148,10 @@ class ToolsPage extends ConsumerWidget {
                             fontFamily: 'Cormorant',
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
-                            color: Colors.grey.shade600,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSurface
+                                .withAlpha(150),
                           ),
                         ),
                       ),
@@ -138,18 +165,19 @@ class ToolsPage extends ConsumerWidget {
                         },
                         style: TextButton.styleFrom(
                           padding: const EdgeInsets.symmetric(vertical: 14),
-                          backgroundColor: Colors.red,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.primary,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
                         child: Text(
                           loc.commonSave,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Cormorant',
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: Theme.of(context).colorScheme.surface,
                           ),
                         ),
                       ),
@@ -179,19 +207,19 @@ class ToolsPage extends ConsumerWidget {
             fontSize: 22,
           ),
         ),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        foregroundColor: Theme.of(context).colorScheme.onSurface,
         elevation: 0,
         centerTitle: false,
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildSectionTitle(loc.toolsUtilities),
+              _buildSectionTitle(context, loc.toolsUtilities),
               _buildSectionContainer(
                 context,
                 Column(
@@ -227,7 +255,7 @@ class ToolsPage extends ConsumerWidget {
                 ),
               ),
               const SizedBox(height: 30),
-              _buildSectionTitle(loc.toolsExport),
+              _buildSectionTitle(context, loc.toolsExport),
               _buildSectionContainer(
                 context,
                 Column(
@@ -263,7 +291,7 @@ class ToolsPage extends ConsumerWidget {
                 ),
               ),
               const SizedBox(height: 30),
-              _buildSectionTitle(loc.settingsApiKeys),
+              _buildSectionTitle(context, loc.settingsApiKeys),
               _buildSectionContainer(
                 context,
                 Column(
@@ -307,7 +335,7 @@ class ToolsPage extends ConsumerWidget {
                 ),
               ),
               const SizedBox(height: 30),
-              _buildSectionTitle(loc.toolsMisc),
+              _buildSectionTitle(context, loc.toolsMisc),
               _buildSectionContainer(
                 context,
                 Column(
@@ -350,16 +378,16 @@ class ToolsPage extends ConsumerWidget {
     );
   }
 
-  Widget _buildSectionTitle(String title) {
+  Widget _buildSectionTitle(BuildContext context, String title) {
     return Padding(
       padding: const EdgeInsets.only(left: 4.0, bottom: 12.0),
       child: Text(
         title,
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: 'Cormorant',
           fontSize: 18,
           fontWeight: FontWeight.bold,
-          color: Colors.grey,
+          color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
         ),
       ),
     );
@@ -368,12 +396,13 @@ class ToolsPage extends ConsumerWidget {
   Widget _buildSectionContainer(BuildContext context, Widget child) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.grey.shade200),
+        border: Border.all(color: Theme.of(context).colorScheme.outlineVariant),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.03),
+            color:
+                Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.03),
             blurRadius: 15,
             offset: const Offset(0, 5),
           ),
@@ -404,12 +433,15 @@ class ToolsPage extends ConsumerWidget {
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: Colors.red.withValues(alpha: 0.08),
+                  color: Theme.of(context)
+                      .colorScheme
+                      .primary
+                      .withValues(alpha: 0.08),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Icon(
                   icon,
-                  color: Colors.red,
+                  color: Theme.of(context).colorScheme.primary,
                   size: 24,
                 ),
               ),
@@ -420,20 +452,26 @@ class ToolsPage extends ConsumerWidget {
                   children: [
                     Text(
                       title,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Cormorant',
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black87,
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withValues(alpha: 0.87),
                       ),
                     ),
-                    const SizedBox(height: 2),
+                    SizedBox(height: 2),
                     Text(
                       subtitle,
                       style: TextStyle(
                         fontFamily: 'Cormorant',
                         fontSize: 14,
-                        color: Colors.grey.shade600,
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withValues(alpha: 0.87),
                       ),
                     ),
                   ],
@@ -442,7 +480,10 @@ class ToolsPage extends ConsumerWidget {
               Icon(
                 Icons.chevron_right,
                 size: 20,
-                color: Colors.grey.shade400,
+                color: Theme.of(context)
+                    .colorScheme
+                    .onSurface
+                    .withValues(alpha: 0.4),
               ),
             ],
           ),

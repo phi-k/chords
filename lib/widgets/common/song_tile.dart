@@ -26,10 +26,14 @@ class SongTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const titleStyle =
-        TextStyle(fontFamily: 'Cormorant', fontSize: 20, color: Colors.red);
-    const artistStyle =
-        TextStyle(fontFamily: 'Cormorant', fontSize: 16, color: Colors.black);
+    final titleStyle = TextStyle(
+        fontFamily: 'Cormorant',
+        fontSize: 20,
+        color: Theme.of(context).primaryColor);
+    final artistStyle = TextStyle(
+        fontFamily: 'Cormorant',
+        fontSize: 16,
+        color: Theme.of(context).colorScheme.onSurface);
 
     return InkWell(
       splashColor: Colors.transparent,
@@ -37,12 +41,12 @@ class SongTile extends StatelessWidget {
       onTap: onTap,
       onLongPress: onLongPress,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10),
+        padding: EdgeInsets.symmetric(vertical: 10),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             AppImage(url: song.coverUrl),
-            const SizedBox(width: 10),
+            SizedBox(width: 10),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,7 +70,7 @@ class SongTile extends StatelessWidget {
                           ),
                         ),
                         if (subtitleTrailing != null) ...[
-                          const SizedBox(width: 8),
+                          SizedBox(width: 8),
                           subtitleTrailing!,
                         ],
                       ],

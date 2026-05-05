@@ -83,20 +83,20 @@ class _BlindTestPageState extends ConsumerState<BlindTestPage> {
     final loc = AppLocalizations.of(context)!;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         elevation: 0,
         scrolledUnderElevation: 0,
-        iconTheme: const IconThemeData(color: Colors.black),
+        iconTheme: IconThemeData(color: Theme.of(context).colorScheme.onSurface),
         title: Row(
           children: [
-            const Icon(Icons.music_note, color: Colors.red, size: 24),
+            Icon(Icons.music_note, color: Theme.of(context).colorScheme.primary, size: 24),
             const SizedBox(width: 8),
             Text(
               loc.blindTestTitle,
-              style: const TextStyle(
-                color: Colors.black,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSurface,
                 fontFamily: 'Cormorant',
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
@@ -108,7 +108,7 @@ class _BlindTestPageState extends ConsumerState<BlindTestPage> {
           IconButton(
             icon: Icon(
               showTitlesAndArtists ? Icons.visibility : Icons.visibility_off,
-              color: Colors.red,
+              color: Theme.of(context).colorScheme.primary,
             ),
             onPressed: _toggleTitlesVisibility,
             tooltip: showTitlesAndArtists
@@ -116,7 +116,7 @@ class _BlindTestPageState extends ConsumerState<BlindTestPage> {
                 : loc.blindTestShowTitles,
           ),
           IconButton(
-            icon: const Icon(Icons.shuffle, color: Colors.red),
+            icon: Icon(Icons.shuffle, color: Theme.of(context).colorScheme.primary),
             onPressed: _shuffle,
             tooltip: loc.blindTestShuffle,
           ),
@@ -128,7 +128,7 @@ class _BlindTestPageState extends ConsumerState<BlindTestPage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Container(
-                height: 1, color: Colors.black, width: double.infinity),
+                height: 1, color: Theme.of(context).colorScheme.onSurface, width: double.infinity),
           ),
           const SizedBox(height: 20),
           Padding(
@@ -202,11 +202,11 @@ class _BlindTestPageState extends ConsumerState<BlindTestPage> {
                     return Container(
                       margin: const EdgeInsets.only(bottom: 15),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.surface,
                         borderRadius: BorderRadius.circular(15),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.05),
+                            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.05),
                             blurRadius: 10,
                             offset: const Offset(0, 3),
                           ),
@@ -239,11 +239,11 @@ class _BlindTestPageState extends ConsumerState<BlindTestPage> {
                                           Text(
                                             song.title ??
                                                 loc.blindTestUnknownTitle,
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                               fontFamily: 'Cormorant',
                                               fontSize: 18,
                                               fontWeight: FontWeight.bold,
-                                              color: Colors.red,
+                                              color: Theme.of(context).colorScheme.primary,
                                             ),
                                           ),
                                           const SizedBox(height: 4),
@@ -259,11 +259,11 @@ class _BlindTestPageState extends ConsumerState<BlindTestPage> {
                                         ] else ...[
                                           Text(
                                             loc.blindTestSongNumber(index + 1),
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                               fontFamily: 'Cormorant',
                                               fontSize: 18,
                                               fontWeight: FontWeight.bold,
-                                              color: Colors.red,
+                                              color: Theme.of(context).colorScheme.primary,
                                             ),
                                           ),
                                           const SizedBox(height: 4),
@@ -298,15 +298,15 @@ class _BlindTestPageState extends ConsumerState<BlindTestPage> {
                                 children: [
                                   ChordLyricsDisplay(
                                     text: songLyrics,
-                                    chordStyle: const TextStyle(
+                                    chordStyle: TextStyle(
                                         fontFamily: 'UbuntuMono',
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
-                                        color: Colors.black),
-                                    lyricStyle: const TextStyle(
+                                        color: Theme.of(context).colorScheme.onSurface),
+                                    lyricStyle: TextStyle(
                                         fontFamily: 'UbuntuMono',
                                         fontSize: 16,
-                                        color: Colors.black),
+                                        color: Theme.of(context).colorScheme.onSurface),
                                   ),
                                   const SizedBox(height: 16),
                                   Row(
@@ -314,16 +314,16 @@ class _BlindTestPageState extends ConsumerState<BlindTestPage> {
                                     children: [
                                       ElevatedButton.icon(
                                         onPressed: () => _navigateToSong(song),
-                                        icon: const Icon(Icons.launch,
-                                            size: 18, color: Colors.white),
+                                        icon: Icon(Icons.launch,
+                                            size: 18, color: Theme.of(context).colorScheme.surface),
                                         label: Text(loc.blindTestViewSong,
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                                 fontFamily: 'Cormorant',
                                                 fontSize: 14,
-                                                color: Colors.white)),
+                                                color: Theme.of(context).colorScheme.surface)),
                                         style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.red,
-                                          foregroundColor: Colors.white,
+                                          backgroundColor: Theme.of(context).colorScheme.primary,
+                                          foregroundColor: Theme.of(context).colorScheme.surface,
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 16, vertical: 8),
                                           shape: RoundedRectangleBorder(

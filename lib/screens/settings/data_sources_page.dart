@@ -56,11 +56,12 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: Row(
           children: [
-            Icon(Icons.help_outline, color: Colors.red.shade400, size: 24),
-            const SizedBox(width: 10),
+            Icon(Icons.help_outline,
+                color: Theme.of(context).primaryColor, size: 24),
+            SizedBox(width: 10),
             Expanded(
               child: Text(loc.dsHelpTitle,
-                  style: const TextStyle(
+                  style: TextStyle(
                       fontFamily: 'Cormorant',
                       fontWeight: FontWeight.bold,
                       fontSize: 20)),
@@ -73,14 +74,14 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
           children: [
             Text(
               loc.dsHelpContent,
-              style: const TextStyle(
-                  fontFamily: 'Cormorant', fontSize: 15, height: 1.4),
+              style:
+                  TextStyle(fontFamily: 'Cormorant', fontSize: 15, height: 1.4),
             ),
-            const SizedBox(height: 14),
+            SizedBox(height: 14),
             Text(
               loc.dsHelpBullets,
-              style: const TextStyle(
-                  fontFamily: 'Cormorant', fontSize: 14, height: 1.5),
+              style:
+                  TextStyle(fontFamily: 'Cormorant', fontSize: 14, height: 1.5),
             ),
           ],
         ),
@@ -88,9 +89,9 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
           TextButton(
             onPressed: () => Navigator.pop(ctx),
             child: Text(loc.dsUnderstood,
-                style: const TextStyle(
+                style: TextStyle(
                     fontFamily: 'Cormorant',
-                    color: Colors.red,
+                    color: Theme.of(context).primaryColor,
                     fontWeight: FontWeight.bold)),
           ),
         ],
@@ -106,25 +107,25 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
             title: Text(loc.dsDeleteConfirm,
-                style: const TextStyle(
+                style: TextStyle(
                     fontFamily: 'Cormorant', fontWeight: FontWeight.bold)),
             content: Text(
               loc.dsDeleteMessage(source.name),
-              style: const TextStyle(fontFamily: 'Cormorant', fontSize: 15),
+              style: TextStyle(fontFamily: 'Cormorant', fontSize: 15),
             ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(ctx, false),
                 child: Text(loc.commonCancel,
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontFamily: 'Cormorant', color: Colors.black54)),
               ),
               TextButton(
                 onPressed: () => Navigator.pop(ctx, true),
                 child: Text(loc.commonDelete,
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontFamily: 'Cormorant',
-                        color: Colors.red,
+                        color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.bold)),
               ),
             ],
@@ -155,7 +156,7 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
           SnackBar(
             content: Text(
                 AppLocalizations.of(context)!.dsExportError(e.toString()),
-                style: const TextStyle(fontFamily: 'Cormorant')),
+                style: TextStyle(fontFamily: 'Cormorant')),
           ),
         );
       }
@@ -185,7 +186,7 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
             title: Text(loc.dsImportConfirm,
-                style: const TextStyle(
+                style: TextStyle(
                     fontFamily: 'Cormorant', fontWeight: FontWeight.bold)),
             content: Column(
               mainAxisSize: MainAxisSize.min,
@@ -201,15 +202,15 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
               TextButton(
                 onPressed: () => Navigator.pop(ctx, false),
                 child: Text(loc.commonCancel,
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontFamily: 'Cormorant', color: Colors.black54)),
               ),
               TextButton(
                 onPressed: () => Navigator.pop(ctx, true),
                 child: Text(loc.dsImport,
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontFamily: 'Cormorant',
-                        color: Colors.red,
+                        color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.bold)),
               ),
             ],
@@ -225,7 +226,7 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
             SnackBar(
               content: Text(
                   AppLocalizations.of(context)!.dsImportSuccess(source.name),
-                  style: const TextStyle(fontFamily: 'Cormorant')),
+                  style: TextStyle(fontFamily: 'Cormorant')),
               backgroundColor: Colors.green,
             ),
           );
@@ -237,8 +238,8 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
           SnackBar(
             content: Text(
                 AppLocalizations.of(context)!.dsInvalidFile(e.toString()),
-                style: const TextStyle(fontFamily: 'Cormorant')),
-            backgroundColor: Colors.red,
+                style: TextStyle(fontFamily: 'Cormorant')),
+            backgroundColor: Theme.of(context).primaryColor,
           ),
         );
       }
@@ -247,7 +248,7 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
 
   Widget _buildImportPreviewRow(String label, String value) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+      padding: EdgeInsets.symmetric(vertical: 4),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -257,11 +258,14 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
                 style: TextStyle(
                     fontFamily: 'Cormorant',
                     fontSize: 14,
-                    color: Colors.grey.shade600)),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withValues(alpha: 0.5))),
           ),
           Expanded(
             child: Text(value.isNotEmpty ? value : '—',
-                style: const TextStyle(
+                style: TextStyle(
                     fontFamily: 'Cormorant',
                     fontSize: 14,
                     fontWeight: FontWeight.bold),
@@ -283,7 +287,7 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
       builder: (ctx) => Padding(
-        padding: const EdgeInsets.fromLTRB(24, 16, 24, 40),
+        padding: EdgeInsets.fromLTRB(24, 16, 24, 40),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -291,38 +295,44 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
               width: 40,
               height: 4,
               decoration: BoxDecoration(
-                color: Colors.grey.shade300,
+                color: Theme.of(context)
+                    .colorScheme
+                    .onSurface
+                    .withValues(alpha: 0.5),
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
             Row(
               children: [
                 Icon(Icons.qr_code_2_rounded,
-                    color: Colors.red.shade400, size: 24),
-                const SizedBox(width: 10),
+                    color: Theme.of(context).primaryColor, size: 24),
+                SizedBox(width: 10),
                 Expanded(
                   child: Text(
                       AppLocalizations.of(context)!.dsShareTitle(source.name),
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontFamily: 'Cormorant',
                           fontSize: 20,
                           fontWeight: FontWeight.bold)),
                 ),
               ],
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: 8),
             Text(
               AppLocalizations.of(context)!.dsQrScanInfo,
               style: TextStyle(
                   fontFamily: 'Cormorant',
                   fontSize: 14,
-                  color: Colors.grey.shade600,
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onSurface
+                      .withValues(alpha: 0.5),
                   height: 1.4),
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: 24),
             Container(
-              padding: const EdgeInsets.all(20),
+              padding: EdgeInsets.all(20),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20),
@@ -349,24 +359,28 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
                 ),
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
-                color: Colors.grey.shade50,
-                borderRadius: BorderRadius.circular(10),
+                color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                  color: Theme.of(context).primaryColor.withValues(alpha: 0.3),
+                ),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(Icons.info_outline_rounded,
-                      size: 14, color: Colors.grey.shade500),
-                  const SizedBox(width: 6),
+                      size: 16, color: Theme.of(context).primaryColor),
+                  SizedBox(width: 6),
                   Text(AppLocalizations.of(context)!.dsQrHeadersIncluded,
                       style: TextStyle(
                           fontFamily: 'Cormorant',
-                          fontSize: 12,
-                          color: Colors.grey.shade500)),
+                          fontSize: 13,
+                          color: Theme.of(context).primaryColor,
+                          fontWeight: FontWeight.w600)),
                 ],
               ),
             ),
@@ -390,7 +404,7 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
                         content: Text(
                             AppLocalizations.of(context)!
                                 .dsImportSuccess(source.name),
-                            style: const TextStyle(fontFamily: 'Cormorant')),
+                            style: TextStyle(fontFamily: 'Cormorant')),
                         backgroundColor: Colors.green,
                       ),
                     );
@@ -408,7 +422,7 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
       builder: (ctx) => Padding(
-        padding: const EdgeInsets.fromLTRB(24, 16, 24, 32),
+        padding: EdgeInsets.fromLTRB(24, 16, 24, 32),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -416,25 +430,29 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
               width: 40,
               height: 4,
               decoration: BoxDecoration(
-                color: Colors.grey.shade300,
+                color: Theme.of(context)
+                    .colorScheme
+                    .onSurface
+                    .withValues(alpha: 0.5),
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
             Row(
               children: [
-                Icon(Icons.share_rounded, color: Colors.red.shade400, size: 22),
-                const SizedBox(width: 10),
+                Icon(Icons.share_rounded,
+                    color: Theme.of(context).primaryColor, size: 22),
+                SizedBox(width: 10),
                 Expanded(
                   child: Text(AppLocalizations.of(context)!.dsShareSource,
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontFamily: 'Cormorant',
                           fontSize: 20,
                           fontWeight: FontWeight.bold)),
                 ),
               ],
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
             _buildActionOption(
               icon: Icons.file_copy_outlined,
               title: loc.dsShareFile,
@@ -445,7 +463,7 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
                 _exportSourceToFile(source);
               },
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
             _buildActionOption(
               icon: Icons.qr_code_2_rounded,
               title: loc.dsShareQr,
@@ -471,7 +489,7 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
       builder: (ctx) => Padding(
-        padding: const EdgeInsets.fromLTRB(24, 16, 24, 32),
+        padding: EdgeInsets.fromLTRB(24, 16, 24, 32),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -479,26 +497,29 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
               width: 40,
               height: 4,
               decoration: BoxDecoration(
-                color: Colors.grey.shade300,
+                color: Theme.of(context)
+                    .colorScheme
+                    .onSurface
+                    .withValues(alpha: 0.5),
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
             Row(
               children: [
                 Icon(Icons.add_circle_outline_rounded,
-                    color: Colors.red.shade400, size: 22),
-                const SizedBox(width: 10),
+                    color: Theme.of(context).primaryColor, size: 22),
+                SizedBox(width: 10),
                 Expanded(
                   child: Text(loc.dsAddSourceTitle,
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontFamily: 'Cormorant',
                           fontSize: 20,
                           fontWeight: FontWeight.bold)),
                 ),
               ],
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
             _buildActionOption(
               icon: Icons.qr_code_scanner_rounded,
               title: loc.dsScanQr,
@@ -509,7 +530,7 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
                 _scanQrCode();
               },
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
             _buildActionOption(
               icon: Icons.file_open_outlined,
               title: loc.dsImportFile,
@@ -520,12 +541,12 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
                 _importSourceFromFile();
               },
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
             _buildActionOption(
               icon: Icons.edit_note_rounded,
               title: loc.dsManualConfig,
               subtitle: loc.dsManualSubtitle,
-              color: Colors.red,
+              color: Theme.of(context).primaryColor,
               onTap: () {
                 Navigator.pop(ctx);
                 _navigateToEdit();
@@ -550,9 +571,13 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
         borderRadius: BorderRadius.circular(14),
         onTap: onTap,
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey.shade200),
+            border: Border.all(
+                color: Theme.of(context)
+                    .colorScheme
+                    .onSurface
+                    .withValues(alpha: 0.5)),
             borderRadius: BorderRadius.circular(14),
           ),
           child: Row(
@@ -566,13 +591,13 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
                 ),
                 child: Icon(icon, color: color, size: 22),
               ),
-              const SizedBox(width: 14),
+              SizedBox(width: 14),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(title,
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontFamily: 'Cormorant',
                             fontSize: 16,
                             fontWeight: FontWeight.bold)),
@@ -580,11 +605,18 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
                         style: TextStyle(
                             fontFamily: 'Cormorant',
                             fontSize: 13,
-                            color: Colors.grey.shade500)),
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSurface
+                                .withValues(alpha: 0.5))),
                   ],
                 ),
               ),
-              Icon(Icons.chevron_right_rounded, color: Colors.grey.shade300),
+              Icon(Icons.chevron_right_rounded,
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onSurface
+                      .withValues(alpha: 0.5)),
             ],
           ),
         ),
@@ -597,7 +629,7 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
     final loc = AppLocalizations.of(context)!;
 
     return Scaffold(
-      backgroundColor: Colors.grey.shade50,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: Text(
           loc.dsTitle,
@@ -606,13 +638,17 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
               fontWeight: FontWeight.bold,
               fontSize: 22),
         ),
-        backgroundColor: Colors.grey.shade50,
-        foregroundColor: Colors.black,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        foregroundColor: Theme.of(context).colorScheme.onSurface,
         elevation: 0,
         actions: [
           IconButton(
             icon: Icon(Icons.help_outline_rounded,
-                color: Colors.grey.shade500, size: 22),
+                color: Theme.of(context)
+                    .colorScheme
+                    .onSurface
+                    .withValues(alpha: 0.5),
+                size: 22),
             tooltip: loc.dsHelp,
             onPressed: _showHelpDialog,
           ),
@@ -620,9 +656,10 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
       ),
       floatingActionButton: _sources.isNotEmpty
           ? FloatingActionButton(
-              backgroundColor: Colors.red,
+              backgroundColor: Theme.of(context).primaryColor,
               onPressed: _showAddSourceOptions,
-              child: const Icon(Icons.add, color: Colors.white),
+              child:
+                  Icon(Icons.add, color: Theme.of(context).colorScheme.surface),
             )
           : null,
       body: _isLoading
@@ -646,44 +683,47 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
               width: 100,
               height: 100,
               decoration: BoxDecoration(
-                color: Colors.grey.shade100,
+                color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: Icon(Icons.dns_outlined,
-                  size: 48, color: Colors.red.shade300),
+                  size: 48, color: Theme.of(context).primaryColor),
             ),
             const SizedBox(height: 28),
             Text(
               loc.dsNoSource,
-              style: const TextStyle(
+              style: TextStyle(
                   fontFamily: 'Cormorant',
                   fontSize: 24,
                   fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 12),
+            SizedBox(height: 12),
             Text(
               loc.dsNoSourceDesc,
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontFamily: 'Cormorant',
                   fontSize: 16,
-                  color: Colors.grey.shade600,
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onSurface
+                      .withValues(alpha: 0.5),
                   height: 1.4),
             ),
-            const SizedBox(height: 32),
+            SizedBox(height: 32),
             ElevatedButton.icon(
               onPressed: _showAddSourceOptions,
-              icon: const Icon(Icons.add, size: 20, color: Colors.white),
+              icon: Icon(Icons.add,
+                  size: 20, color: Theme.of(context).colorScheme.surface),
               label: Text(loc.dsAddSource,
                   style: TextStyle(
                       fontFamily: 'Cormorant',
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white)),
+                      color: Theme.of(context).colorScheme.surface)),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 28, vertical: 16),
+                backgroundColor: Theme.of(context).primaryColor,
+                padding: EdgeInsets.symmetric(horizontal: 28, vertical: 16),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14)),
               ),
@@ -701,16 +741,19 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
     final orderedSources = [...activeSources, ...inactiveSources];
 
     return ListView(
-      padding: const EdgeInsets.fromLTRB(16, 8, 16, 100),
+      padding: EdgeInsets.fromLTRB(16, 8, 16, 100),
       children: [
         Padding(
-          padding: const EdgeInsets.only(bottom: 16, left: 4),
+          padding: EdgeInsets.only(bottom: 16, left: 4),
           child: Text(
             loc.dsSourceCount(_sources.length),
             style: TextStyle(
                 fontFamily: 'Cormorant',
                 fontSize: 14,
-                color: Colors.grey.shade500),
+                color: Theme.of(context)
+                    .colorScheme
+                    .onSurface
+                    .withValues(alpha: 0.5)),
           ),
         ),
         ...orderedSources.map((source) => _buildSourceCard(source)),
@@ -725,7 +768,7 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
         (source.detailsPath.isNotEmpty ? 1 : 0);
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 14),
+      padding: EdgeInsets.only(bottom: 14),
       child: Dismissible(
         key: Key(source.id),
         direction: DismissDirection.endToStart,
@@ -736,28 +779,31 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
         },
         background: Container(
           alignment: Alignment.centerRight,
-          padding: const EdgeInsets.only(right: 24),
+          padding: EdgeInsets.only(right: 24),
           decoration: BoxDecoration(
-            color: Colors.red.shade400,
+            color: Theme.of(context).primaryColor,
             borderRadius: BorderRadius.circular(18),
           ),
-          child:
-              const Icon(Icons.delete_outline, color: Colors.white, size: 28),
+          child: Icon(Icons.delete_outline,
+              color: Theme.of(context).colorScheme.surface, size: 28),
         ),
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(18),
             border: Border.all(
               color: source.isActive
-                  ? Colors.red.withValues(alpha: 0.4)
-                  : Colors.grey.shade200,
+                  ? Theme.of(context).primaryColor.withValues(alpha: 0.4)
+                  : Theme.of(context)
+                      .colorScheme
+                      .onSurface
+                      .withValues(alpha: 0.5),
               width: source.isActive ? 1.5 : 1,
             ),
             boxShadow: [
               BoxShadow(
                 color: source.isActive
-                    ? Colors.red.withValues(alpha: 0.08)
+                    ? Theme.of(context).primaryColor.withValues(alpha: 0.08)
                     : Colors.black.withValues(alpha: 0.04),
                 blurRadius: 12,
                 offset: const Offset(0, 4),
@@ -767,7 +813,7 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(18, 16, 12, 0),
+                padding: EdgeInsets.fromLTRB(18, 16, 12, 0),
                 child: Row(
                   children: [
                     Container(
@@ -777,14 +823,19 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
                         gradient: source.isActive
                             ? LinearGradient(
                                 colors: [
-                                  Colors.red.shade400,
-                                  Colors.red.shade600
+                                  Theme.of(context).primaryColor,
+                                  Theme.of(context).primaryColor
                                 ],
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
                               )
                             : null,
-                        color: source.isActive ? null : Colors.grey.shade100,
+                        color: source.isActive
+                            ? null
+                            : Theme.of(context)
+                                .colorScheme
+                                .onSurface
+                                .withValues(alpha: 0.5),
                         borderRadius: BorderRadius.circular(13),
                       ),
                       child: Icon(
@@ -792,32 +843,38 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
                             ? Icons.cloud_done_rounded
                             : Icons.dns_outlined,
                         color: source.isActive
-                            ? Colors.white
-                            : Colors.grey.shade500,
+                            ? Theme.of(context).colorScheme.surface
+                            : Theme.of(context)
+                                .colorScheme
+                                .onSurface
+                                .withValues(alpha: 0.5),
                         size: 22,
                       ),
                     ),
-                    const SizedBox(width: 14),
+                    SizedBox(width: 14),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             source.name,
-                            style: const TextStyle(
+                            style: TextStyle(
                                 fontFamily: 'Cormorant',
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          const SizedBox(height: 2),
+                          SizedBox(height: 2),
                           Text(
                             source.baseUrl,
                             style: TextStyle(
                                 fontFamily: 'UbuntuMono',
                                 fontSize: 11,
-                                color: Colors.grey.shade500),
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSurface
+                                    .withValues(alpha: 0.5)),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -826,12 +883,10 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
                     ),
                     Transform.scale(
                       scale: 0.8,
-                      child: Switch(
+                      child: Switch.adaptive(
                         value: source.isActive,
-                        activeThumbColor: Colors.red,
-                        activeTrackColor: Colors.red.shade100,
-                        inactiveThumbColor: Colors.grey.shade400,
-                        inactiveTrackColor: Colors.grey.shade200,
+                        activeThumbColor: Theme.of(context).colorScheme.surface,
+                        activeTrackColor: Theme.of(context).primaryColor,
                         onChanged: (val) async {
                           await SourceManager.toggleSourceActive(source.id);
                           _loadSources();
@@ -842,20 +897,30 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(18, 10, 18, 4),
+                padding: EdgeInsets.fromLTRB(18, 10, 18, 4),
                 child: Row(
                   children: [
                     _buildChip(
                       Icons.api_rounded,
                       "$endpointCount endpoint${endpointCount > 1 ? 's' : ''}",
-                      source.isActive ? Colors.red : Colors.grey,
+                      source.isActive
+                          ? Theme.of(context).primaryColor
+                          : Theme.of(context)
+                              .colorScheme
+                              .onSurface
+                              .withValues(alpha: 0.5),
                     ),
-                    const SizedBox(width: 8),
+                    SizedBox(width: 8),
                     if (hasHeaders)
                       _buildChip(
                         Icons.vpn_key_outlined,
                         "${source.headers.length} header${source.headers.length > 1 ? 's' : ''}",
-                        source.isActive ? Colors.red : Colors.grey,
+                        source.isActive
+                            ? Theme.of(context).primaryColor
+                            : Theme.of(context)
+                                .colorScheme
+                                .onSurface
+                                .withValues(alpha: 0.5),
                       ),
                     const Spacer(),
                     if (source.isActive)
@@ -863,9 +928,10 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 4),
                         decoration: BoxDecoration(
-                          color: Colors.green.shade50,
+                          color: Colors.green.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: Colors.green.shade200),
+                          border: Border.all(
+                              color: Colors.green.withValues(alpha: 0.3)),
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
@@ -873,17 +939,17 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
                             Container(
                               width: 6,
                               height: 6,
-                              decoration: BoxDecoration(
-                                color: Colors.green.shade400,
+                              decoration: const BoxDecoration(
+                                color: Colors.green,
                                 shape: BoxShape.circle,
                               ),
                             ),
                             const SizedBox(width: 5),
                             Text(loc.dsConnected,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontFamily: 'Cormorant',
                                     fontSize: 11,
-                                    color: Colors.green.shade700,
+                                    color: Colors.green,
                                     fontWeight: FontWeight.bold)),
                           ],
                         ),
@@ -893,7 +959,10 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
               ),
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.grey.shade50,
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onSurface
+                      .withValues(alpha: 0.05),
                   borderRadius:
                       const BorderRadius.vertical(bottom: Radius.circular(18)),
                 ),
@@ -903,40 +972,57 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
                     TextButton.icon(
                       onPressed: () => _navigateToEdit(source),
                       icon: Icon(Icons.edit_outlined,
-                          size: 16, color: Colors.grey.shade600),
+                          size: 16,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSurface
+                              .withValues(alpha: 0.7)),
                       label: Text(loc.commonEdit,
                           style: TextStyle(
                               fontFamily: 'Cormorant',
                               fontSize: 13,
-                              color: Colors.grey.shade600)),
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurface
+                                  .withValues(alpha: 0.7))),
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        padding: EdgeInsets.symmetric(horizontal: 12),
                         minimumSize: const Size(0, 36),
                       ),
                     ),
                     Container(
                       width: 1,
                       height: 20,
-                      color: Colors.grey.shade200,
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withValues(alpha: 0.5),
                     ),
                     TextButton.icon(
                       onPressed: () => _showShareOptions(source),
                       icon: Icon(Icons.share_outlined,
-                          size: 16, color: Colors.grey.shade600),
+                          size: 16,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSurface
+                              .withValues(alpha: 0.5)),
                       label: Text(loc.dsShare,
                           style: TextStyle(
                               fontFamily: 'Cormorant',
                               fontSize: 13,
-                              color: Colors.grey.shade600)),
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurface
+                                  .withValues(alpha: 0.5))),
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        padding: EdgeInsets.symmetric(horizontal: 12),
                         minimumSize: const Size(0, 36),
                       ),
                     ),
                     const Spacer(),
                     IconButton(
                       icon: Icon(Icons.delete_outline_rounded,
-                          size: 18, color: Colors.red.shade300),
+                          size: 18, color: Theme.of(context).primaryColor),
                       onPressed: () async {
                         final confirmed = await _confirmDelete(source);
                         if (confirmed) {
@@ -959,7 +1045,7 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
 
   Widget _buildChip(IconData icon, String label, Color color) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(8),
@@ -968,7 +1054,7 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(icon, size: 12, color: color.withValues(alpha: 0.7)),
-          const SizedBox(width: 4),
+          SizedBox(width: 4),
           Text(label,
               style: TextStyle(
                   fontFamily: 'Cormorant',
@@ -1016,7 +1102,7 @@ class _QrScannerPageState extends State<_QrScannerPage> {
         builder: (ctx) => AlertDialog(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          title: const Text("Importer cette source ?",
+          title: Text("Importer cette source ?",
               style: TextStyle(
                   fontFamily: 'Cormorant', fontWeight: FontWeight.bold)),
           content: Column(
@@ -1031,16 +1117,16 @@ class _QrScannerPageState extends State<_QrScannerPage> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(ctx, false),
-              child: const Text("Annuler",
+              child: Text("Annuler",
                   style: TextStyle(
                       fontFamily: 'Cormorant', color: Colors.black54)),
             ),
             TextButton(
               onPressed: () => Navigator.pop(ctx, true),
-              child: const Text("Importer",
+              child: Text("Importer",
                   style: TextStyle(
                       fontFamily: 'Cormorant',
-                      color: Colors.red,
+                      color: Theme.of(context).primaryColor,
                       fontWeight: FontWeight.bold)),
             ),
           ],
@@ -1058,8 +1144,8 @@ class _QrScannerPageState extends State<_QrScannerPage> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text("QR code invalide : $e",
-                style: const TextStyle(fontFamily: 'Cormorant')),
-            backgroundColor: Colors.red,
+                style: TextStyle(fontFamily: 'Cormorant')),
+            backgroundColor: Theme.of(context).primaryColor,
           ),
         );
         setState(() => _hasScanned = false);
@@ -1069,7 +1155,7 @@ class _QrScannerPageState extends State<_QrScannerPage> {
 
   Widget _buildPreviewRow(String label, String value) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+      padding: EdgeInsets.symmetric(vertical: 4),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -1079,11 +1165,14 @@ class _QrScannerPageState extends State<_QrScannerPage> {
                 style: TextStyle(
                     fontFamily: 'Cormorant',
                     fontSize: 14,
-                    color: Colors.grey.shade600)),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withValues(alpha: 0.5))),
           ),
           Expanded(
             child: Text(value.isNotEmpty ? value : '—',
-                style: const TextStyle(
+                style: TextStyle(
                     fontFamily: 'Cormorant',
                     fontSize: 14,
                     fontWeight: FontWeight.bold),
@@ -1100,14 +1189,14 @@ class _QrScannerPageState extends State<_QrScannerPage> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: const Text("Scanner un QR code",
+        title: Text("Scanner un QR code",
             style: TextStyle(
                 fontFamily: 'Cormorant',
                 fontWeight: FontWeight.bold,
                 fontSize: 22,
-                color: Colors.white)),
+                color: Theme.of(context).colorScheme.surface)),
         backgroundColor: Colors.black,
-        foregroundColor: Colors.white,
+        foregroundColor: Theme.of(context).colorScheme.surface,
         elevation: 0,
       ),
       body: Stack(
@@ -1122,7 +1211,11 @@ class _QrScannerPageState extends State<_QrScannerPage> {
               height: 260,
               decoration: BoxDecoration(
                 border: Border.all(
-                    color: Colors.white.withValues(alpha: 0.6), width: 2),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .surface
+                        .withValues(alpha: 0.6),
+                    width: 2),
                 borderRadius: BorderRadius.circular(20),
               ),
             ),
@@ -1132,18 +1225,18 @@ class _QrScannerPageState extends State<_QrScannerPage> {
             left: 40,
             right: 40,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 14),
               decoration: BoxDecoration(
                 color: Colors.black.withValues(alpha: 0.7),
                 borderRadius: BorderRadius.circular(14),
               ),
-              child: const Text(
+              child: Text(
                 "Placez le QR code d'une source Chords dans le cadre",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontFamily: 'Cormorant',
                     fontSize: 15,
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.surface,
                     height: 1.3),
               ),
             ),

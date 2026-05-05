@@ -21,9 +21,9 @@ Future<void> showSongOptionsPopup(
     backgroundColor: Colors.transparent,
     builder: (BuildContext ctx) {
       return Container(
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
+        decoration: BoxDecoration(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(10),
             topRight: Radius.circular(10),
           ),
@@ -33,11 +33,13 @@ Future<void> showSongOptionsPopup(
           mainAxisSize: MainAxisSize.min,
           children: [
             ListTile(
-              leading: const Icon(Icons.edit, color: Colors.black),
+              leading: Icon(Icons.edit,
+                  color: Theme.of(context).colorScheme.onSurface),
               title: Text(
                 loc.songOptionsMetadata,
-                style: const TextStyle(
-                    fontFamily: 'Cormorant', color: Colors.black),
+                style: TextStyle(
+                    fontFamily: 'Cormorant',
+                    color: Theme.of(context).colorScheme.onSurface),
               ),
               onTap: () {
                 Navigator.pop(ctx);
@@ -45,11 +47,13 @@ Future<void> showSongOptionsPopup(
               },
             ),
             ListTile(
-              leading: const Icon(Icons.bar_chart, color: Colors.black),
+              leading: Icon(Icons.bar_chart,
+                  color: Theme.of(context).colorScheme.onSurface),
               title: Text(
                 loc.songViewStats,
-                style: const TextStyle(
-                    fontFamily: 'Cormorant', color: Colors.black),
+                style: TextStyle(
+                    fontFamily: 'Cormorant',
+                    color: Theme.of(context).colorScheme.onSurface),
               ),
               onTap: () {
                 Navigator.pop(ctx);
@@ -62,11 +66,13 @@ Future<void> showSongOptionsPopup(
               },
             ),
             ListTile(
-              leading: const Icon(Icons.delete, color: Colors.red),
+              leading:
+                  Icon(Icons.delete, color: Theme.of(context).colorScheme.error),
               title: Text(
                 loc.songOptionsDelete,
-                style:
-                    const TextStyle(fontFamily: 'Cormorant', color: Colors.red),
+                style: TextStyle(
+                    fontFamily: 'Cormorant',
+                    color: Theme.of(context).colorScheme.error),
               ),
               onTap: () {
                 Navigator.pop(ctx);
@@ -94,29 +100,31 @@ Future<void> _showDeleteConfirmationDialog(
     context: context,
     builder: (BuildContext ctx) {
       return AlertDialog(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         title: Text(
           loc.songDeleteConfirmTitle,
           style: GoogleFonts.cormorant(
             fontWeight: FontWeight.bold,
-            color: Colors.black,
+            color: Theme.of(context).colorScheme.onSurface,
           ),
         ),
         content: Text(
           loc.songDeleteConfirmMessage(song.title ?? '', song.artist ?? ''),
-          style: GoogleFonts.cormorant(color: Colors.black),
+          style: GoogleFonts.cormorant(
+              color: Theme.of(context).colorScheme.onSurface),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
             child: Text(
               loc.commonCancel,
-              style: GoogleFonts.cormorant(color: Colors.black),
+              style: GoogleFonts.cormorant(
+                  color: Theme.of(context).colorScheme.onSurface),
             ),
           ),
           TextButton(
             style: TextButton.styleFrom(
-              backgroundColor: Colors.grey.shade100,
+              backgroundColor: Theme.of(context).colorScheme.surface,
             ),
             onPressed: () async {
               if (ctx.mounted) {
@@ -127,7 +135,7 @@ Future<void> _showDeleteConfirmationDialog(
             child: Text(
               loc.commonDelete,
               style: GoogleFonts.cormorant(
-                color: Colors.red,
+                color: Theme.of(context).colorScheme.error,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -152,13 +160,13 @@ Future<void> showEditMetadataDialog(
     context: context,
     builder: (BuildContext ctx) {
       return AlertDialog(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         title: Text(
           loc.metadataEditTitle,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Cormorant',
-            color: Colors.black,
+            color: Theme.of(context).colorScheme.onSurface,
             fontSize: 16,
           ),
         ),
@@ -170,15 +178,15 @@ Future<void> showEditMetadataDialog(
                 controller: titleController,
                 decoration: InputDecoration(
                   labelText: loc.metadataTitle,
-                  labelStyle: const TextStyle(
+                  labelStyle: TextStyle(
                     fontFamily: 'Cormorant',
-                    color: Colors.black,
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontSize: 14,
                   ),
                 ),
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Cormorant',
-                  color: Colors.black,
+                  color: Theme.of(context).colorScheme.onSurface,
                   fontSize: 14,
                 ),
               ),
@@ -186,15 +194,15 @@ Future<void> showEditMetadataDialog(
                 controller: artistController,
                 decoration: InputDecoration(
                   labelText: loc.metadataArtist,
-                  labelStyle: const TextStyle(
+                  labelStyle: TextStyle(
                     fontFamily: 'Cormorant',
-                    color: Colors.black,
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontSize: 14,
                   ),
                 ),
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Cormorant',
-                  color: Colors.black,
+                  color: Theme.of(context).colorScheme.onSurface,
                   fontSize: 14,
                 ),
               ),
@@ -202,15 +210,15 @@ Future<void> showEditMetadataDialog(
                 controller: coverUrlController,
                 decoration: InputDecoration(
                   labelText: loc.metadataCoverUrl,
-                  labelStyle: const TextStyle(
+                  labelStyle: TextStyle(
                     fontFamily: 'Cormorant',
-                    color: Colors.black,
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontSize: 14,
                   ),
                   suffixIcon: IconButton(
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.refresh,
-                      color: Colors.black,
+                      color: Theme.of(context).colorScheme.onSurface,
                       size: 18,
                     ),
                     tooltip: loc.metadataFetchGenius,
@@ -225,9 +233,9 @@ Future<void> showEditMetadataDialog(
                     },
                   ),
                 ),
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Cormorant',
-                  color: Colors.black,
+                  color: Theme.of(context).colorScheme.onSurface,
                   fontSize: 14,
                 ),
               ),
@@ -239,17 +247,17 @@ Future<void> showEditMetadataDialog(
             onPressed: () => Navigator.pop(ctx),
             child: Text(
               loc.commonCancel,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Cormorant',
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.onSurface,
                 fontSize: 14,
               ),
             ),
           ),
           TextButton(
             style: TextButton.styleFrom(
-              backgroundColor: Colors.white,
-              side: const BorderSide(color: Colors.red, width: 1),
+              backgroundColor: Theme.of(context).colorScheme.surface,
+              side: BorderSide(color: Theme.of(context).colorScheme.error, width: 1),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
               ),
@@ -265,9 +273,9 @@ Future<void> showEditMetadataDialog(
             },
             child: Text(
               loc.commonSave,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Cormorant',
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.onSurface,
                 fontSize: 14,
               ),
             ),

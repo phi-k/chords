@@ -25,21 +25,21 @@ class ExportFilterSection extends ConsumerWidget {
       notifier.setPlayCountValue(playCountController.text);
     });
 
-    const formTextStyle =
-        TextStyle(fontFamily: 'Cormorant', color: Colors.black);
+    final formTextStyle =
+        TextStyle(fontFamily: 'Cormorant', color: Theme.of(context).colorScheme.onSurface);
 
     return Container(
       margin: const EdgeInsets.only(top: 12, left: 16, right: 16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.grey.shade50,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey.shade200),
+        border: Border.all(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          buildSwitchOption(
+          buildSwitchOption(context, 
             loc.exportFilterPlaylist,
             loc.exportFilterPlaylistDesc,
             options.filterByPlaylist,
@@ -79,17 +79,17 @@ class ExportFilterSection extends ConsumerWidget {
                           horizontal: 10, vertical: 8),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(color: Colors.grey.shade400),
+                        borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.4)),
                       ),
                     ),
-                    dropdownColor: Colors.white,
+                    dropdownColor: Theme.of(context).colorScheme.surface,
                     style: formTextStyle,
                   );
                 },
               ),
             ),
           const Divider(),
-          buildSwitchOption(
+          buildSwitchOption(context, 
             loc.exportFilterPlayCount,
             "",
             options.filterByPlayCount,
@@ -102,7 +102,7 @@ class ExportFilterSection extends ConsumerWidget {
                 children: [
                   DropdownButton<String>(
                     value: options.playCountCondition,
-                    items: const [
+                    items: [
                       DropdownMenuItem(
                           value: 'greater',
                           child: Text('>', style: formTextStyle)),
@@ -116,7 +116,7 @@ class ExportFilterSection extends ConsumerWidget {
                     onChanged: (value) {
                       if (value != null) notifier.setPlayCountCondition(value);
                     },
-                    dropdownColor: Colors.white,
+                    dropdownColor: Theme.of(context).colorScheme.surface,
                     style: formTextStyle,
                   ),
                   const SizedBox(width: 16),
@@ -134,7 +134,7 @@ class ExportFilterSection extends ConsumerWidget {
               ),
             ),
           const Divider(),
-          buildSwitchOption(
+          buildSwitchOption(context, 
             loc.exportFilterLastPlayed,
             "",
             options.filterByLastPlayed,
@@ -160,7 +160,7 @@ class ExportFilterSection extends ConsumerWidget {
                     onChanged: (value) {
                       if (value != null) notifier.setLastPlayedCondition(value);
                     },
-                    dropdownColor: Colors.white,
+                    dropdownColor: Theme.of(context).colorScheme.surface,
                     style: formTextStyle,
                   ),
                   const SizedBox(width: 16),
@@ -175,14 +175,14 @@ class ExportFilterSection extends ConsumerWidget {
                           builder: (context, child) {
                             return Theme(
                               data: ThemeData.light().copyWith(
-                                colorScheme: const ColorScheme.light(
-                                  primary: Colors.red,
+                                colorScheme: ColorScheme.light(
+                                  primary: Theme.of(context).primaryColor,
                                   onPrimary: Colors.white,
-                                  onSurface: Colors.black,
+                                  onSurface: Theme.of(context).colorScheme.onSurface,
                                 ),
                                 textButtonTheme: TextButtonThemeData(
                                   style: TextButton.styleFrom(
-                                    foregroundColor: Colors.red,
+                                    foregroundColor: Theme.of(context).primaryColor,
                                     textStyle: const TextStyle(
                                       fontFamily: 'Cormorant',
                                       fontWeight: FontWeight.bold,
@@ -207,7 +207,7 @@ class ExportFilterSection extends ConsumerWidget {
                             ? loc.exportFilterChooseDate
                             : DateFormat('dd/MM/yyyy')
                                 .format(options.selectedDate!),
-                        style: formTextStyle.copyWith(color: Colors.red),
+                        style: formTextStyle.copyWith(color: Theme.of(context).primaryColor),
                       ),
                     ),
                   ),
@@ -215,7 +215,7 @@ class ExportFilterSection extends ConsumerWidget {
               ),
             ),
           const Divider(),
-          buildSwitchOption(
+          buildSwitchOption(context, 
             loc.exportFilterTags,
             "",
             options.filterByTags,
@@ -239,8 +239,8 @@ class ExportFilterSection extends ConsumerWidget {
                         selected: isSelected,
                         onSelected: (selected) =>
                             notifier.toggleTagSelection(tag),
-                        selectedColor: Colors.red.withAlpha(26),
-                        checkmarkColor: Colors.red,
+                        selectedColor: Theme.of(context).primaryColor.withAlpha(26),
+                        checkmarkColor: Theme.of(context).primaryColor,
                       );
                     }).toList(),
                   ),

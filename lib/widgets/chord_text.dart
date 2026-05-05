@@ -26,6 +26,7 @@ class ChordText extends StatelessWidget {
 
   static InlineSpan buildBubble(
       BuildContext context, String word, TextStyle chordStyle) {
+    final bool isAmoledMonochrome = _isAmoledMonochromeTheme(context);
     return WidgetSpan(
       alignment: PlaceholderAlignment.baseline,
       baseline: TextBaseline.alphabetic,
@@ -34,15 +35,15 @@ class ChordText extends StatelessWidget {
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
-              backgroundColor: Colors.white,
+              backgroundColor: Theme.of(context).colorScheme.surface,
               content: Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: Text(
                   AppLocalizations.of(context)!.songNoCheat,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
+                  style: TextStyle(
                       fontFamily: 'Cormorant',
-                      color: Colors.black,
+                      color: Theme.of(context).colorScheme.onSurface,
                       fontSize: 20),
                 ),
               ),
@@ -50,7 +51,9 @@ class ChordText extends StatelessWidget {
               actions: [
                 Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black, width: 1),
+                    border: Border.all(
+                        color: Theme.of(context).colorScheme.onSurface,
+                        width: 1),
                     borderRadius: BorderRadius.circular(40),
                   ),
                   child: TextButton(
@@ -58,9 +61,9 @@ class ChordText extends StatelessWidget {
                     child: Text(
                       AppLocalizations.of(context)!.songNoCheatDismiss,
                       textAlign: TextAlign.center,
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontFamily: 'Cormorant',
-                          color: Colors.black,
+                          color: Theme.of(context).colorScheme.onSurface,
                           fontSize: 20),
                     ),
                   ),
@@ -72,20 +75,31 @@ class ChordText extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 2.0),
           decoration: BoxDecoration(
-            color: const Color(0xFFFFE2E2),
+            color: isAmoledMonochrome
+                ? Colors.grey.shade800
+                : Theme.of(context).colorScheme.primaryContainer,
             borderRadius: BorderRadius.circular(4),
           ),
           child: Text(
             word,
             style: chordStyle.copyWith(
               fontWeight: FontWeight.bold,
-              color: Colors.black,
+              color: isAmoledMonochrome
+                  ? Colors.white
+                  : Theme.of(context).colorScheme.onPrimaryContainer,
               decoration: TextDecoration.none,
             ),
           ),
         ),
       ),
     );
+  }
+
+  static bool _isAmoledMonochromeTheme(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return scheme.surface == Colors.black &&
+        scheme.onSurface == Colors.white &&
+        scheme.primary == Colors.white;
   }
 
   static InlineSpan formatChords(BuildContext context, String text,
@@ -122,10 +136,11 @@ class ChordText extends StatelessWidget {
         } else if (ChordDetector.isChordLine(line)) {
           final words = line.split(' ');
           final List<InlineSpan> spans = [];
+          final bool isAmoledMonochrome = _isAmoledMonochromeTheme(context);
 
           final textStyleForDecorations = chordStyle.copyWith(
             fontWeight: FontWeight.normal,
-            color: Colors.grey.shade800,
+            color: isAmoledMonochrome ? Colors.white : Colors.grey.shade800,
           );
 
           for (int i = 0; i < words.length; i++) {

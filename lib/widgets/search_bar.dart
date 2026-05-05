@@ -59,30 +59,31 @@ class SearchBarWidgetState extends State<SearchBarWidget> {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(30),
-          border: Border.all(color: Colors.black, width: 1),
+          border: Border.all(
+              color: Theme.of(context).colorScheme.onSurface, width: 1),
         ),
         child: Row(
           children: [
             Expanded(
               child: TextField(
                 controller: _controller,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Cormorant',
                   fontSize: 18,
-                  color: Colors.black,
+                  color: Theme.of(context).colorScheme.onSurface,
                 ),
                 decoration: InputDecoration(
                   hintText: AppLocalizations.of(context)!.searchBarHint,
-                  hintStyle: TextStyle(
+                  hintStyle: const TextStyle(
                     fontFamily: 'Cormorant',
                     fontSize: 18,
                     color: Colors.grey,
                   ),
                   border: InputBorder.none,
                   contentPadding:
-                      EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                      const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
                 ),
                 onChanged: widget.onTextChanged,
                 onSubmitted: (value) {
@@ -95,7 +96,8 @@ class SearchBarWidgetState extends State<SearchBarWidget> {
             Padding(
               padding: const EdgeInsets.only(right: 12),
               child: IconButton(
-                icon: const Icon(Icons.search, color: Colors.black),
+                icon: Icon(Icons.search,
+                    color: Theme.of(context).colorScheme.onSurface),
                 onPressed: _onSearch,
               ),
             ),

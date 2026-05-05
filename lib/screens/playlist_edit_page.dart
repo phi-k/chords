@@ -84,7 +84,7 @@ class _PlaylistEditPageState extends ConsumerState<PlaylistEditPage> {
 
     return asyncPlaylist.when(
       loading: () => Scaffold(
-        appBar: AppBar(backgroundColor: Colors.white, elevation: 0),
+        appBar: AppBar(backgroundColor: Theme.of(context).colorScheme.surface, elevation: 0),
         body: const CustomLoader(),
       ),
       error: (e, s) =>
@@ -93,9 +93,9 @@ class _PlaylistEditPageState extends ConsumerState<PlaylistEditPage> {
         if (playlist == null) {
           return Scaffold(
             appBar: AppBar(
-                backgroundColor: Colors.white,
+                backgroundColor: Theme.of(context).colorScheme.surface,
                 elevation: 0,
-                iconTheme: const IconThemeData(color: Colors.black)),
+                iconTheme: IconThemeData(color: Theme.of(context).colorScheme.onSurface)),
             body: Center(child: Text(loc.playlistNotFound)),
           );
         }
@@ -113,16 +113,16 @@ class _PlaylistEditPageState extends ConsumerState<PlaylistEditPage> {
         }
 
         return Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           appBar: AppBar(
-            backgroundColor: Colors.white,
+            backgroundColor: Theme.of(context).colorScheme.surface,
             elevation: 0,
             scrolledUnderElevation: 0,
-            iconTheme: const IconThemeData(color: Colors.black),
+            iconTheme: IconThemeData(color: Theme.of(context).colorScheme.onSurface),
             title: Text(
               loc.playlistEditTitle(playlist.name ?? 'Playlist'),
-              style: const TextStyle(
-                color: Colors.black,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSurface,
                 fontFamily: 'Cormorant',
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -133,11 +133,11 @@ class _PlaylistEditPageState extends ConsumerState<PlaylistEditPage> {
                 padding: const EdgeInsets.only(right: 20.0),
                 child: TextButton.icon(
                   onPressed: () => _savePlaylist(playlist),
-                  icon: const Icon(Icons.save, color: Colors.black, size: 18),
+                  icon: Icon(Icons.save, color: Theme.of(context).colorScheme.onSurface, size: 18),
                   label: Text(
                     loc.commonSave,
-                    style: const TextStyle(
-                      color: Colors.black,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface,
                       fontFamily: 'Cormorant',
                       fontSize: 16,
                     ),
@@ -153,7 +153,7 @@ class _PlaylistEditPageState extends ConsumerState<PlaylistEditPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Container(
                   height: 1,
-                  color: Colors.black,
+                  color: Theme.of(context).colorScheme.onSurface,
                   width: double.infinity,
                 ),
               ),
@@ -162,7 +162,7 @@ class _PlaylistEditPageState extends ConsumerState<PlaylistEditPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 40),
                 child: Text(
                   loc.playlistSelectedCount(selectedSongIds.length),
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Cormorant',
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -198,7 +198,7 @@ class _PlaylistEditPageState extends ConsumerState<PlaylistEditPage> {
                                       _toggleSongSelection(songId),
                                   title: Text(
                                     title,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontFamily: 'Cormorant',
                                       fontSize: 16,
                                     ),
@@ -211,7 +211,7 @@ class _PlaylistEditPageState extends ConsumerState<PlaylistEditPage> {
                                       color: Colors.grey.shade600,
                                     ),
                                   ),
-                                  activeColor: Colors.red,
+                                  activeColor: Theme.of(context).colorScheme.primary,
                                   secondary: AppImage(url: song.coverUrl));
                             },
                           ),

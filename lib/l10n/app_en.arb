@@ -1,6 +1,5 @@
 {
   "@@locale": "en",
-
   "welcomePass": "SKIP",
   "welcomeStart": "START",
   "welcomeNext": "NEXT",
@@ -12,7 +11,6 @@
   "welcomeSlide3Subtitle": "Transpose in one click, simplify\ncomplex chords. Adapt the song to you.",
   "welcomeSlide4Title": "Master\nyour Art.",
   "welcomeSlide4Subtitle": "Play statistics, history, playlists.\nTrack your musical progress day after day.",
-
   "commonCancel": "Cancel",
   "commonSave": "Save",
   "commonDelete": "Delete",
@@ -20,7 +18,13 @@
   "commonSearch": "Search...",
   "commonLoading": "Loading...",
   "commonError": "Error: {error}",
-  "@commonError": { "placeholders": { "error": { "type": "String" } } },
+  "@commonError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
   "commonUnknownArtist": "Unknown artist",
   "commonUntitled": "Untitled",
   "commonOk": "OK",
@@ -29,7 +33,6 @@
   "commonRename": "Rename",
   "commonCreate": "Create",
   "commonOther": "Other",
-
   "homeArtists": "Artists",
   "homePlaylists": "Playlists",
   "homeRecent": "Recent",
@@ -40,22 +43,50 @@
   "homeEmptyBtnSourceDone": "Source configured",
   "homeEmptySourceDoneSubtitle": "Your source is ready! Try the search to find your first songs.",
   "homeEmptyBtnWrite": "Write a song",
-
   "homeNoSongs": "No songs saved yet.",
   "homeSongCount": "{count, plural, =0{0 songs} =1{1 song} other{{count} songs}}",
-  "@homeSongCount": { "placeholders": { "count": { "type": "int" } } },
+  "@homeSongCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "homeUpdateSuccess": "Update successful!",
   "homeUpdateSuccessMessage": "Chords has been updated to version {version}!",
-  "@homeUpdateSuccessMessage": { "placeholders": { "version": { "type": "String" } } },
+  "@homeUpdateSuccessMessage": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
   "homeWhatsNew": "What's new:",
   "homeGreat": "Great!",
   "homeSongsOf": "Songs by {artist}",
-  "@homeSongsOf": { "placeholders": { "artist": { "type": "String" } } },
+  "@homeSongsOf": {
+    "placeholders": {
+      "artist": {
+        "type": "String"
+      }
+    }
+  },
   "homePlaylistLabel": "Playlist: {name}",
-  "@homePlaylistLabel": { "placeholders": { "name": { "type": "String" } } },
+  "@homePlaylistLabel": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "homePieceCount": "{count, plural, =0{0 songs} =1{1 song} other{{count} songs}}",
-  "@homePieceCount": { "placeholders": { "count": { "type": "int" } } },
-
+  "@homePieceCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "songDifficulty": "Difficulty",
   "songCapo": "Capo",
   "songTuning": "Tuning",
@@ -66,10 +97,18 @@
   "songOptionsDelete": "Delete song",
   "songDeleteConfirmTitle": "Delete this song?",
   "songDeleteConfirmMessage": "Are you sure you want to delete \"{title}\" by {artist}? This action is irreversible.",
-  "@songDeleteConfirmMessage": { "placeholders": { "title": { "type": "String" }, "artist": { "type": "String" } } },
+  "@songDeleteConfirmMessage": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "artist": {
+        "type": "String"
+      }
+    }
+  },
   "songNoCheat": "No cheating here! ;)",
   "songNoCheatDismiss": "Boo",
-
   "statsTitle": "Statistics",
   "statsSavedDate": "Saved date",
   "statsPlayCount": "Times played",
@@ -81,7 +120,6 @@
   "statsShowList": "Show as list",
   "statsShowGraph": "Show as graph",
   "statsUnknownTitle": "Unknown title",
-
   "toolsTitle": "Tools",
   "toolsUtilities": "Utilities",
   "toolsTuner": "Tuner",
@@ -98,7 +136,6 @@
   "toolsVersionDesc": "See current version and history",
   "toolsWelcome": "Replay introduction",
   "toolsWelcomeDesc": "Show the welcome screen",
-
   "settingsTitle": "Settings",
   "settingsSearchHint": "Search settings...",
   "settingsNoResults": "No results found",
@@ -122,18 +159,35 @@
   "settingsImportSuccess": "Import successful. Returning to home...",
   "settingsInvalidFile": "Invalid file",
   "settingsImportError": "Import error: {error}",
-  "@settingsImportError": { "placeholders": { "error": { "type": "String" } } },
+  "@settingsImportError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
   "settingsExportSuccess": "Export successful to {path}",
-  "@settingsExportSuccess": { "placeholders": { "path": { "type": "String" } } },
+  "@settingsExportSuccess": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
   "settingsExportCancelled": "Export cancelled",
   "settingsExportError": "Export error: {error}",
-  "@settingsExportError": { "placeholders": { "error": { "type": "String" } } },
+  "@settingsExportError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
   "settingsDevWith": "Developed with",
   "settingsDevWithDesc": "Flutter - Thanks to the Isar, Riverpod, fl_charts libraries and all the others!",
   "settingsAppVersion": "App version",
   "settingsLegal": "Legal notices & License",
   "settingsDevSubtitle": "phi-k - pianist and developer",
-
   "dsTitle": "Data Sources",
   "dsNoSource": "No source configured",
   "dsNoSourceDesc": "Chords does not contain any music by default. Connect your own database or a community API to search for tabs.",
@@ -148,17 +202,41 @@
   "dsUnderstood": "Got it",
   "dsDeleteConfirm": "Delete this source?",
   "dsDeleteMessage": "The source \"{name}\" will be permanently deleted.",
-  "@dsDeleteMessage": { "placeholders": { "name": { "type": "String" } } },
+  "@dsDeleteMessage": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "dsExportError": "Export error: {error}",
-  "@dsExportError": { "placeholders": { "error": { "type": "String" } } },
+  "@dsExportError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
   "dsImportConfirm": "Import this source?",
   "dsImportName": "Name",
   "dsImportUrl": "URL",
   "dsImportHeaders": "Headers",
   "dsImportSuccess": "Source \"{name}\" imported successfully!",
-  "@dsImportSuccess": { "placeholders": { "name": { "type": "String" } } },
+  "@dsImportSuccess": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "dsInvalidFile": "Invalid file: {error}",
-  "@dsInvalidFile": { "placeholders": { "error": { "type": "String" } } },
+  "@dsInvalidFile": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
   "dsImport": "Import",
   "dsShareSource": "Share this source",
   "dsShareFile": "Export as file",
@@ -166,7 +244,13 @@
   "dsShareQr": "QR Code",
   "dsShareQrDesc": "Display a scannable QR code",
   "dsShareTitle": "Share \"{name}\"",
-  "@dsShareTitle": { "placeholders": { "name": { "type": "String" } } },
+  "@dsShareTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "dsQrScanInfo": "Scan this QR code from another device to import this source.",
   "dsQrHeadersIncluded": "Headers included in the QR code",
   "dsAddSourceTitle": "Add a source",
@@ -174,30 +258,43 @@
   "dsImportFileSubtitle": "Load a JSON configuration file",
   "dsManualSubtitle": "Enter connection information manually",
   "dsSourceCount": "{count, plural, =1{1 source configured} other{{count} sources configured}}",
-  "@dsSourceCount": { "placeholders": { "count": { "type": "int" } } },
-
+  "@dsSourceCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "dsConnected": "Connected",
   "dsShare": "Share",
-
   "editSourceUnsavedTitle": "Unsaved changes",
   "editSourceUnsavedMessage": "You have unsaved changes. What would you like to do?",
   "editSourceContinue": "Continue editing",
   "editSourceDiscard": "Discard",
   "editSourceFillRequired": "Fill in at least the base URL and the search path.",
-  
   "searchResultsFor": "Results for \"{term}\"",
-  "@searchResultsFor": { "placeholders": { "term": { "type": "String" } } },
+  "@searchResultsFor": {
+    "placeholders": {
+      "term": {
+        "type": "String"
+      }
+    }
+  },
   "searchNoResults": "No results found for this search.",
   "searchLoadMore": "Load more",
-
   "searchBarHint": "Find anything.",
-
   "creationTitle": "New song",
   "creationTitleRequired": "Title is required.",
   "creationArtistRequired": "Author is required.",
   "creationSongAdded": "Song added to library!",
   "creationSaveError": "Error saving: {error}",
-  "@creationSaveError": { "placeholders": { "error": { "type": "String" } } },
+  "@creationSaveError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
   "creationClipboardEmpty": "Clipboard is empty.",
   "creationTitleHint": "Song title",
   "creationArtistHint": "Author",
@@ -209,76 +306,136 @@
   "creationContentHint": "[Intro]\n\nAm           F\nWrite your chords here...\nC            G\nAbove the lyrics.",
   "creationPaste": "Paste",
   "creationUndoPaste": "Undo paste",
-
   "editLyricsTitle": "Edit \"{title}\"",
-  "@editLyricsTitle": { "placeholders": { "title": { "type": "String" } } },
+  "@editLyricsTitle": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
   "editLyricsReset": "Reset",
   "editLyricsResetTitle": "Reset",
   "editLyricsResetMessage": "This action will restore the original version of lyrics and chords, and delete all your previous changes. Are you sure?",
   "editLyricsHint": "Enter lyrics and chords here...",
   "editLyricsResetTooltip": "Reset to original version",
-
   "blindTestTitle": "Blind Test",
   "blindTestHideTitles": "Hide titles",
   "blindTestShowTitles": "Show titles",
   "blindTestShuffle": "Shuffle again",
   "blindTestCount": "{count, plural, =1{1 song shuffled} other{{count} songs shuffled}}",
-  "@blindTestCount": { "placeholders": { "count": { "type": "int" } } },
+  "@blindTestCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "blindTestNoSongs": "No songs available",
   "blindTestNoSongsHint": "Save some songs to play the blind test!",
   "blindTestUnknownTitle": "Unknown title",
   "blindTestUnknownArtist": "Unknown artist",
   "blindTestSongNumber": "Song {number}",
-  "@blindTestSongNumber": { "placeholders": { "number": { "type": "int" } } },
+  "@blindTestSongNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
   "blindTestTitleHidden": "Title view disabled",
   "blindTestViewSong": "View song",
   "blindTestCancelTooltip": "Cancel",
-
   "playlistNotFound": "Playlist not found.",
   "playlistNoSongs": "No songs in this playlist",
   "playlistAddSongs": "Add songs",
   "playlistSongLoadError": "Error loading songs.",
   "playlistSaved": "Playlist saved",
   "playlistSaveError": "Error saving playlist: {error}",
-  "@playlistSaveError": { "placeholders": { "error": { "type": "String" } } },
+  "@playlistSaveError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
   "playlistEditTitle": "Edit {name}",
-  "@playlistEditTitle": { "placeholders": { "name": { "type": "String" } } },
+  "@playlistEditTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "playlistSelectedCount": "{count, plural, =1{1 song selected} other{{count} songs selected}}",
-  "@playlistSelectedCount": { "placeholders": { "count": { "type": "int" } } },
+  "@playlistSelectedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "playlistNewTitle": "New Playlist",
   "playlistNameHint": "Playlist name...",
   "playlistRenameTitle": "Rename Playlist",
   "playlistDeleteTitle": "Delete Playlist",
   "playlistDeleteMessage": "Do you really want to delete the playlist \"{name}\"?",
-  "@playlistDeleteMessage": { "placeholders": { "name": { "type": "String" } } },
-  "playlistCreateError": "Error creating playlist",
-  "playlistRenameError": "Error renaming playlist",
-
+  "@playlistDeleteMessage": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "playlistCreateError": "Error creating the playlist",
+  "playlistRenameError": "Error renaming the playlist",
   "filterSongsCount": "{count, plural, =0{0 songs} =1{1 song} other{{count} songs}}",
-  "@filterSongsCount": { "placeholders": { "count": { "type": "int" } } },
+  "@filterSongsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "filterArtistsCount": "{count, plural, =0{0 artists} =1{1 artist} other{{count} artists}}",
-  "@filterArtistsCount": { "placeholders": { "count": { "type": "int" } } },
+  "@filterArtistsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "filterOldestArtists": "Least recent artists",
   "filterNewestArtists": "Most recent artists",
   "filterOldSongs": "Older songs",
   "filterRecentSongs": "Recent songs",
   "filterNoPlayed": "No song has been played yet",
   "filterChordCount": "{count, plural, =1{1 chord} other{{count} chords}}",
-  "@filterChordCount": { "placeholders": { "count": { "type": "int" } } },
+  "@filterChordCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "filterTagsNotImplemented": "Tag filtering not implemented",
-
   "updatePermissionTitle": "Permission required",
-  "updatePermissionMessage": "To update Chords, you must allow installation of unknown apps from settings.",
+  "updatePermissionMessage": "To update Chords, you must allow the installation of apps from unknown sources in settings.",
   "updateOpenSettings": "Open settings",
   "updateAvailable": "Update available",
   "updateVersion": "Version {version}",
-  "@updateVersion": { "placeholders": { "version": { "type": "String" } } },
+  "@updateVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
   "updateDownloading": "Downloading...",
   "updateDownloadFailed": "Download failed. Check your connection.",
   "updateMissed": "What you missed:",
   "updateLater": "Later",
   "updateInstall": "Install",
-
   "versionTitle": "Version and updates",
   "versionAutoUpdateAndroid": "Automatic updates are only available on Android.",
   "versionUpToDate": "You are up to date!",
@@ -287,7 +444,6 @@
   "versionCheckUpdate": "Check for updates",
   "versionHistory": "Version history",
   "versionHistoryError": "Unable to load history.",
-
   "tunerTitle": "Tuner",
   "tunerPlayString": "Play a string",
   "tunerMicPermission": "Microphone permission required for the tuner.",
@@ -295,21 +451,24 @@
   "tunerTuned": "Tuned",
   "tunerTooLow": "Too low",
   "tunerTooHigh": "Too high",
-  "tunerListening": "Listening\u2026",
+  "tunerListening": "Listening…",
   "tunerMuteBtn": "Mute mic",
   "tunerActivateBtn": "Activate mic",
-
   "metronomeTitle": "Metronome",
-
   "exportListTitle": "Export list",
   "exportGenerating": "Generating...",
   "exportExport": "Export",
   "exportSongsLoading": "The song list is loading.",
-
   "exportTabsTitle": "Generate a Songbook",
   "exportTabsSetCount": "Set the number",
   "exportTabsCountHint": "Enter a number between 1 and {max}:",
-  "@exportTabsCountHint": { "placeholders": { "max": { "type": "int" } } },
+  "@exportTabsCountHint": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
   "exportTabsContentTitle": "1. Songbook content",
   "exportTabsAll": "All",
   "exportTabsPlaylist": "Playlist",
@@ -330,87 +489,93 @@
   "exportTabsManualSelection": "Manual selection",
   "exportTabsClickToChoose": "Click to choose",
   "exportTabsSongsChosen": "{count, plural, =1{1 song chosen} other{{count} songs chosen}}",
-  "@exportTabsSongsChosen": { "placeholders": { "count": { "type": "int" } } },
+  "@exportTabsSongsChosen": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "exportTabsSongCount": "Number of songs",
   "exportTabsRecentDesc": "The most recently played or added songs.",
   "exportTabsUnnamed": "Unnamed",
-
   "multiSelectTitle": "Manual selection",
   "multiSelectSearchHint": "Search...",
   "multiSelectCount": "{count} selected",
-  "@multiSelectCount": { "placeholders": { "count": { "type": "int" } } },
+  "@multiSelectCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "multiSelectAll": "Select all",
   "multiSelectNone": "Deselect all",
-
   "metadataEditTitle": "Edit metadata",
   "metadataTitle": "Title",
   "metadataArtist": "Author",
   "metadataCoverUrl": "Cover URL",
   "metadataFetchGenius": "Fetch from Genius",
-
   "editOptionsMetadata": "Edit metadata",
   "editOptionsLyrics": "Edit lyrics and chords",
-
   "langChooseTitle": "Choose your language\nChoisissez votre langue",
-
   "welcomeFinalGreeting": "Welcome to ",
   "welcomeFinalSubtitle": "Your music catalog\n100% free and open-source.",
-
   "filterArtists": "Artists",
   "filterPlaylists": "Playlists",
   "filterRecent": "Recent",
-
   "headerSongs": "{count, plural, =0{0 songs} =1{1 song} other{{count} songs}}",
-  "@headerSongs": { "placeholders": { "count": { "type": "int" } } },
+  "@headerSongs": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "headerArtistsOldest": "Least recent artists",
   "headerArtistsNewest": "Most recent artists",
   "headerArtists": "{count, plural, =0{0 artists} =1{1 artist} other{{count} artists}}",
-  "@headerArtists": { "placeholders": { "count": { "type": "int" } } },
+  "@headerArtists": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "headerOldSongs": "Old songs",
   "headerRecentSongs": "Recent songs",
-
   "artistsUnknown": "Unknown",
   "artistsOther": "Other",
-
   "recentNoSongsPlayed": "No songs have been played yet",
-
   "tagsNotImplemented": "Tag filtering not implemented",
-
-  "playlistNewTitle": "New Playlist",
-  "playlistNameHint": "Playlist name...",
   "playlistCreateBtn": "Create",
-  "playlistCreateError": "Error creating the playlist",
-  "playlistRenameTitle": "Rename Playlist",
   "playlistRenameBtn": "Rename",
-  "playlistRenameError": "Error renaming the playlist",
-  "playlistDeleteTitle": "Delete Playlist",
   "playlistDeleteConfirm": "Are you sure you want to delete the playlist \"{name}\"?",
-  "@playlistDeleteConfirm": { "placeholders": { "name": { "type": "String" } } },
+  "@playlistDeleteConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "playlistDeleteBtn": "Delete",
   "playlistDeleteError": "Error deleting the playlist",
   "playlistNone": "No playlists",
   "playlistCreateNew": "Create a playlist",
   "playlistSongCount": "{count, plural, =0{0 songs} =1{1 song} other{{count} songs}}",
-  "@playlistSongCount": { "placeholders": { "count": { "type": "int" } } },
+  "@playlistSongCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "playlistEditBtn": "Edit",
-
   "songListOther": "Other",
   "songListNoteSong": "Write a song",
   "songListBlindTest": "Blind Test",
   "songListSettings": "Settings",
-
-  "updatePermissionTitle": "Permission required",
-  "updatePermissionMessage": "To update Chords, you must allow the installation of apps from unknown sources in settings.",
-  "updateOpenSettings": "Open settings",
-  "updateAvailable": "Update available",
-  "updateVersion": "Version {version}",
-  "@updateVersion": { "placeholders": { "version": { "type": "String" } } },
-  "updateDownloading": "Downloading...",
-  "updateDownloadFailed": "Download failed. Check your connection.",
   "updateChangelog": "What you've missed:",
-  "updateLater": "Later",
-  "updateInstall": "Install",
-
   "exportFilterPlaylist": "Filter by playlist",
   "exportFilterPlaylistDesc": "Include only songs from a playlist.",
   "exportFilterPlaylistLoadError": "Error loading playlists",
@@ -425,7 +590,6 @@
   "exportFilterChooseDate": "Choose a date",
   "exportFilterTags": "Filter by tags",
   "exportFilterTagsSoon": "Coming soon!",
-
   "exportOptDisplayContent": "Content to display",
   "exportOptSongs": "Songs",
   "exportOptAuthors": "Authors",
@@ -448,11 +612,8 @@
   "exportOptFilteredSongs": "Only those meeting certain criteria",
   "exportOptSortChrono": "Chronological (recent addition)",
   "exportOptExportFormat": "Export format",
-
   "legalAppBarTitle": "License & Philosophy",
-
   "legalPartLicenseHeader": "Open-source License",
-
   "legalSection1Title": "1. License and Source Code",
   "legalSection1P1": "The Chords application is free software distributed under the GNU Affero General Public License v3.0 (AGPL-3.0). The source code is publicly available on the official GitHub repository:",
   "legalSection1Link": "https://github.com/phi-k/chords",
@@ -461,31 +622,46 @@
   "legalSection1Bullet2": "Modify and redistribute the application, provided the same AGPL-3.0 license is retained.",
   "legalSection1Bullet3": "Use the application for any purpose, including commercial use.",
   "legalSection1P3": "Any modified or derived version must be distributed under the same AGPL-3.0 license, include the full license text, and make the source code available. The full license text can be found in the LICENSE file of the repository.",
-
   "legalSection2Title": "2. Attribution",
   "legalSection2P1": "In accordance with the AGPL-3.0 license, copyright and attribution notices must be retained in any copy or derived version of the software. The original application was created by phi-k.",
   "legalSection2P2": "Contributors are free to add their name to indicate their contributions.",
-
   "legalSection3Title": "3. Third-Party Services",
   "legalSection3P1": "The website 'chords.ovh' is an entity independent from the open-source application. It provides optional services (setlist sharing) and its source code is not covered by this license.",
   "legalSection3P2": "Official application updates are published via the GitHub repository. Versions distributed from other sources are not under the responsibility of the original author.",
-
   "legalSection4Title": "4. Contact",
   "legalSection4P1": "To report a bug, suggest an improvement or for any other inquiry, you can contact the creator:",
-
   "legalPartPhilosophyHeader": "Project Philosophy",
   "legalPhilosophyIntro": "The following commitments are not legal obligations, but they represent the founding values of the Chords project. They are detailed in the PHILOSOPHY.md file of the repository.",
-
   "legalPhiloQuote": "Chords is a free music tool, available to everyone, and we hope it will remain so forever.",
-
   "legalPhiloP1": "The author commits to ensuring that the official version of Chords:",
   "legalPhiloBullet1": "Remains free and ad-free.",
   "legalPhiloBullet2": "Does not collect any personal data.",
   "legalPhiloBullet3": "Remains a tool for musicians, without commercial compromise.",
   "legalPhiloP2": "We encourage forks and derived versions to share these values, but the AGPL-3.0 license does not impose any restriction on commercial use or interface modification.",
-
   "legalDonationTitle": "Contribution & Support",
   "legalDonationContent": "Chords is and will remain free and ad-free. Development is maintained by the author in their spare time. Donations are possible to support the project but are absolutely optional.",
-
-  "legalEmailCopied": "Email address copied!"
+  "legalEmailCopied": "Email address copied!",
+  "themeCreatorTitle": "Create",
+  "themeNameHint": "Name",
+  "themeDescHint": "Description",
+  "themeCoverHint": "Cover",
+  "themeColorPrimary": "Primary",
+  "themeColorBackground": "Background",
+  "themeColorText": "Text",
+  "themeLightName": "Light Chords",
+  "themeLightDesc": "Original light theme of Chords",
+  "themeDarkName": "Dark Chords",
+  "themeDarkDesc": "Dark theme, the most comfortable",
+  "themeDarkSideName": "B&W Chords",
+  "themeDarkSideDesc": "Pure black and white high-contrast palette",
+  "themeNevermindName": "Golden Chords",
+  "themeNevermindDesc": "Everything You've Come To Expect",
+  "themeTitle": "Theme",
+  "themeImport": "Import",
+  "themeExport": "Export",
+  "themeCreate": "Create",
+  "themeCustoms": "Customs",
+  "themeNameRequired": "Please provide a name for your theme",
+  "themeFollowSystem": "Follow system",
+  "themeFollowSystemDesc": "Match device's light/dark mode"
 }

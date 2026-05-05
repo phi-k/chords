@@ -41,10 +41,10 @@ class _SearchPageState extends ConsumerState<SearchPage> {
         title: Text(loc.searchResultsFor(widget.searchTerm),
             style: const TextStyle(fontFamily: 'Cormorant')),
         scrolledUnderElevation: 0,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        foregroundColor: Theme.of(context).colorScheme.onSurface,
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: _buildBody(state),
     );
   }
@@ -85,13 +85,14 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                   onPressed: () => ref
                       .read(searchProvider.notifier)
                       .fetchMore(widget.searchTerm),
-                  icon: const Icon(Icons.add, color: Colors.black),
+                  icon: Icon(Icons.add,
+                      color: Theme.of(context).colorScheme.onSurface),
                   label: Text(
                     AppLocalizations.of(context)!.searchLoadMore,
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontFamily: 'Cormorant',
                         fontSize: 16,
-                        color: Colors.black),
+                        color: Theme.of(context).colorScheme.onSurface),
                   ),
                   style: OutlinedButton.styleFrom(
                     side: BorderSide(color: Colors.grey.shade400),
@@ -124,8 +125,9 @@ class _SongResultGroupWidgetState extends State<_SongResultGroupWidget> {
     return Card(
       elevation: 2,
       margin: const EdgeInsets.symmetric(vertical: 8),
-      color: Colors.white,
-      shadowColor: Colors.black.withValues(alpha: 0.1),
+      color: Theme.of(context).colorScheme.surface,
+      shadowColor:
+          Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.1),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: ExpansionTile(
         tilePadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -139,11 +141,12 @@ class _SongResultGroupWidgetState extends State<_SongResultGroupWidget> {
         ),
         title: Text(
           widget.songGroup.title,
-          style: const TextStyle(
-              fontFamily: 'Cormorant',
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.red),
+          style: TextStyle(
+            fontFamily: 'Cormorant',
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).colorScheme.primary,
+          ),
         ),
         subtitle: Text(
           widget.songGroup.artist,
@@ -154,7 +157,7 @@ class _SongResultGroupWidgetState extends State<_SongResultGroupWidget> {
         ),
         trailing: Icon(
           _isExpanded ? Icons.expand_less : Icons.expand_more,
-          color: Colors.black,
+          color: Theme.of(context).colorScheme.onSurface,
         ),
         children: widget.songGroup.versions.asMap().entries.map((entry) {
           final int displayIndex = entry.key + 1;
@@ -177,7 +180,7 @@ class _SongResultGroupWidgetState extends State<_SongResultGroupWidget> {
             }
           }
           return Material(
-            color: Colors.grey.shade50,
+            color: Theme.of(context).colorScheme.surface,
             child: InkWell(
               onTap: () async {
                 showDialog(
@@ -233,7 +236,7 @@ class _SongResultGroupWidgetState extends State<_SongResultGroupWidget> {
                         children: [
                           Text(
                             'Version $displayIndex - ${version.type}',
-                            style: const TextStyle(
+                            style: TextStyle(
                                 fontFamily: 'Cormorant', fontSize: 16),
                           ),
                           if (version.sourceName.isNotEmpty)

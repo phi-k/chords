@@ -13,7 +13,7 @@ class LegalPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         title: Text(
           loc.legalAppBarTitle,
@@ -23,8 +23,8 @@ class LegalPage extends StatelessWidget {
             fontSize: 22,
           ),
         ),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        foregroundColor: Theme.of(context).colorScheme.onSurface,
         elevation: 0,
         scrolledUnderElevation: 0,
       ),
@@ -34,62 +34,62 @@ class LegalPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // ── Part I: License ──
-            _buildPartHeader(loc.legalPartLicenseHeader),
-            _buildSectionTitle(loc.legalSection1Title),
-            _buildParagraph(loc.legalSection1P1),
+            _buildPartHeader(context, loc.legalPartLicenseHeader),
+            _buildSectionTitle(context, loc.legalSection1Title),
+            _buildParagraph(context, loc.legalSection1P1),
             Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
               child: Center(
                 child: Text(
                   loc.legalSection1Link,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Cormorant',
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: Colors.red,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                 ),
               ),
             ),
-            _buildParagraph(loc.legalSection1P2),
-            _buildBulletPoint(loc.legalSection1Bullet1),
-            _buildBulletPoint(loc.legalSection1Bullet2),
-            _buildBulletPoint(loc.legalSection1Bullet3),
-            _buildParagraph(loc.legalSection1P3),
-            _buildSectionTitle(loc.legalSection2Title),
-            _buildParagraph(loc.legalSection2P1),
-            _buildParagraph(loc.legalSection2P2),
-            _buildSectionTitle(loc.legalSection3Title),
-            _buildParagraph(loc.legalSection3P1),
-            _buildParagraph(loc.legalSection3P2),
-            _buildSectionTitle(loc.legalSection4Title),
-            _buildParagraph(loc.legalSection4P1),
+            _buildParagraph(context, loc.legalSection1P2),
+            _buildBulletPoint(context, loc.legalSection1Bullet1),
+            _buildBulletPoint(context, loc.legalSection1Bullet2),
+            _buildBulletPoint(context, loc.legalSection1Bullet3),
+            _buildParagraph(context, loc.legalSection1P3),
+            _buildSectionTitle(context, loc.legalSection2Title),
+            _buildParagraph(context, loc.legalSection2P1),
+            _buildParagraph(context, loc.legalSection2P2),
+            _buildSectionTitle(context, loc.legalSection3Title),
+            _buildParagraph(context, loc.legalSection3P1),
+            _buildParagraph(context, loc.legalSection3P2),
+            _buildSectionTitle(context, loc.legalSection4Title),
+            _buildParagraph(context, loc.legalSection4P1),
             // ── Part II: Philosophy ──
-            _buildPartHeader(loc.legalPartPhilosophyHeader),
-            _buildParagraph(loc.legalPhilosophyIntro),
+            _buildPartHeader(context, loc.legalPartPhilosophyHeader),
+            _buildParagraph(context, loc.legalPhilosophyIntro),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 12.0),
               child: Center(
                 child: Text(
                   loc.legalPhiloQuote,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Cormorant',
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.red,
+                    color: Theme.of(context).colorScheme.primary,
                     fontStyle: FontStyle.italic,
                   ),
                   textAlign: TextAlign.center,
                 ),
               ),
             ),
-            _buildParagraph(loc.legalPhiloP1),
-            _buildBulletPoint(loc.legalPhiloBullet1),
-            _buildBulletPoint(loc.legalPhiloBullet2),
-            _buildBulletPoint(loc.legalPhiloBullet3),
-            _buildParagraph(loc.legalPhiloP2),
-            _buildSectionTitle(loc.legalDonationTitle),
-            _buildParagraph(loc.legalDonationContent),
+            _buildParagraph(context, loc.legalPhiloP1),
+            _buildBulletPoint(context, loc.legalPhiloBullet1),
+            _buildBulletPoint(context, loc.legalPhiloBullet2),
+            _buildBulletPoint(context, loc.legalPhiloBullet3),
+            _buildParagraph(context, loc.legalPhiloP2),
+            _buildSectionTitle(context, loc.legalDonationTitle),
+            _buildParagraph(context, loc.legalDonationContent),
             const SizedBox(height: 10),
             Center(
               child: InkWell(
@@ -102,14 +102,20 @@ class LegalPage extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade100,
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withValues(alpha: 0.05),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.grey.shade300),
+                    border: Border.all(
+                        color: Theme.of(context).colorScheme.outline),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
-                    children: const [
-                      Icon(Icons.mail_outline, size: 20, color: Colors.red),
+                    children: [
+                      Icon(Icons.mail_outline,
+                          size: 20,
+                          color: Theme.of(context).colorScheme.primary),
                       SizedBox(width: 10),
                       Text(
                         "pk@chords.ovh",
@@ -117,6 +123,7 @@ class LegalPage extends StatelessWidget {
                           fontFamily: 'Cormorant',
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.onSurface,
                         ),
                       ),
                     ],
@@ -131,17 +138,17 @@ class LegalPage extends StatelessWidget {
     );
   }
 
-  Widget _buildPartHeader(String title) {
+  Widget _buildPartHeader(BuildContext context, String title) {
     return Padding(
       padding: const EdgeInsets.only(top: 28.0, bottom: 4.0),
       child: Center(
         child: Text(
           title.toUpperCase(),
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Cormorant',
             fontSize: 20,
             fontWeight: FontWeight.bold,
-            color: Colors.red,
+            color: Theme.of(context).colorScheme.primary,
             letterSpacing: 1.5,
           ),
         ),
@@ -149,38 +156,39 @@ class LegalPage extends StatelessWidget {
     );
   }
 
-  Widget _buildSectionTitle(String title) {
+  Widget _buildSectionTitle(BuildContext context, String title) {
     return Padding(
       padding: const EdgeInsets.only(top: 24.0, bottom: 12.0),
       child: Text(
         title,
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: 'Cormorant',
           fontSize: 18,
           fontWeight: FontWeight.bold,
-          color: Colors.black,
+          color: Theme.of(context).colorScheme.onSurface,
         ),
       ),
     );
   }
 
-  Widget _buildParagraph(String text) {
+  Widget _buildParagraph(BuildContext context, String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Text(
         text,
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: 'Cormorant',
           fontSize: 16,
           height: 1.4,
-          color: Colors.black87,
+          color:
+              Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.87),
         ),
         textAlign: TextAlign.justify,
       ),
     );
   }
 
-  Widget _buildBulletPoint(String text) {
+  Widget _buildBulletPoint(BuildContext context, String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 6.0, left: 12.0),
       child: Row(
@@ -191,11 +199,14 @@ class LegalPage extends StatelessWidget {
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Cormorant',
                 fontSize: 16,
                 height: 1.4,
-                color: Colors.black87,
+                color: Theme.of(context)
+                    .colorScheme
+                    .onSurface
+                    .withValues(alpha: 0.87),
               ),
             ),
           ),

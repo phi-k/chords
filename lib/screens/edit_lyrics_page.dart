@@ -99,7 +99,7 @@ class _EditLyricsPageState extends State<EditLyricsPage> {
               },
               child: Text(
                 loc.commonCancel,
-                style: GoogleFonts.cormorant(color: Colors.black),
+                style: GoogleFonts.cormorant(color: Theme.of(context).colorScheme.onSurface),
               ),
             ),
             TextButton(
@@ -113,7 +113,7 @@ class _EditLyricsPageState extends State<EditLyricsPage> {
               },
               child: Text(
                 loc.editLyricsReset,
-                style: GoogleFonts.cormorant(color: Colors.red),
+                style: GoogleFonts.cormorant(color: Theme.of(context).colorScheme.primary),
               ),
             ),
           ],
@@ -131,18 +131,18 @@ class _EditLyricsPageState extends State<EditLyricsPage> {
         title: Text(
           loc.editLyricsTitle(widget.songData.title ?? ''),
           style: GoogleFonts.cormorant(
-            color: Colors.black,
+            color: Theme.of(context).colorScheme.onSurface,
             fontWeight: FontWeight.bold,
           ),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         elevation: 0,
         scrolledUnderElevation: 0,
-        iconTheme: const IconThemeData(
-          color: Colors.black,
+        iconTheme: IconThemeData(
+          color: Theme.of(context).colorScheme.onSurface,
         ),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -154,24 +154,24 @@ class _EditLyricsPageState extends State<EditLyricsPage> {
               child: Theme(
                 data: Theme.of(context).copyWith(
                   colorScheme: ThemeData().colorScheme.copyWith(
-                        primary: Colors.red,
+                        primary: Theme.of(context).colorScheme.primary,
                       ),
                 ),
                 child: TextField(
                   controller: _lyricsController,
                   maxLines: null,
                   expands: true,
-                  cursorColor: Colors.red,
+                  cursorColor: Theme.of(context).colorScheme.primary,
                   style: const TextStyle(
                     fontFamily: 'UbuntuMono',
                     fontSize: 16,
                   ),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red),
+                      borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red, width: 2),
+                      borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 2),
                     ),
                     hintText: loc.editLyricsHint,
                     contentPadding: EdgeInsets.all(16),
@@ -185,26 +185,26 @@ class _EditLyricsPageState extends State<EditLyricsPage> {
               children: [
                 IconButton(
                   onPressed: _resetLyrics,
-                  icon: const Icon(Icons.restore, color: Colors.black),
+                  icon: Icon(Icons.restore, color: Theme.of(context).colorScheme.onSurface),
                   tooltip: loc.editLyricsResetTooltip,
                 ),
                 IconButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: const Icon(Icons.close, color: Colors.black),
+                  icon: Icon(Icons.close, color: Theme.of(context).colorScheme.onSurface),
                   tooltip: loc.commonCancel,
                 ),
                 const SizedBox(width: 8),
                 ElevatedButton.icon(
                   onPressed: _saveLyrics,
-                  icon: const Icon(Icons.save, color: Colors.white),
+                  icon: Icon(Icons.save, color: Theme.of(context).colorScheme.surface),
                   label: Text(
                     loc.commonSave,
-                    style: const TextStyle(color: Colors.white),
+                    style: TextStyle(color: Theme.of(context).colorScheme.surface),
                   ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
+                    backgroundColor: Theme.of(context).colorScheme.primary,
                   ),
                 ),
               ],

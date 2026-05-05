@@ -15,6 +15,7 @@ import '../widgets/common/custom_loader.dart';
 import '../services/update_service.dart';
 import '../widgets/update_dialog.dart';
 import '../l10n/app_localizations.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -69,7 +70,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   Widget _buildUpdateSuccessDialog(String version, String? changelog) {
     final loc = AppLocalizations.of(context)!;
     return AlertDialog(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       title: Column(
         children: [
@@ -85,7 +86,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               fontFamily: 'Cormorant',
               fontSize: 22,
               fontWeight: FontWeight.bold,
-              color: Colors.black,
+              color: Theme.of(context).colorScheme.onSurface,
             ),
           ),
         ],
@@ -97,10 +98,10 @@ class _HomePageState extends ConsumerState<HomePage> {
             Text(
               loc.homeUpdateSuccessMessage(version),
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Cormorant',
                 fontSize: 16,
-                color: Colors.black87,
+                color: Theme.of(context).colorScheme.onSurface,
               ),
             ),
             if (changelog != null && changelog.isNotEmpty) ...[
@@ -115,19 +116,21 @@ class _HomePageState extends ConsumerState<HomePage> {
                     fontFamily: 'Cormorant',
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
-                    color: Colors.red,
+                    color: Theme.of(context).primaryColor,
                   ),
                 ),
               ),
               const SizedBox(height: 8),
               Align(
                 alignment: Alignment.centerLeft,
-                child: Text(
-                  changelog,
-                  style: const TextStyle(
-                    fontFamily: 'UbuntuMono',
-                    fontSize: 14,
-                    height: 1.4,
+                child: MarkdownBody(
+                  data: changelog,
+                  styleSheet: MarkdownStyleSheet(
+                    p: const TextStyle(
+                      fontFamily: 'UbuntuMono',
+                      fontSize: 14,
+                      height: 1.4,
+                    ),
                   ),
                 ),
               ),
@@ -140,8 +143,8 @@ class _HomePageState extends ConsumerState<HomePage> {
           child: ElevatedButton(
             onPressed: () => Navigator.pop(context),
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red,
-              foregroundColor: Colors.white,
+              backgroundColor: Theme.of(context).primaryColor,
+              foregroundColor: Theme.of(context).colorScheme.onPrimary,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
@@ -192,7 +195,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         }
       },
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: Builder(
           builder: (context) {
             final loc = AppLocalizations.of(context)!;
@@ -205,24 +208,26 @@ class _HomePageState extends ConsumerState<HomePage> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.baseline,
                     textBaseline: TextBaseline.alphabetic,
-                    children: const [
+                    children: [
                       Text("C",
                           style: TextStyle(
                               fontFamily: 'Cormorant',
                               fontSize: 50,
-                              color: Colors.red)),
+                              color: Theme.of(context).primaryColor)),
                       Text("hords",
                           style: TextStyle(
                               fontFamily: 'Cormorant',
                               fontSize: 50,
-                              color: Colors.black)),
+                              color: Theme.of(context).colorScheme.onSurface)),
                     ],
                   ),
                 ),
                 const SizedBox(height: 5),
                 Padding(
                     padding: horizontalPadding,
-                    child: Container(height: 1, color: Colors.black)),
+                    child: Container(
+                        height: 1,
+                        color: Theme.of(context).colorScheme.onSurface)),
                 const SizedBox(height: 15),
                 Padding(
                   padding: horizontalPadding,
@@ -302,7 +307,10 @@ class _HomePageState extends ConsumerState<HomePage> {
                                       style: TextStyle(
                                           fontFamily: 'Cormorant',
                                           fontSize: 14,
-                                          color: Colors.grey.shade600),
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onSurface
+                                              .withValues(alpha: 0.6)),
                                     ),
                                   ),
                                   Expanded(
@@ -337,14 +345,18 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 padding: const EdgeInsets.all(5),
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  color: Colors.grey.shade100,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .surfaceContainerHighest,
                                 ),
                                 child: Icon(
                                   filterState.recentFilterReversed
                                       ? Icons.arrow_upward
                                       : Icons.arrow_downward,
                                   size: 16,
-                                  color: Colors.black,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSurfaceVariant,
                                 ),
                               ),
                             );
@@ -360,10 +372,12 @@ class _HomePageState extends ConsumerState<HomePage> {
                                     Expanded(
                                       child: Text(
                                         headerText,
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                             fontFamily: 'Cormorant',
                                             fontSize: 16,
-                                            color: Colors.black,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSurface,
                                             fontWeight: FontWeight.bold),
                                         textAlign: TextAlign.left,
                                       ),

@@ -1357,4 +1357,73 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get legalEmailCopied => 'Email address copied!';
+
+  @override
+  String get themeCreatorTitle => 'Create';
+
+  @override
+  String get themeNameHint => 'Name';
+
+  @override
+  String get themeDescHint => 'Description';
+
+  @override
+  String get themeCoverHint => 'Cover';
+
+  @override
+  String get themeColorPrimary => 'Primary';
+
+  @override
+  String get themeColorBackground => 'Background';
+
+  @override
+  String get themeColorText => 'Text';
+
+  @override
+  String get themeLightName => 'Light Chords';
+
+  @override
+  String get themeLightDesc => 'Original light theme of Chords';
+
+  @override
+  String get themeDarkName => 'Dark Chords';
+
+  @override
+  String get themeDarkDesc => 'Dark theme, the most comfortable';
+
+  @override
+  String get themeDarkSideName => 'B&W Chords';
+
+  @override
+  String get themeDarkSideDesc => 'Pure black and white high-contrast palette';
+
+  @override
+  String get themeNevermindName => 'Golden Chords';
+
+  @override
+  String get themeNevermindDesc => 'Everything You\'ve Come To Expect';
+
+  @override
+  String get themeTitle => 'Theme';
+
+  @override
+  String get themeImport => 'Import';
+
+  @override
+  String get themeExport => 'Export';
+
+  @override
+  String get themeCreate => 'Create';
+
+  @override
+  String get themeCustoms => 'Customs';
+
+  @override
+  String get themeNameRequired => 'Please provide a name for your theme';
+
+  @override
+  String get themeFollowSystem => 'Follow system';
+
+  @override
+  String get themeFollowSystemDesc => 'Match device\'s light/dark mode';
 }

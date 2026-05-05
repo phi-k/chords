@@ -1370,4 +1370,74 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get legalEmailCopied => 'Adresse email copiée !';
+
+  @override
+  String get themeCreatorTitle => 'Créer';
+
+  @override
+  String get themeNameHint => 'Nom';
+
+  @override
+  String get themeDescHint => 'Description';
+
+  @override
+  String get themeCoverHint => 'Couverture';
+
+  @override
+  String get themeColorPrimary => 'Principal';
+
+  @override
+  String get themeColorBackground => 'Fond';
+
+  @override
+  String get themeColorText => 'Texte';
+
+  @override
+  String get themeLightName => 'Light Chords';
+
+  @override
+  String get themeLightDesc => 'Thème clair original de Chords';
+
+  @override
+  String get themeDarkName => 'Dark Chords';
+
+  @override
+  String get themeDarkDesc => 'Thème sombre, le plus confortable';
+
+  @override
+  String get themeDarkSideName => 'B&W Chords';
+
+  @override
+  String get themeDarkSideDesc => 'Palette noir et blanc en contraste absolu';
+
+  @override
+  String get themeNevermindName => 'Golden Chords';
+
+  @override
+  String get themeNevermindDesc => 'Everything You\'ve Come To Expect';
+
+  @override
+  String get themeTitle => 'Thème';
+
+  @override
+  String get themeImport => 'Importer';
+
+  @override
+  String get themeExport => 'Exporter';
+
+  @override
+  String get themeCreate => 'Créer';
+
+  @override
+  String get themeCustoms => 'Personnalisés';
+
+  @override
+  String get themeNameRequired => 'Veuillez donner un nom à votre thème';
+
+  @override
+  String get themeFollowSystem => 'Suivre le système';
+
+  @override
+  String get themeFollowSystemDesc =>
+      'S\'adapter au mode clair/sombre de l\'appareil';
 }

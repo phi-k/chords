@@ -30,15 +30,16 @@ class _SongStatisticsPageState extends State<SongStatisticsPage> {
         title: Text(
           loc.statsTitle,
           style: GoogleFonts.cormorant(
-            color: Colors.black,
+            color: Theme.of(context).colorScheme.onSurface,
             fontWeight: FontWeight.bold,
           ),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.black),
+        iconTheme:
+            IconThemeData(color: Theme.of(context).colorScheme.onSurface),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -66,7 +67,10 @@ class _SongStatisticsPageState extends State<SongStatisticsPage> {
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.2),
+              color: Theme.of(context)
+                  .colorScheme
+                  .onSurface
+                  .withValues(alpha: 0.2),
               blurRadius: 10,
               offset: const Offset(0, 5),
             ),
@@ -91,14 +95,19 @@ class _SongStatisticsPageState extends State<SongStatisticsPage> {
           style: GoogleFonts.cormorant(
             fontSize: 28,
             fontWeight: FontWeight.bold,
-            color: Colors.black,
+            color: Theme.of(context).colorScheme.onSurface,
           ),
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 5),
         Text(
           widget.songData.artist ?? loc.commonUnknownArtist,
-          style: GoogleFonts.cormorant(fontSize: 22, color: Colors.black87),
+          style: GoogleFonts.cormorant(
+              fontSize: 22,
+              color: Theme.of(context)
+                  .colorScheme
+                  .onSurface
+                  .withValues(alpha: 0.87)),
           textAlign: TextAlign.center,
         ),
       ],
@@ -137,7 +146,10 @@ class _SongStatisticsPageState extends State<SongStatisticsPage> {
                     .map<Widget>(
                       (tag) => Chip(
                         label: Text(tag),
-                        backgroundColor: Colors.grey.shade200,
+                        backgroundColor: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withValues(alpha: 0.1),
                       ),
                     )
                     .toList(),
@@ -161,7 +173,7 @@ class _SongStatisticsPageState extends State<SongStatisticsPage> {
         IconButton(
           icon: Icon(
             _showGraph ? Icons.list : Icons.bar_chart,
-            color: Colors.black,
+            color: Theme.of(context).colorScheme.onSurface,
             size: 24,
           ),
           tooltip: _showGraph ? loc.statsShowList : loc.statsShowGraph,
@@ -322,13 +334,19 @@ class _SongStatisticsPageState extends State<SongStatisticsPage> {
             verticalInterval: 1,
             getDrawingHorizontalLine: (value) {
               return FlLine(
-                color: Colors.grey.withValues(alpha: 0.3),
+                color: Theme.of(context)
+                    .colorScheme
+                    .onSurface
+                    .withValues(alpha: 0.1),
                 strokeWidth: 1,
               );
             },
             getDrawingVerticalLine: (value) {
               return FlLine(
-                color: Colors.grey.withValues(alpha: 0.3),
+                color: Theme.of(context)
+                    .colorScheme
+                    .onSurface
+                    .withValues(alpha: 0.1),
                 strokeWidth: 1,
               );
             },
@@ -362,8 +380,12 @@ class _SongStatisticsPageState extends State<SongStatisticsPage> {
                     meta: meta,
                     child: Text(
                       label,
-                      style:
-                          const TextStyle(color: Colors.black87, fontSize: 10),
+                      style: TextStyle(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSurface
+                              .withValues(alpha: 0.87),
+                          fontSize: 10),
                       textAlign: TextAlign.center,
                     ),
                   );
@@ -382,8 +404,12 @@ class _SongStatisticsPageState extends State<SongStatisticsPage> {
                     meta: meta,
                     child: Text(
                       value.toInt().toString(),
-                      style:
-                          const TextStyle(color: Colors.black87, fontSize: 12),
+                      style: TextStyle(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSurface
+                              .withValues(alpha: 0.87),
+                          fontSize: 12),
                     ),
                   );
                 },
@@ -399,7 +425,8 @@ class _SongStatisticsPageState extends State<SongStatisticsPage> {
           ),
           borderData: FlBorderData(
             show: true,
-            border: Border.all(color: Colors.grey.withValues(alpha: 0.5)),
+            border:
+                Border.all(color: Theme.of(context).colorScheme.outlineVariant),
           ),
           minX: 0,
           maxX: (spots.length - 1).toDouble(),
@@ -426,7 +453,7 @@ class _SongStatisticsPageState extends State<SongStatisticsPage> {
                     radius: 5,
                     color: const Color(0xFFFF4500),
                     strokeWidth: 2,
-                    strokeColor: Colors.white,
+                    strokeColor: Theme.of(context).colorScheme.surface,
                   );
                 },
               ),

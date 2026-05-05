@@ -24,10 +24,10 @@ class PlaylistsView extends ConsumerWidget {
       context: context,
       builder: (BuildContext dialogContext) {
         return AlertDialog(
-          backgroundColor: Colors.white,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           title: Text(
             loc.playlistNewTitle,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Cormorant',
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -36,10 +36,10 @@ class PlaylistsView extends ConsumerWidget {
           content: TextField(
             controller: nameController,
             autofocus: true,
-            style: const TextStyle(fontFamily: 'Cormorant', fontSize: 16),
+            style: TextStyle(fontFamily: 'Cormorant', fontSize: 16),
             decoration: InputDecoration(
               hintText: loc.playlistNameHint,
-              hintStyle: const TextStyle(fontFamily: 'Cormorant', fontSize: 16),
+              hintStyle: TextStyle(fontFamily: 'Cormorant', fontSize: 16),
             ),
           ),
           actions: <Widget>[
@@ -47,7 +47,7 @@ class PlaylistsView extends ConsumerWidget {
               onPressed: () => Navigator.pop(dialogContext),
               child: Text(
                 loc.commonCancel,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Cormorant',
                   fontSize: 16,
                   color: Colors.black,
@@ -80,17 +80,17 @@ class PlaylistsView extends ConsumerWidget {
                   }
                 }
               },
-              icon: const Icon(Icons.check, size: 18, color: Colors.black),
+              icon: Icon(Icons.check, size: 18, color: Colors.black),
               label: Text(
                 loc.playlistCreateBtn,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Cormorant',
                   fontSize: 16,
                   color: Colors.black,
                 ),
               ),
               style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: Colors.red),
+                side: BorderSide(color: Theme.of(context).primaryColor),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
@@ -113,10 +113,10 @@ class PlaylistsView extends ConsumerWidget {
       context: context,
       builder: (BuildContext dialogContext) {
         return AlertDialog(
-          backgroundColor: Colors.white,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           title: Text(
             loc.playlistRenameTitle,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Cormorant',
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -125,14 +125,14 @@ class PlaylistsView extends ConsumerWidget {
           content: TextField(
             controller: nameController,
             autofocus: true,
-            style: const TextStyle(fontFamily: 'Cormorant', fontSize: 16),
+            style: TextStyle(fontFamily: 'Cormorant', fontSize: 16),
           ),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.pop(dialogContext),
               child: Text(
                 loc.commonCancel,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Cormorant',
                   fontSize: 16,
                   color: Colors.black,
@@ -158,17 +158,17 @@ class PlaylistsView extends ConsumerWidget {
                   }
                 }
               },
-              icon: const Icon(Icons.check, size: 18, color: Colors.black),
+              icon: Icon(Icons.check, size: 18, color: Colors.black),
               label: Text(
                 loc.playlistRenameBtn,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Cormorant',
                   fontSize: 16,
                   color: Colors.black,
                 ),
               ),
               style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: Colors.red),
+                side: BorderSide(color: Theme.of(context).primaryColor),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
@@ -187,10 +187,10 @@ class PlaylistsView extends ConsumerWidget {
       context: context,
       builder: (BuildContext dialogContext) {
         return AlertDialog(
-          backgroundColor: Colors.white,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           title: Text(
             loc.playlistDeleteTitle,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Cormorant',
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -198,14 +198,14 @@ class PlaylistsView extends ConsumerWidget {
           ),
           content: Text(
             loc.playlistDeleteConfirm(playlist.name ?? ''),
-            style: const TextStyle(fontFamily: 'Cormorant', fontSize: 16),
+            style: TextStyle(fontFamily: 'Cormorant', fontSize: 16),
           ),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.pop(dialogContext),
               child: Text(
                 loc.commonCancel,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Cormorant',
                   fontSize: 16,
                   color: Colors.black,
@@ -227,17 +227,18 @@ class PlaylistsView extends ConsumerWidget {
                   }
                 }
               },
-              icon: const Icon(Icons.delete, size: 18, color: Colors.red),
+              icon: Icon(Icons.delete,
+                  size: 18, color: Theme.of(context).primaryColor),
               label: Text(
                 loc.playlistDeleteBtn,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Cormorant',
                   fontSize: 16,
-                  color: Colors.red,
+                  color: Theme.of(context).primaryColor,
                 ),
               ),
               style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: Colors.red),
+                side: BorderSide(color: Theme.of(context).primaryColor),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
@@ -266,24 +267,24 @@ class PlaylistsView extends ConsumerWidget {
               children: [
                 Text(
                   loc.playlistNone,
-                  style: const TextStyle(fontFamily: 'Cormorant', fontSize: 18),
+                  style: TextStyle(fontFamily: 'Cormorant', fontSize: 18),
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: 20),
                 OutlinedButton.icon(
                   onPressed: () => _createPlaylist(context, ref),
-                  icon: const Icon(Icons.add, color: Colors.black),
+                  icon: Icon(Icons.add, color: Colors.black),
                   label: Text(
                     loc.playlistCreateNew,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Cormorant',
                       fontSize: 16,
                       color: Colors.black,
                     ),
                   ),
                   style: OutlinedButton.styleFrom(
-                    backgroundColor: Colors.white,
+                    backgroundColor: Theme.of(context).colorScheme.surface,
                     side: const BorderSide(color: Colors.black),
-                    padding: const EdgeInsets.symmetric(
+                    padding: EdgeInsets.symmetric(
                       horizontal: 20,
                       vertical: 12,
                     ),
@@ -291,7 +292,8 @@ class PlaylistsView extends ConsumerWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    shadowColor: Colors.red.withValues(alpha: 0.1),
+                    shadowColor:
+                        Theme.of(context).primaryColor.withValues(alpha: 0.1),
                   ),
                 ),
               ],
@@ -302,7 +304,7 @@ class PlaylistsView extends ConsumerWidget {
         return Stack(
           children: [
             ListView.builder(
-              padding: const EdgeInsets.only(bottom: 80, left: 40, right: 40),
+              padding: EdgeInsets.only(bottom: 80, left: 40, right: 40),
               itemCount: playlists.length,
               itemBuilder: (context, index) {
                 final playlist = playlists[index];
@@ -324,7 +326,7 @@ class PlaylistsView extends ConsumerWidget {
                     }
                   },
                   child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    padding: EdgeInsets.symmetric(vertical: 15),
                     decoration: BoxDecoration(
                       border: index < playlists.length - 1
                           ? Border(
@@ -334,17 +336,17 @@ class PlaylistsView extends ConsumerWidget {
                     child: Row(
                       children: [
                         AppImage(url: coverUrl),
-                        const SizedBox(width: 15),
+                        SizedBox(width: 15),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 playlist.name ?? '',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontFamily: 'Cormorant',
                                   fontSize: 18,
-                                  color: Colors.red,
+                                  color: Theme.of(context).primaryColor,
                                 ),
                               ),
                               Text(
@@ -359,11 +361,12 @@ class PlaylistsView extends ConsumerWidget {
                           ),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.more_vert),
+                          icon: Icon(Icons.more_vert),
                           onPressed: () {
                             showModalBottomSheet(
                               context: context,
-                              backgroundColor: Colors.white,
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.surface,
                               shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.vertical(
                                   top: Radius.circular(15),
@@ -374,10 +377,10 @@ class PlaylistsView extends ConsumerWidget {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     ListTile(
-                                      leading: const Icon(Icons.edit),
+                                      leading: Icon(Icons.edit),
                                       title: Text(
                                         loc.playlistEditBtn,
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontFamily: 'Cormorant',
                                           fontSize: 16,
                                         ),
@@ -392,12 +395,12 @@ class PlaylistsView extends ConsumerWidget {
                                       },
                                     ),
                                     ListTile(
-                                      leading: const Icon(
+                                      leading: Icon(
                                         Icons.drive_file_rename_outline,
                                       ),
                                       title: Text(
                                         loc.commonRename,
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontFamily: 'Cormorant',
                                           fontSize: 16,
                                         ),
@@ -408,16 +411,16 @@ class PlaylistsView extends ConsumerWidget {
                                       },
                                     ),
                                     ListTile(
-                                      leading: const Icon(
+                                      leading: Icon(
                                         Icons.delete,
-                                        color: Colors.red,
+                                        color: Theme.of(context).primaryColor,
                                       ),
                                       title: Text(
                                         loc.commonDelete,
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontFamily: 'Cormorant',
                                           fontSize: 16,
-                                          color: Colors.red,
+                                          color: Theme.of(context).primaryColor,
                                         ),
                                       ),
                                       onTap: () {
@@ -425,7 +428,7 @@ class PlaylistsView extends ConsumerWidget {
                                         _deletePlaylist(context, ref, playlist);
                                       },
                                     ),
-                                    const SizedBox(height: 8),
+                                    SizedBox(height: 8),
                                   ],
                                 ),
                               ),
@@ -444,24 +447,27 @@ class PlaylistsView extends ConsumerWidget {
               child: GestureDetector(
                 onTap: () => _createPlaylist(context, ref),
                 child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.primaryContainer,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Row(
                     children: [
                       Text(
                         loc.filterPlaylists,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'Cormorant',
                           fontSize: 16,
-                          color: Colors.black,
+                          color:
+                              Theme.of(context).colorScheme.onPrimaryContainer,
                         ),
                       ),
                       SizedBox(width: 8),
-                      Icon(Icons.add, size: 18, color: Colors.black),
+                      Icon(Icons.add,
+                          size: 18,
+                          color:
+                              Theme.of(context).colorScheme.onPrimaryContainer),
                     ],
                   ),
                 ),

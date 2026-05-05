@@ -95,7 +95,7 @@ class _SplashPageState extends State<SplashPage>
     final subtitleText = isFr ? "par φ" : "by φ";
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: Center(
         child: IntrinsicWidth(
           child: Column(
@@ -110,7 +110,7 @@ class _SplashPageState extends State<SplashPage>
                     animation: _lineWidth,
                     builder: (context, child) {
                       return CustomPaint(
-                        foregroundPainter: _ChordsLogoPainter(_lineWidth.value),
+                        foregroundPainter: _ChordsLogoPainter(_lineWidth.value, Theme.of(context).colorScheme.onSurface),
                         child: child,
                       );
                     },
@@ -120,13 +120,13 @@ class _SplashPageState extends State<SplashPage>
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.baseline,
                         textBaseline: TextBaseline.alphabetic,
-                        children: const [
+                        children: [
                           Text(
                             "C",
                             style: TextStyle(
                               fontFamily: 'Cormorant',
                               fontSize: 50,
-                              color: Colors.red,
+                              color: Theme.of(context).colorScheme.primary,
                               height: 1.0,
                             ),
                           ),
@@ -135,7 +135,7 @@ class _SplashPageState extends State<SplashPage>
                             style: TextStyle(
                               fontFamily: 'Cormorant',
                               fontSize: 50,
-                              color: Colors.black,
+                              color: Theme.of(context).colorScheme.onSurface,
                               height: 1.0,
                             ),
                           ),
@@ -170,14 +170,15 @@ class _SplashPageState extends State<SplashPage>
 
 class _ChordsLogoPainter extends CustomPainter {
   final double lineProgress;
+  final Color lineColor;
 
-  _ChordsLogoPainter(this.lineProgress);
+  _ChordsLogoPainter(this.lineProgress, this.lineColor);
 
   @override
   void paint(Canvas canvas, Size size) {
     if (lineProgress > 0) {
       final paint = Paint()
-        ..color = Colors.black
+        ..color = lineColor
         ..strokeWidth = 1.0;
 
       final double y = size.height - 0.5;

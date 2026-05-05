@@ -111,18 +111,18 @@ class _MetronomePageState extends State<MetronomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         title: Text(
           AppLocalizations.of(context)!.metronomeTitle,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Cormorant',
             fontWeight: FontWeight.bold,
             fontSize: 22,
           ),
         ),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        foregroundColor: Theme.of(context).colorScheme.onSurface,
         elevation: 0,
       ),
       body: Column(
@@ -139,18 +139,18 @@ class _MetronomePageState extends State<MetronomePage>
 
               return AnimatedContainer(
                 duration: const Duration(milliseconds: 100),
-                margin: const EdgeInsets.symmetric(horizontal: 8),
+                margin: EdgeInsets.symmetric(horizontal: 8),
                 width: 15,
                 height: 15,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: isActive
-                      ? (index == 0 ? Colors.red : Colors.black)
-                      : Colors.grey.shade300,
+                      ? (index == 0 ? Theme.of(context).primaryColor : Theme.of(context).colorScheme.onSurface)
+                      : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
                   boxShadow: isActive
                       ? [
                           BoxShadow(
-                            color: (index == 0 ? Colors.red : Colors.black)
+                            color: (index == 0 ? Theme.of(context).primaryColor : Theme.of(context).colorScheme.onSurface)
                                 .withValues(alpha: 0.4),
                             blurRadius: 10,
                             spreadRadius: 2,
@@ -161,38 +161,38 @@ class _MetronomePageState extends State<MetronomePage>
               );
             }),
           ),
-          const SizedBox(height: 50),
+          SizedBox(height: 50),
           Text(
             "$_bpm",
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Cormorant',
               fontSize: 120,
               fontWeight: FontWeight.bold,
-              color: Colors.black,
+              color: Theme.of(context).colorScheme.onSurface,
               height: 1.0,
             ),
           ),
-          const Text(
+          Text(
             "BPM",
             style: TextStyle(
               fontFamily: 'UbuntuMono',
               fontSize: 20,
-              color: Colors.grey,
+              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
               letterSpacing: 2,
             ),
           ),
-          const SizedBox(height: 40),
+          SizedBox(height: 40),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 40),
+            padding: EdgeInsets.symmetric(horizontal: 40),
             child: SliderTheme(
               data: SliderTheme.of(context).copyWith(
-                activeTrackColor: Colors.red,
-                inactiveTrackColor: Colors.grey.shade200,
-                thumbColor: Colors.white,
+                activeTrackColor: Theme.of(context).primaryColor,
+                inactiveTrackColor: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
+                thumbColor: Theme.of(context).colorScheme.surface,
                 trackHeight: 4,
                 thumbShape: const RoundSliderThumbShape(
                     enabledThumbRadius: 12, elevation: 3),
-                overlayColor: Colors.red.withValues(alpha: 0.1),
+                overlayColor: Theme.of(context).primaryColor.withValues(alpha: 0.1),
               ),
               child: Slider(
                 value: _bpm.toDouble(),
@@ -210,20 +210,20 @@ class _MetronomePageState extends State<MetronomePage>
               ),
             ),
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               _buildAdjustButton(Icons.remove, () => _changeBpm(-1)),
-              const SizedBox(width: 30),
+              SizedBox(width: 30),
               _buildAdjustButton(Icons.add, () => _changeBpm(1)),
             ],
           ),
           const Spacer(),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
-              color: Colors.grey.shade100,
+              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
               borderRadius: BorderRadius.circular(30),
             ),
             child: Row(
@@ -241,15 +241,15 @@ class _MetronomePageState extends State<MetronomePage>
                     });
                   },
                   child: Container(
-                    padding: const EdgeInsets.all(12),
-                    margin: const EdgeInsets.symmetric(horizontal: 4),
+                    padding: EdgeInsets.all(12),
+                    margin: EdgeInsets.symmetric(horizontal: 4),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: isSelected ? Colors.white : Colors.transparent,
+                      color: isSelected ? Theme.of(context).colorScheme.surface : Colors.transparent,
                       boxShadow: isSelected
                           ? [
                               BoxShadow(
-                                color: Colors.black.withValues(alpha: 0.05),
+                                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.05),
                                 blurRadius: 4,
                               )
                             ]
@@ -260,7 +260,7 @@ class _MetronomePageState extends State<MetronomePage>
                       style: TextStyle(
                         fontFamily: 'UbuntuMono',
                         fontWeight: FontWeight.bold,
-                        color: isSelected ? Colors.red : Colors.grey,
+                        color: isSelected ? Theme.of(context).primaryColor : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
                       ),
                     ),
                   ),
@@ -268,7 +268,7 @@ class _MetronomePageState extends State<MetronomePage>
               }).toList(),
             ),
           ),
-          const SizedBox(height: 40),
+          SizedBox(height: 40),
           GestureDetector(
             onTap: _togglePlay,
             child: AnimatedContainer(
@@ -277,27 +277,27 @@ class _MetronomePageState extends State<MetronomePage>
               height: 80,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: _isPlaying ? Colors.grey.shade100 : Colors.red,
+                color: _isPlaying ? Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5) : Theme.of(context).primaryColor,
                 boxShadow: [
                   BoxShadow(
-                    color: (_isPlaying ? Colors.grey : Colors.red)
+                    color: (_isPlaying ? Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5) : Theme.of(context).primaryColor)
                         .withValues(alpha: 0.3),
                     blurRadius: 20,
                     offset: const Offset(0, 10),
                   )
                 ],
                 border: _isPlaying
-                    ? Border.all(color: Colors.grey.shade300, width: 2)
+                    ? Border.all(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5), width: 2)
                     : null,
               ),
               child: Icon(
                 _isPlaying ? Icons.stop_rounded : Icons.play_arrow_rounded,
-                color: _isPlaying ? Colors.black : Colors.white,
+                color: _isPlaying ? Theme.of(context).colorScheme.onSurface : Theme.of(context).colorScheme.surface,
                 size: 40,
               ),
             ),
           ),
-          const SizedBox(height: 50),
+          SizedBox(height: 50),
         ],
       ),
     );
@@ -312,9 +312,9 @@ class _MetronomePageState extends State<MetronomePage>
         height: 50,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          border: Border.all(color: Colors.grey.shade300),
+          border: Border.all(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5)),
         ),
-        child: Icon(icon, color: Colors.black),
+        child: Icon(icon, color: Theme.of(context).colorScheme.onSurface),
       ),
     );
   }

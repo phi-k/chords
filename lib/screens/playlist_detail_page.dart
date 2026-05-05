@@ -21,8 +21,8 @@ class PlaylistDetailPage extends ConsumerWidget {
 
     return asyncPlaylist.when(
       loading: () => Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(elevation: 0, backgroundColor: Colors.white),
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        appBar: AppBar(elevation: 0, backgroundColor: Theme.of(context).colorScheme.surface),
         body: const CustomLoader(),
       ),
       error: (err, stack) => Scaffold(
@@ -31,26 +31,26 @@ class PlaylistDetailPage extends ConsumerWidget {
       data: (playlist) {
         if (playlist == null) {
           return Scaffold(
-            backgroundColor: Colors.white,
+            backgroundColor: Theme.of(context).colorScheme.surface,
             appBar: AppBar(
                 elevation: 0,
-                backgroundColor: Colors.white,
-                iconTheme: const IconThemeData(color: Colors.black)),
+                backgroundColor: Theme.of(context).colorScheme.surface,
+                iconTheme: IconThemeData(color: Theme.of(context).colorScheme.onSurface)),
             body: Center(child: Text(loc.playlistNotFound)),
           );
         }
 
         return Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           appBar: AppBar(
-            backgroundColor: Colors.white,
+            backgroundColor: Theme.of(context).colorScheme.surface,
             elevation: 0,
             scrolledUnderElevation: 0,
-            iconTheme: const IconThemeData(color: Colors.black),
+            iconTheme: IconThemeData(color: Theme.of(context).colorScheme.onSurface),
             title: Text(
               playlist.name ?? "Playlist",
-              style: const TextStyle(
-                color: Colors.black,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSurface,
                 fontFamily: 'Cormorant',
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
@@ -58,7 +58,7 @@ class PlaylistDetailPage extends ConsumerWidget {
             ),
             actions: [
               IconButton(
-                icon: const Icon(Icons.edit, color: Colors.red),
+                icon: Icon(Icons.edit, color: Theme.of(context).colorScheme.primary),
                 onPressed: () {
                   Navigator.pushNamed(
                     context,
@@ -91,7 +91,7 @@ class PlaylistDetailPage extends ConsumerWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Container(
                       height: 1,
-                      color: Colors.black,
+                      color: Theme.of(context).colorScheme.onSurface,
                       width: double.infinity,
                     ),
                   ),
@@ -100,7 +100,7 @@ class PlaylistDetailPage extends ConsumerWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
                       loc.homePieceCount(playlistSongs.length),
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Cormorant',
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -116,7 +116,7 @@ class PlaylistDetailPage extends ConsumerWidget {
                           children: [
                             Text(
                               loc.playlistNoSongs,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'Cormorant',
                                 fontSize: 16,
                               ),
@@ -131,8 +131,8 @@ class PlaylistDetailPage extends ConsumerWidget {
                                 );
                               },
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.red,
-                                foregroundColor: Colors.white,
+                                backgroundColor: Theme.of(context).colorScheme.primary,
+                                foregroundColor: Theme.of(context).colorScheme.surface,
                               ),
                               child: Text(loc.playlistAddSongs),
                             ),

@@ -1,6 +1,5 @@
 {
   "@@locale": "fr",
-
   "welcomePass": "PASSER",
   "welcomeStart": "COMMENCER",
   "welcomeNext": "SUIVANT",
@@ -12,7 +11,6 @@
   "welcomeSlide3Subtitle": "Transposez en un clic, simplifiez\nles accords complexes. Adaptez le morceau à vous.",
   "welcomeSlide4Title": "Maîtrisez\nvotre Art.",
   "welcomeSlide4Subtitle": "Statistiques de jeu, historique, playlists.\nSuivez votre progression musicale jour après jour.",
-
   "commonCancel": "Annuler",
   "commonSave": "Enregistrer",
   "commonDelete": "Supprimer",
@@ -28,7 +26,6 @@
   "commonRename": "Renommer",
   "commonCreate": "Créer",
   "commonOther": "Autres",
-
   "homeArtists": "Artistes",
   "homePlaylists": "Playlists",
   "homeRecent": "Récents",
@@ -39,7 +36,6 @@
   "homeEmptyBtnSourceDone": "Source configurée",
   "homeEmptySourceDoneSubtitle": "Votre source est prête ! Essayez la recherche pour trouver vos premiers morceaux.",
   "homeEmptyBtnWrite": "Noter un morceau",
-
   "homeNoSongs": "Aucun morceau sauvegardé.",
   "homeSongCount": "{count, plural, =0{0 morceau} =1{1 morceau} other{{count} morceaux}}",
   "homeUpdateSuccess": "Mise à jour réussie !",
@@ -49,7 +45,6 @@
   "homeSongsOf": "Chansons de {artist}",
   "homePlaylistLabel": "Playlist: {name}",
   "homePieceCount": "{count, plural, =0{0 morceau} =1{1 morceau} other{{count} morceaux}}",
-
   "songDifficulty": "Difficulté",
   "songCapo": "Capo",
   "songTuning": "Accordage",
@@ -62,7 +57,6 @@
   "songDeleteConfirmMessage": "Êtes-vous sûr de vouloir supprimer \"{title}\" par {artist} ? Cette action est irréversible.",
   "songNoCheat": "Pas de triche ici ! ;)",
   "songNoCheatDismiss": "Snif",
-
   "statsTitle": "Statistiques",
   "statsSavedDate": "Date d'enregistrement",
   "statsPlayCount": "Nombre de fois joué",
@@ -74,7 +68,6 @@
   "statsShowList": "Afficher en liste",
   "statsShowGraph": "Afficher en graphique",
   "statsUnknownTitle": "Titre inconnu",
-
   "toolsTitle": "Outils",
   "toolsUtilities": "Utilitaires",
   "toolsTuner": "Accordeur",
@@ -91,7 +84,6 @@
   "toolsVersionDesc": "Voir la version actuelle et l'historique",
   "toolsWelcome": "Revoir l'introduction",
   "toolsWelcomeDesc": "Afficher l'écran de bienvenue",
-
   "settingsTitle": "Paramètres",
   "settingsSearchHint": "Rechercher un paramètre...",
   "settingsNoResults": "Aucun résultat trouvé",
@@ -123,7 +115,6 @@
   "settingsAppVersion": "Version de l'application",
   "settingsLegal": "Mentions légales & Licence",
   "settingsDevSubtitle": "phi-k - pianiste et développeur",
-
   "dsTitle": "Sources de données",
   "dsNoSource": "Aucune source configurée",
   "dsNoSourceDesc": "Chords ne contient aucune musique par défaut. Connectez votre propre base de données ou une API communautaire pour rechercher des tablatures.",
@@ -159,22 +150,17 @@
   "dsImportFileSubtitle": "Charger un fichier JSON de configuration",
   "dsManualSubtitle": "Renseigner les informations de connexion à la main",
   "dsSourceCount": "{count, plural, =1{1 source configurée} other{{count} sources configurées}}",
-
   "dsConnected": "Connectée",
   "dsShare": "Partager",
-
   "editSourceUnsavedTitle": "Modifications non sauvegardées",
   "editSourceUnsavedMessage": "Vous avez des modifications non enregistrées. Que souhaitez-vous faire ?",
   "editSourceContinue": "Continuer l'édition",
   "editSourceDiscard": "Abandonner",
   "editSourceFillRequired": "Remplissez au moins l'URL de base et le chemin de recherche.",
-
   "searchResultsFor": "Résultats pour \"{term}\"",
   "searchNoResults": "Aucun résultat trouvé pour cette recherche.",
   "searchLoadMore": "Charger plus",
-
   "searchBarHint": "Find anything.",
-
   "creationTitle": "Nouveau morceau",
   "creationTitleRequired": "Le titre est obligatoire.",
   "creationArtistRequired": "L'auteur est obligatoire.",
@@ -191,14 +177,12 @@
   "creationContentHint": "[Intro]\n\nAm           F\nÉcrivez vos accords ici...\nC            G\nAu dessus des paroles.",
   "creationPaste": "Coller",
   "creationUndoPaste": "Annuler le collage",
-
   "editLyricsTitle": "Éditer \"{title}\"",
   "editLyricsReset": "Réinitialiser",
   "editLyricsResetTitle": "Réinitialisation",
   "editLyricsResetMessage": "Cette action va restaurer la version originale des paroles et accords, et supprimer toutes vos modifications précédentes. Êtes-vous sûr ?",
   "editLyricsHint": "Entrez les paroles et accords ici...",
   "editLyricsResetTooltip": "Réinitialiser à la version originale",
-
   "blindTestTitle": "Blind Test",
   "blindTestHideTitles": "Cacher les titres",
   "blindTestShowTitles": "Montrer les titres",
@@ -212,7 +196,6 @@
   "blindTestTitleHidden": "Vue du titre désactivée",
   "blindTestViewSong": "Voir la chanson",
   "blindTestCancelTooltip": "Annuler",
-
   "playlistNotFound": "Playlist non trouvée.",
   "playlistNoSongs": "Aucun morceau dans cette playlist",
   "playlistAddSongs": "Ajouter des morceaux",
@@ -228,7 +211,6 @@
   "playlistDeleteMessage": "Voulez-vous vraiment supprimer la playlist \"{name}\" ?",
   "playlistCreateError": "Erreur lors de la création de la playlist",
   "playlistRenameError": "Erreur lors du renommage de la playlist",
-
   "filterSongsCount": "{count, plural, =0{0 chanson} =1{1 chanson} other{{count} chansons}}",
   "filterArtistsCount": "{count, plural, =0{0 artiste} =1{1 artiste} other{{count} artistes}}",
   "filterOldestArtists": "Artistes les moins récents",
@@ -238,7 +220,6 @@
   "filterNoPlayed": "Aucun morceau n'a encore été joué",
   "filterChordCount": "{count, plural, =1{1 chord} other{{count} chords}}",
   "filterTagsNotImplemented": "Filtrage par tags non implémenté",
-
   "updatePermissionTitle": "Permission requise",
   "updatePermissionMessage": "Pour mettre à jour Chords, vous devez autoriser l'installation d'applications inconnues depuis les paramètres.",
   "updateOpenSettings": "Ouvrir les paramètres",
@@ -249,7 +230,6 @@
   "updateMissed": "Ce que vous avez manqué :",
   "updateLater": "Plus tard",
   "updateInstall": "Installer",
-
   "versionTitle": "Version et mises à jour",
   "versionAutoUpdateAndroid": "Les mises à jour automatiques ne sont disponibles que sur Android.",
   "versionUpToDate": "Vous êtes à jour !",
@@ -258,7 +238,6 @@
   "versionCheckUpdate": "Vérifier les mises à jour",
   "versionHistory": "Historique des versions",
   "versionHistoryError": "Impossible de charger l'historique.",
-
   "tunerTitle": "Accordeur",
   "tunerPlayString": "Jouez une corde",
   "tunerMicPermission": "Permission microphone nécessaire pour l'accordeur.",
@@ -266,17 +245,14 @@
   "tunerTuned": "Accordé",
   "tunerTooLow": "Trop bas",
   "tunerTooHigh": "Trop haut",
-  "tunerListening": "En écoute\u2026",
+  "tunerListening": "En écoute…",
   "tunerMuteBtn": "Couper le micro",
   "tunerActivateBtn": "Activer le micro",
-
   "metronomeTitle": "Métronome",
-
   "exportListTitle": "Exporter la liste",
   "exportGenerating": "Génération...",
   "exportExport": "Exporter",
   "exportSongsLoading": "La liste de morceaux est en cours de chargement.",
-
   "exportTabsTitle": "Générer un Songbook",
   "exportTabsSetCount": "Définir le nombre",
   "exportTabsCountHint": "Entrez un nombre entre 1 et {max} :",
@@ -303,53 +279,36 @@
   "exportTabsSongCount": "Nombre de morceaux",
   "exportTabsRecentDesc": "Les morceaux les plus récemment joués ou ajoutés.",
   "exportTabsUnnamed": "Sans nom",
-
   "multiSelectTitle": "Sélection manuelle",
   "multiSelectSearchHint": "Rechercher...",
   "multiSelectCount": "{count} sélectionné(s)",
   "multiSelectAll": "Tout sélectionner",
   "multiSelectNone": "Tout désélectionner",
-
   "metadataEditTitle": "Modifier les métadonnées",
   "metadataTitle": "Titre",
   "metadataArtist": "Auteur",
   "metadataCoverUrl": "URL de la cover",
   "metadataFetchGenius": "Récupérer depuis Genius",
-
   "editOptionsMetadata": "Modifier les métadonnées",
   "editOptionsLyrics": "Modifier les paroles et accords",
-
   "langChooseTitle": "Choose your language\nChoisissez votre langue",
-
   "welcomeFinalGreeting": "Bienvenue sur ",
   "welcomeFinalSubtitle": "Votre catalogue de musique\n100% gratuit et open-source.",
-
   "filterArtists": "Artistes",
   "filterPlaylists": "Playlists",
   "filterRecent": "Récents",
-
   "headerSongs": "{count, plural, =0{0 chansons} =1{1 chanson} other{{count} chansons}}",
   "headerArtistsOldest": "Artistes les moins récents",
   "headerArtistsNewest": "Artistes les plus récents",
   "headerArtists": "{count, plural, =0{0 artistes} =1{1 artiste} other{{count} artistes}}",
   "headerOldSongs": "Morceaux anciens",
   "headerRecentSongs": "Morceaux récents",
-
   "artistsUnknown": "Inconnu",
   "artistsOther": "Autres",
-
   "recentNoSongsPlayed": "Aucun morceau n'a encore été joué",
-
   "tagsNotImplemented": "Filtrage par tags non implémenté",
-
-  "playlistNewTitle": "Nouvelle Playlist",
-  "playlistNameHint": "Nom de la playlist...",
   "playlistCreateBtn": "Créer",
-  "playlistCreateError": "Erreur lors de la création de la playlist",
-  "playlistRenameTitle": "Renommer la Playlist",
   "playlistRenameBtn": "Renommer",
-  "playlistRenameError": "Erreur lors du renommage de la playlist",
-  "playlistDeleteTitle": "Supprimer la Playlist",
   "playlistDeleteConfirm": "Voulez-vous vraiment supprimer la playlist \"{name}\" ?",
   "playlistDeleteBtn": "Supprimer",
   "playlistDeleteError": "Erreur lors de la suppression de la playlist",
@@ -357,23 +316,11 @@
   "playlistCreateNew": "Créer une playlist",
   "playlistSongCount": "{count, plural, =0{0 morceaux} =1{1 morceau} other{{count} morceaux}}",
   "playlistEditBtn": "Modifier",
-
   "songListOther": "Autres",
   "songListNoteSong": "Noter un morceau",
   "songListBlindTest": "Blind Test",
   "songListSettings": "Paramètres",
-
-  "updatePermissionTitle": "Permission requise",
-  "updatePermissionMessage": "Pour mettre à jour Chords, vous devez autoriser l'installation d'applications inconnues depuis les paramètres.",
-  "updateOpenSettings": "Ouvrir les paramètres",
-  "updateAvailable": "Mise à jour disponible",
-  "updateVersion": "Version {version}",
-  "updateDownloading": "Téléchargement en cours...",
-  "updateDownloadFailed": "Échec du téléchargement. Vérifiez votre connexion.",
   "updateChangelog": "Ce que vous avez manqué :",
-  "updateLater": "Plus tard",
-  "updateInstall": "Installer",
-
   "exportFilterPlaylist": "Filtrer par playlist",
   "exportFilterPlaylistDesc": "N'inclure que les morceaux d'une playlist.",
   "exportFilterPlaylistLoadError": "Erreur de chargement des playlists",
@@ -388,7 +335,6 @@
   "exportFilterChooseDate": "Choisir une date",
   "exportFilterTags": "Filtrer par tags",
   "exportFilterTagsSoon": "Bientôt disponible !",
-
   "exportOptDisplayContent": "Contenu à afficher",
   "exportOptSongs": "Morceaux",
   "exportOptAuthors": "Auteurs",
@@ -411,11 +357,8 @@
   "exportOptFilteredSongs": "Seulement ceux qui répondent à certains critères",
   "exportOptSortChrono": "Chronologique (ajout récent)",
   "exportOptExportFormat": "Format d'export",
-
   "legalAppBarTitle": "Licence & Philosophie",
-
   "legalPartLicenseHeader": "Licence open-source",
-
   "legalSection1Title": "1. Licence et Code Source",
   "legalSection1P1": "L'application Chords est un logiciel libre distribué sous licence GNU Affero General Public License v3.0 (AGPL-3.0). Le code source est disponible publiquement sur le dépôt GitHub officiel :",
   "legalSection1Link": "https://github.com/phi-k/chords",
@@ -424,31 +367,46 @@
   "legalSection1Bullet2": "Modifier et redistribuer l'application, sous réserve de conserver la même licence AGPL-3.0.",
   "legalSection1Bullet3": "Utiliser l'application à toute fin, y compris commerciale.",
   "legalSection1P3": "Toute version modifiée ou dérivée doit être distribuée sous la même licence AGPL-3.0, inclure le texte complet de la licence, et rendre le code source disponible. Le texte intégral de la licence est consultable dans le fichier LICENSE du dépôt.",
-
   "legalSection2Title": "2. Attribution",
   "legalSection2P1": "Conformément à la licence AGPL-3.0, les avis de copyright et d'attribution doivent être conservés dans toute copie ou version dérivée du logiciel. L'application originale a été créée par phi-k.",
   "legalSection2P2": "Les contributeurs sont libres d'ajouter leur nom pour signaler leurs contributions.",
-
   "legalSection3Title": "3. Services Tiers",
   "legalSection3P1": "Le site web 'chords.ovh' est une entité indépendante de l'application open-source. Il fournit des services optionnels (partage de setlists) et son code source n'est pas couvert par cette licence.",
   "legalSection3P2": "Les mises à jour officielles de l'application sont publiées via le dépôt GitHub. Les versions distribuées par d'autres sources ne sont pas sous la responsabilité de l'auteur original.",
-
   "legalSection4Title": "4. Contact",
   "legalSection4P1": "Pour signaler un bug, proposer une amélioration ou toute autre question, vous pouvez contacter le créateur :",
-
   "legalPartPhilosophyHeader": "Philosophie du projet",
   "legalPhilosophyIntro": "Les engagements suivants ne sont pas des obligations légales, mais ils représentent les valeurs fondatrices du projet Chords. Ils sont détaillés dans le fichier PHILOSOPHY.md du dépôt.",
-
   "legalPhiloQuote": "Chords est un outil musical gratuit, disponible pour tous, et nous souhaitons qu'il le reste pour toujours.",
-
   "legalPhiloP1": "L'auteur s'engage à ce que la version officielle de Chords :",
   "legalPhiloBullet1": "Reste gratuite et sans publicité.",
   "legalPhiloBullet2": "Ne collecte aucune donnée personnelle.",
   "legalPhiloBullet3": "Reste un outil au service des musiciens, sans compromis commercial.",
   "legalPhiloP2": "Nous encourageons les forks et versions dérivées à partager ces valeurs, mais la licence AGPL-3.0 n'impose aucune restriction sur l'usage commercial ou la modification de l'interface.",
-
   "legalDonationTitle": "Contribution & Support",
   "legalDonationContent": "Chords est et restera gratuit et sans publicité. Le développement est maintenu par l'auteur sur son temps libre. Les donations sont possibles pour soutenir le projet mais restent absolument optionnelles.",
-
-  "legalEmailCopied": "Adresse email copiée !"
+  "legalEmailCopied": "Adresse email copiée !",
+  "themeCreatorTitle": "Créer",
+  "themeNameHint": "Nom",
+  "themeDescHint": "Description",
+  "themeCoverHint": "Couverture",
+  "themeColorPrimary": "Principal",
+  "themeColorBackground": "Fond",
+  "themeColorText": "Texte",
+  "themeLightName": "Light Chords",
+  "themeLightDesc": "Thème clair original de Chords",
+  "themeDarkName": "Dark Chords",
+  "themeDarkDesc": "Thème sombre, le plus confortable",
+  "themeDarkSideName": "B&W Chords",
+  "themeDarkSideDesc": "Palette noir et blanc en contraste absolu",
+  "themeNevermindName": "Golden Chords",
+  "themeNevermindDesc": "Everything You've Come To Expect",
+  "themeTitle": "Thème",
+  "themeImport": "Importer",
+  "themeExport": "Exporter",
+  "themeCreate": "Créer",
+  "themeCustoms": "Personnalisés",
+  "themeNameRequired": "Veuillez donner un nom à votre thème",
+  "themeFollowSystem": "Suivre le système",
+  "themeFollowSystemDesc": "S'adapter au mode clair/sombre de l'appareil"
 }

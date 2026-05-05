@@ -6,6 +6,7 @@ import 'package:permission_handler/permission_handler.dart';
 import '../l10n/app_localizations.dart';
 import '../models/app_version.dart';
 import '../services/update_service.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 class UpdateDialog extends StatefulWidget {
   final AppVersion appVersion;
@@ -44,17 +45,17 @@ class _UpdateDialogState extends State<UpdateDialog> {
       context: context,
       builder: (ctx) => AlertDialog(
         title: Text(loc.updatePermissionTitle,
-            style: const TextStyle(
+            style: TextStyle(
                 fontFamily: 'Cormorant', fontWeight: FontWeight.bold)),
         content: Text(
           loc.updatePermissionMessage,
-          style: const TextStyle(fontFamily: 'Cormorant'),
+          style: TextStyle(fontFamily: 'Cormorant'),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
             child: Text(loc.commonCancel,
-                style: const TextStyle(color: Colors.black)),
+                style: TextStyle(color: Colors.black)),
           ),
           TextButton(
             onPressed: () {
@@ -62,7 +63,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
               openAppSettings();
             },
             child: Text(loc.updateOpenSettings,
-                style: const TextStyle(color: Colors.red)),
+                style: TextStyle(color: Theme.of(context).primaryColor)),
           ),
         ],
       ),
@@ -112,16 +113,16 @@ class _UpdateDialogState extends State<UpdateDialog> {
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     return AlertDialog(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       title: Column(
         children: [
-          const Icon(Icons.system_update, color: Colors.red, size: 40),
-          const SizedBox(height: 10),
+          Icon(Icons.system_update, color: Theme.of(context).primaryColor, size: 40),
+          SizedBox(height: 10),
           Text(
             loc.updateAvailable,
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Cormorant',
               fontSize: 22,
               fontWeight: FontWeight.bold,
@@ -130,10 +131,10 @@ class _UpdateDialogState extends State<UpdateDialog> {
           ),
           Text(
             loc.updateVersion(widget.appVersion.version),
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Cormorant',
               fontSize: 16,
-              color: Colors.grey,
+              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
             ),
           ),
         ],
@@ -146,20 +147,20 @@ class _UpdateDialogState extends State<UpdateDialog> {
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20),
                   Text(loc.updateDownloading,
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontFamily: 'Cormorant', fontSize: 16)),
-                  const SizedBox(height: 15),
+                  SizedBox(height: 15),
                   LinearProgressIndicator(
                     value: _progress,
-                    backgroundColor: Colors.grey.shade200,
-                    color: Colors.red,
+                    backgroundColor: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
+                    color: Theme.of(context).primaryColor,
                     minHeight: 6,
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: 10),
                   Text("${(_progress * 100).toInt()}%",
-                      style: const TextStyle(fontWeight: FontWeight.bold)),
+                      style: TextStyle(fontWeight: FontWeight.bold)),
                 ],
               )
             : SingleChildScrollView(
@@ -169,32 +170,34 @@ class _UpdateDialogState extends State<UpdateDialog> {
                   children: [
                     if (_errorMessage != null)
                       Container(
-                        padding: const EdgeInsets.all(8),
-                        margin: const EdgeInsets.only(bottom: 10),
+                        padding: EdgeInsets.all(8),
+                        margin: EdgeInsets.only(bottom: 10),
                         width: double.infinity,
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.surface,
                         child: Text(
                           _errorMessage!,
                           style:
-                              const TextStyle(color: Colors.red, fontSize: 13),
+                              TextStyle(color: Theme.of(context).primaryColor, fontSize: 13),
                           textAlign: TextAlign.center,
                         ),
                       ),
                     Text(
                       loc.updateChangelog,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Cormorant',
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
                       ),
                     ),
-                    const SizedBox(height: 10),
-                    Text(
-                      widget.appVersion.changelog,
-                      style: const TextStyle(
-                        fontFamily: 'UbuntuMono',
-                        fontSize: 14,
-                        height: 1.4,
+                    SizedBox(height: 10),
+                    MarkdownBody(
+                      data: widget.appVersion.changelog,
+                      styleSheet: MarkdownStyleSheet(
+                        p: TextStyle(
+                          fontFamily: 'UbuntuMono',
+                          fontSize: 14,
+                          height: 1.4,
+                        ),
                       ),
                     ),
                   ],
@@ -208,7 +211,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
                 onPressed: () => Navigator.pop(context),
                 child: Text(
                   loc.updateLater,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Cormorant',
                     fontSize: 16,
                     color: Colors.black,
@@ -218,13 +221,13 @@ class _UpdateDialogState extends State<UpdateDialog> {
               ElevatedButton(
                 onPressed: _checkPermissionAndStartDownload,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
-                  foregroundColor: Colors.white,
+                  backgroundColor: Theme.of(context).primaryColor,
+                  foregroundColor: Theme.of(context).colorScheme.surface,
                   elevation: 0,
                 ),
                 child: Text(
                   loc.updateInstall,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Cormorant',
                     fontSize: 16,
                     fontWeight: FontWeight.bold,

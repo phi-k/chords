@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
+import 'dart:io';
 
 class AppImage extends StatelessWidget {
   final String? url;
@@ -25,6 +26,27 @@ class AppImage extends StatelessWidget {
   Widget build(BuildContext context) {
     if (url == null || url!.isEmpty) {
       return _buildStaticPlaceholder();
+    }
+
+    if (url!.startsWith('local://')) {
+      final localPath = url!.replaceFirst('local://', '');
+      final file = File(localPath);
+
+      if (!file.existsSync()) {
+        return _buildStaticPlaceholder();
+      }
+
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(borderRadius),
+        child: Image.file(
+          file,
+          width: width,
+          height: height,
+          fit: fit,
+          errorBuilder: (context, error, stackTrace) =>
+              _buildStaticPlaceholder(),
+        ),
+      );
     }
 
     return ClipRRect(

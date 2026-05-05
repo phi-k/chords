@@ -156,11 +156,11 @@ class _SongListWidgetState extends ConsumerState<SongListWidget>
         children: [
           Text(
             displayText,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Cormorant',
               fontSize: 22,
               fontWeight: FontWeight.bold,
-              color: Colors.black,
+              color: Theme.of(context).colorScheme.onSurface,
             ),
           ),
           const SizedBox(width: 10),
@@ -242,8 +242,12 @@ class _SongListWidgetState extends ConsumerState<SongListWidget>
                 child: Container(
                   width: 50,
                   height: 50,
-                  color: Colors.black.withValues(alpha: 0.05),
-                  child: const Icon(Icons.edit_note, color: Colors.black),
+                  color: Theme.of(context)
+                      .colorScheme
+                      .primary
+                      .withValues(alpha: 0.15),
+                  child: Icon(Icons.edit_note,
+                      color: Theme.of(context).colorScheme.primary),
                 ),
               ),
               const SizedBox(width: 10),
@@ -252,10 +256,10 @@ class _SongListWidgetState extends ConsumerState<SongListWidget>
                 children: [
                   Text(
                     loc.songListNoteSong,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Cormorant',
                       fontSize: 20,
-                      color: Colors.black,
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
                 ],
@@ -285,8 +289,12 @@ class _SongListWidgetState extends ConsumerState<SongListWidget>
                 child: Container(
                   width: 50,
                   height: 50,
-                  color: Colors.red.shade100,
-                  child: const Icon(Icons.music_note, color: Colors.red),
+                  color: Theme.of(context)
+                      .colorScheme
+                      .primary
+                      .withValues(alpha: 0.225),
+                  child: Icon(Icons.music_note,
+                      color: Theme.of(context).colorScheme.primary),
                 ),
               ),
               const SizedBox(width: 10),
@@ -295,10 +303,10 @@ class _SongListWidgetState extends ConsumerState<SongListWidget>
                 children: [
                   Text(
                     loc.songListBlindTest,
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontFamily: 'Cormorant',
                         fontSize: 20,
-                        color: Colors.black),
+                        color: Theme.of(context).colorScheme.onSurface),
                   ),
                 ],
               ),
@@ -327,8 +335,12 @@ class _SongListWidgetState extends ConsumerState<SongListWidget>
                 child: Container(
                   width: 50,
                   height: 50,
-                  color: Colors.grey.shade300,
-                  child: const Icon(Icons.settings, color: Colors.black),
+                  color: Theme.of(context)
+                      .colorScheme
+                      .primary
+                      .withValues(alpha: 0.30),
+                  child: Icon(Icons.settings,
+                      color: Theme.of(context).colorScheme.primary),
                 ),
               ),
               const SizedBox(width: 10),
@@ -337,10 +349,10 @@ class _SongListWidgetState extends ConsumerState<SongListWidget>
                 children: [
                   Text(
                     loc.songListSettings,
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontFamily: 'Cormorant',
                         fontSize: 20,
-                        color: Colors.black),
+                        color: Theme.of(context).colorScheme.onSurface),
                   ),
                 ],
               ),

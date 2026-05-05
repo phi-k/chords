@@ -184,6 +184,18 @@ class _MyAppState extends ConsumerState<MyApp> {
   Widget build(BuildContext context) {
     final settings = ref.watch(settingsProvider);
 
+    final allThemes = [...builtInThemes, ...settings.customThemes];
+
+    final lightThemeId = settings.followSystem
+        ? settings.activeLightThemeId
+        : settings.activeThemeId;
+    final lightTheme = allThemes.firstWhere((t) => t.id == lightThemeId,
+        orElse: () => builtInThemes[0]);
+
+    final darkThemeId = settings.activeDarkThemeId;
+    final darkTheme = allThemes.firstWhere((t) => t.id == darkThemeId,
+        orElse: () => builtInThemes[1]);
+
     return MaterialApp(
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
@@ -191,33 +203,33 @@ class _MyAppState extends ConsumerState<MyApp> {
       locale: settings.locale,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.red,
-          primary: Colors.red,
-          surface: Colors.white,
-        ),
-        dialogTheme: const DialogThemeData(
-          backgroundColor: Colors.white,
-          surfaceTintColor: Colors.transparent,
-        ),
-        bottomSheetTheme: const BottomSheetThemeData(
-          backgroundColor: Colors.white,
-          surfaceTintColor: Colors.transparent,
-        ),
-        textSelectionTheme: const TextSelectionThemeData(
-          cursorColor: Colors.red,
-          selectionColor: Color(0xFFFFCDD2),
-          selectionHandleColor: Colors.red,
-        ),
-        pageTransitionsTheme: const PageTransitionsTheme(
-          builders: {
-            TargetPlatform.android: ZoomPageTransitionsBuilder(),
-            TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
-          },
-        ),
-      ),
+      themeMode: settings.followSystem ? ThemeMode.system : ThemeMode.light,
+      theme: lightTheme.getThemeData().copyWith(
+            pageTransitionsTheme: const PageTransitionsTheme(
+              builders: {
+                TargetPlatform.android: ZoomPageTransitionsBuilder(),
+                TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+              },
+            ),
+            textSelectionTheme: TextSelectionThemeData(
+              cursorColor: lightTheme.primaryColor,
+              selectionColor: lightTheme.primaryColor.withValues(alpha: 0.3),
+              selectionHandleColor: lightTheme.primaryColor,
+            ),
+          ),
+      darkTheme: darkTheme.getThemeData().copyWith(
+            pageTransitionsTheme: const PageTransitionsTheme(
+              builders: {
+                TargetPlatform.android: ZoomPageTransitionsBuilder(),
+                TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+              },
+            ),
+            textSelectionTheme: TextSelectionThemeData(
+              cursorColor: darkTheme.primaryColor,
+              selectionColor: darkTheme.primaryColor.withValues(alpha: 0.3),
+              selectionHandleColor: darkTheme.primaryColor,
+            ),
+          ),
       home: widget.startScreen,
       routes: {
         '/home': (context) => const HomePage(),

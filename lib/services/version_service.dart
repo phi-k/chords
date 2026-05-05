@@ -5,7 +5,7 @@ class VersionService {
   static const Map<String, String> _versionNames = {
     '1.0': 'The Release',
     '1.1': 'The River Update',
-    '1.2': 'The Stream Update',
+    '1.2': 'The Colorful Update',
   };
   static String getVersionCodename(String fullVersion) {
     if (fullVersion.isEmpty) {

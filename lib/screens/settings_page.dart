@@ -27,6 +27,7 @@ import 'tools/version_page.dart';
 import 'welcome_page.dart';
 import 'legal_page.dart';
 import 'settings/data_sources_page.dart';
+import 'settings/theme_selection_page.dart';
 
 class SettingsPage extends ConsumerStatefulWidget {
   const SettingsPage({super.key});
@@ -87,7 +88,10 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                 TextButton(
                   onPressed: () => Navigator.pop(ctx, false),
                   style: TextButton.styleFrom(
-                    foregroundColor: Colors.black54,
+                    foregroundColor: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withValues(alpha: 0.54),
                   ),
                   child: Text(loc.commonCancel,
                       style: const TextStyle(fontFamily: 'Cormorant')),
@@ -95,7 +99,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                 TextButton(
                   onPressed: () => Navigator.pop(ctx, true),
                   style: TextButton.styleFrom(
-                    foregroundColor: Colors.red,
+                    foregroundColor: Theme.of(context).colorScheme.primary,
                   ),
                   child: Text(loc.commonConfirm,
                       style: const TextStyle(fontFamily: 'Cormorant')),
@@ -155,7 +159,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
           if (!context.mounted) return;
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(AppLocalizations.of(context)!.settingsInvalidFile),
-            backgroundColor: Colors.red,
+            backgroundColor: Theme.of(context).colorScheme.primary,
             duration: const Duration(seconds: 2),
           ));
         }
@@ -164,7 +168,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(
               AppLocalizations.of(context)!.settingsImportError(e.toString())),
-          backgroundColor: Colors.red,
+          backgroundColor: Theme.of(context).colorScheme.primary,
           duration: const Duration(seconds: 2),
         ));
       }
@@ -209,7 +213,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(
             AppLocalizations.of(context)!.settingsExportError(e.toString())),
-        backgroundColor: Colors.red,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         duration: const Duration(seconds: 2),
       ));
     }
@@ -235,6 +239,15 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       'JSON',
       'sauvegarde',
       'backup',
+    ];
+
+    final themeKw = [
+      loc.themeTitle,
+      'thème',
+      'theme',
+      'apparence',
+      'couleur',
+      'color',
     ];
 
     final toolsPageKw = [
@@ -368,6 +381,16 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             Icons.file_download_outlined, () => _exportJson(context));
       }
 
+      if (_itemMatches(themeKw)) {
+        addResult(loc.themeTitle, "Personnaliser les couleurs de l'application",
+            Icons.palette_outlined, () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const ThemeSelectionPage()));
+        });
+      }
+
       if (_itemMatches(toolsPageKw)) {
         addResult(
             loc.toolsTitle, loc.settingsToolsDesc, Icons.construction_outlined,
@@ -475,15 +498,13 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             fontSize: 22,
           ),
         ),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
         elevation: 0,
         centerTitle: false,
         actions: [
           PopupMenuButton<String>(
             icon: const Icon(Icons.language, size: 22),
             tooltip: loc.settingsLanguage,
-            color: Colors.white,
+            color: Theme.of(context).colorScheme.surface,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
@@ -507,7 +528,9 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                         )),
                     if (settings.locale.languageCode == 'en') ...[
                       const Spacer(),
-                      const Icon(Icons.check, size: 18, color: Colors.red),
+                      Icon(Icons.check,
+                          size: 18,
+                          color: Theme.of(context).colorScheme.primary),
                     ],
                   ],
                 ),
@@ -528,7 +551,9 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                         )),
                     if (settings.locale.languageCode == 'fr') ...[
                       const Spacer(),
-                      const Icon(Icons.check, size: 18, color: Colors.red),
+                      Icon(Icons.check,
+                          size: 18,
+                          color: Theme.of(context).colorScheme.primary),
                     ],
                   ],
                 ),
@@ -538,7 +563,6 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
           const SizedBox(width: 8),
         ],
       ),
-      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -548,9 +572,13 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
               const SizedBox(height: 15),
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.grey.shade50,
+                  color: Theme.of(context).colorScheme.onSurface.withAlpha(15),
                   borderRadius: BorderRadius.circular(14),
-                  border: Border.all(color: Colors.grey.shade200),
+                  border: Border.all(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withAlpha(30)),
                 ),
                 child: TextField(
                   controller: _searchController,
@@ -560,11 +588,19 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                   decoration: InputDecoration(
                     hintText: loc.settingsSearchHint,
                     prefixIcon: Icon(Icons.search,
-                        color: Colors.grey.shade400, size: 22),
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withAlpha(100),
+                        size: 22),
                     suffixIcon: _searchQuery.isNotEmpty
                         ? IconButton(
                             icon: Icon(Icons.clear,
-                                color: Colors.grey.shade400, size: 20),
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSurface
+                                    .withAlpha(100),
+                                size: 20),
                             onPressed: () {
                               _searchController.clear();
                               setState(() => _searchQuery = '');
@@ -576,7 +612,10 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                         horizontal: 16, vertical: 14),
                     hintStyle: TextStyle(
                       fontFamily: 'Cormorant',
-                      color: Colors.grey.shade400,
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withAlpha(100),
                       fontSize: 16,
                     ),
                   ),
@@ -593,7 +632,10 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                         style: TextStyle(
                           fontFamily: 'Cormorant',
                           fontSize: 16,
-                          color: Colors.grey.shade400,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSurface
+                              .withAlpha(100),
                         ),
                       ),
                     ),
@@ -635,6 +677,31 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                         loc.settingsExportLibDesc,
                         Icons.file_download_outlined,
                         () => _exportJson(context),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 24),
+                _buildSectionHeader(
+                    context, loc.themeTitle, Icons.palette_outlined),
+                _buildSectionContainer(
+                  context,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildFeatureRow(
+                        context,
+                        loc.themeTitle,
+                        "Personnaliser les couleurs de l'application",
+                        Icons.palette_outlined,
+                        () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const ThemeSelectionPage()),
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -688,8 +755,8 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                       ListTile(
                         contentPadding:
                             const EdgeInsets.symmetric(horizontal: 8),
-                        leading:
-                            const Icon(Icons.person_outline, color: Colors.red),
+                        leading: Icon(Icons.person_outline,
+                            color: Theme.of(context).colorScheme.primary),
                         title: Text(
                           loc.settingsDevBy,
                           style: const TextStyle(
@@ -709,7 +776,8 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                       ListTile(
                         contentPadding:
                             const EdgeInsets.symmetric(horizontal: 8),
-                        leading: const Icon(Icons.code, color: Colors.red),
+                        leading: Icon(Icons.code,
+                            color: Theme.of(context).colorScheme.primary),
                         title: Text(
                           loc.settingsDevWith,
                           style: const TextStyle(
@@ -729,8 +797,8 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                       ListTile(
                         contentPadding:
                             const EdgeInsets.symmetric(horizontal: 8),
-                        leading: const Icon(Icons.new_releases_outlined,
-                            color: Colors.red),
+                        leading: Icon(Icons.new_releases_outlined,
+                            color: Theme.of(context).colorScheme.primary),
                         title: Text(
                           loc.settingsAppVersion,
                           style: const TextStyle(
@@ -788,14 +856,15 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
         children: [
-          Icon(icon, color: Colors.red, size: 24),
+          Icon(icon, color: Theme.of(context).primaryColor, size: 24),
           const SizedBox(width: 12),
           Text(
             title,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Cormorant',
               fontSize: 22,
               fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.onSurface,
             ),
           ),
         ],
@@ -806,11 +875,12 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
   Widget _buildSectionContainer(BuildContext context, Widget child) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
+            color:
+                Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 5),
           ),
@@ -840,12 +910,12 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Colors.red.withValues(alpha: 0.1),
+                color: Theme.of(context).primaryColor.withAlpha(25),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Icon(
                 icon,
-                color: Colors.red,
+                color: Theme.of(context).primaryColor,
                 size: 24,
               ),
             ),
@@ -856,28 +926,35 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Cormorant',
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     subtitle,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Cormorant',
                       fontSize: 14,
-                      color: Colors.black54,
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withValues(alpha: 0.54),
                     ),
                   ),
                 ],
               ),
             ),
-            const Icon(
+            Icon(
               Icons.arrow_forward_ios,
               size: 16,
-              color: Colors.black45,
+              color: Theme.of(context)
+                  .colorScheme
+                  .onSurface
+                  .withValues(alpha: 0.45),
             ),
           ],
         ),

@@ -9,18 +9,26 @@ class BottomBarModel {
   static void showBottomBar({
     required String message,
   }) {
-    final messenger = ScaffoldMessenger.maybeOf(navigatorKey.currentContext!);
+    final context = navigatorKey.currentContext;
+    if (context == null) return;
+
+    final messenger = ScaffoldMessenger.maybeOf(context);
+    final theme = Theme.of(context);
+
     if (messenger != null) {
       messenger.showSnackBar(
         SnackBar(
           content: Text(
             message,
-            style: GoogleFonts.cormorant(fontSize: 16, color: Colors.black),
+            style: GoogleFonts.cormorant(
+              fontSize: 16, 
+              color: theme.colorScheme.onSurface
+            ),
           ),
-          backgroundColor: Colors.white,
+          backgroundColor: theme.scaffoldBackgroundColor,
           elevation: 0,
-          shape: const Border(
-            top: BorderSide(color: Colors.black, width: 1),
+          shape: Border(
+            top: BorderSide(color: theme.colorScheme.onSurface.withValues(alpha: 0.2), width: 1),
           ),
         ),
       );

@@ -108,35 +108,60 @@ class _EditSourcePageState extends State<EditSourcePage> {
     final result = await showDialog<String>(
       context: context,
       builder: (ctx) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        elevation: 8,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+          side: BorderSide(
+              color: Theme.of(context).dividerColor.withValues(alpha: 0.1),
+              width: 1),
+        ),
         title: Text(loc.editSourceUnsavedTitle,
             style: const TextStyle(
                 fontFamily: 'Cormorant', fontWeight: FontWeight.bold)),
         content: Text(
           loc.editSourceUnsavedMessage,
-          style: const TextStyle(fontFamily: 'Cormorant', fontSize: 15),
+          style: const TextStyle(fontFamily: 'Cormorant', fontSize: 16),
         ),
+        actionsPadding:
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        actionsOverflowButtonSpacing: 8.0,
         actions: [
-          TextButton(
+          OutlinedButton(
             onPressed: () => Navigator.pop(ctx, 'cancel'),
+            style: OutlinedButton.styleFrom(
+              side: BorderSide(color: Theme.of(context).dividerColor),
+              foregroundColor: Theme.of(context).colorScheme.onSurface,
+            ),
             child: Text(loc.editSourceContinue,
-                style: const TextStyle(
-                    fontFamily: 'Cormorant', color: Colors.black54)),
-          ),
-          TextButton(
-            onPressed: () => Navigator.pop(ctx, 'discard'),
-            child: Text(loc.editSourceDiscard,
-                style: const TextStyle(
+                style: TextStyle(
                     fontFamily: 'Cormorant',
-                    color: Colors.red,
+                    color: Theme.of(context).colorScheme.onSurface)),
+          ),
+          OutlinedButton(
+            onPressed: () => Navigator.pop(ctx, 'discard'),
+            style: OutlinedButton.styleFrom(
+              side: BorderSide(
+                  color: Theme.of(context)
+                      .colorScheme
+                      .error
+                      .withValues(alpha: 0.5)),
+            ),
+            child: Text(loc.editSourceDiscard,
+                style: TextStyle(
+                    fontFamily: 'Cormorant',
+                    color: Theme.of(context).colorScheme.error,
                     fontWeight: FontWeight.bold)),
           ),
-          TextButton(
+          ElevatedButton(
             onPressed: () => Navigator.pop(ctx, 'save'),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Theme.of(context).primaryColor,
+            ),
             child: Text(loc.commonSave,
                 style: TextStyle(
                     fontFamily: 'Cormorant',
-                    color: Colors.green.shade700,
+                    color: Theme.of(context).colorScheme.surface,
                     fontWeight: FontWeight.bold)),
           ),
         ],
@@ -212,7 +237,7 @@ class _EditSourcePageState extends State<EditSourcePage> {
                 fontFamily: 'Cormorant', fontWeight: FontWeight.bold)),
         content: Text(
           "La source « ${widget.source!.name} » sera définitivement supprimée.",
-          style: const TextStyle(fontFamily: 'Cormorant', fontSize: 15),
+          style: TextStyle(fontFamily: 'Cormorant', fontSize: 15),
         ),
         actions: [
           TextButton(
@@ -223,10 +248,10 @@ class _EditSourcePageState extends State<EditSourcePage> {
           ),
           TextButton(
             onPressed: () => Navigator.pop(ctx, true),
-            child: const Text("Supprimer",
+            child: Text("Supprimer",
                 style: TextStyle(
                     fontFamily: 'Cormorant',
-                    color: Colors.red,
+                    color: Theme.of(context).primaryColor,
                     fontWeight: FontWeight.bold)),
           ),
         ],
@@ -245,7 +270,7 @@ class _EditSourcePageState extends State<EditSourcePage> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (ctx) => Padding(
-        padding: const EdgeInsets.fromLTRB(24, 24, 24, 32),
+        padding: EdgeInsets.fromLTRB(24, 24, 24, 32),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -255,29 +280,32 @@ class _EditSourcePageState extends State<EditSourcePage> {
                 width: 40,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: Colors.grey.shade300,
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onSurface
+                      .withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
             Row(
               children: [
                 Icon(Icons.help_outline_rounded,
-                    color: Colors.red.shade400, size: 22),
-                const SizedBox(width: 10),
+                    color: Theme.of(context).colorScheme.error, size: 22),
+                SizedBox(width: 10),
                 Expanded(
                   child: Text(title,
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontFamily: 'Cormorant',
                           fontSize: 20,
                           fontWeight: FontWeight.bold)),
                 ),
               ],
             ),
-            const SizedBox(height: 14),
+            SizedBox(height: 14),
             Text(body,
-                style: const TextStyle(
+                style: TextStyle(
                     fontFamily: 'Cormorant', fontSize: 15, height: 1.5)),
           ],
         ),
@@ -291,7 +319,7 @@ class _EditSourcePageState extends State<EditSourcePage> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(AppLocalizations.of(context)!.editSourceFillRequired,
-              style: const TextStyle(fontFamily: 'Cormorant')),
+              style: TextStyle(fontFamily: 'Cormorant')),
         ),
       );
       return;
@@ -314,21 +342,19 @@ class _EditSourcePageState extends State<EditSourcePage> {
         }
       },
       child: Scaffold(
-        backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text(
               widget.source == null ? "Nouvelle source" : "Modifier la source",
-              style: const TextStyle(
+              style: TextStyle(
                   fontFamily: 'Cormorant',
                   fontWeight: FontWeight.bold,
                   fontSize: 22)),
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
           elevation: 0,
           actions: [
             if (widget.source != null)
               IconButton(
-                icon: Icon(Icons.delete_outline, color: Colors.red.shade400),
+                icon: Icon(Icons.delete_outline,
+                    color: Theme.of(context).colorScheme.error),
                 tooltip: "Supprimer",
                 onPressed: _deleteSource,
               ),
@@ -337,10 +363,10 @@ class _EditSourcePageState extends State<EditSourcePage> {
         body: Form(
           key: _formKey,
           child: ListView(
-            padding: const EdgeInsets.fromLTRB(20, 8, 20, 40),
+            padding: EdgeInsets.fromLTRB(20, 8, 20, 40),
             children: [
               _buildDocCard(),
-              const SizedBox(height: 28),
+              SizedBox(height: 28),
               _buildSectionHeader(
                 "1. Connexion serveur",
                 Icons.cloud_outlined,
@@ -350,22 +376,22 @@ class _EditSourcePageState extends State<EditSourcePage> {
                     "• URL de base : l'adresse racine de l'API\n"
                     "• Headers : en-têtes HTTP optionnels pour l'authentification (ex: tokens Cloudflare).",
               ),
-              const SizedBox(height: 14),
+              SizedBox(height: 14),
               _buildField("Nom de la source", _nameCtrl, "Ex: Base Locale"),
-              const SizedBox(height: 12),
+              SizedBox(height: 12),
               _buildField(
                   "URL de base", _baseUrlCtrl, "Ex: api.monserveur.com"),
-              const SizedBox(height: 12),
+              SizedBox(height: 12),
               _buildRowFields("Header 1 (Clé)", _header1KeyCtrl,
                   "Header 1 (Valeur)", _header1ValCtrl,
                   obscure: true),
-              const SizedBox(height: 10),
+              SizedBox(height: 10),
               _buildRowFields("Header 2 (Clé)", _header2KeyCtrl,
                   "Header 2 (Valeur)", _header2ValCtrl,
                   obscure: true),
-              const SizedBox(height: 32),
+              SizedBox(height: 32),
               _buildDivider(),
-              const SizedBox(height: 28),
+              SizedBox(height: 28),
               _buildSectionHeader(
                 "2. Endpoints",
                 Icons.route_outlined,
@@ -374,17 +400,17 @@ class _EditSourcePageState extends State<EditSourcePage> {
                     "• Recherche : utilisez {query} là où le texte cherché doit apparaître.\n"
                     "• Détails : utilisez {url} là où l'identifiant (ID ou URL de la chanson) doit apparaître.",
               ),
-              const SizedBox(height: 14),
+              SizedBox(height: 14),
               _buildField("Chemin de recherche", _searchPathCtrl,
                   "Ex: /songs?title=ilike.*{query}*",
                   maxLines: 2),
-              const SizedBox(height: 12),
+              SizedBox(height: 12),
               _buildField("Chemin des détails", _detailsPathCtrl,
                   "Ex: /songs?song_url=eq.{url}",
                   maxLines: 2),
-              const SizedBox(height: 32),
+              SizedBox(height: 32),
               _buildDivider(),
-              const SizedBox(height: 28),
+              SizedBox(height: 28),
               _buildSectionHeader(
                 "3. Infos Générales",
                 Icons.account_tree_outlined,
@@ -393,18 +419,18 @@ class _EditSourcePageState extends State<EditSourcePage> {
                     "Indiquez comment lire la réponse JSON de votre API en utilisant des points (ex: data.titre).\n\n"
                     "Laissez vide si le champ n'existe pas dans votre base.",
               ),
-              const SizedBox(height: 14),
+              SizedBox(height: 14),
               _buildField("Chemin Liste (Recherche)", _listPathCtrl,
                   "Vide si la réponse est un tableau direct [...]"),
-              const SizedBox(height: 12),
+              SizedBox(height: 12),
               _buildRowFields(
                   "Clé Titre", _titlePathCtrl, "Clé Artiste", _artistPathCtrl),
-              const SizedBox(height: 12),
+              SizedBox(height: 12),
               _buildRowFields("Clé ID/URL", _urlPathCtrl,
                   "Clé Type (Chords, Pro..)", _typePathCtrl),
-              const SizedBox(height: 32),
+              SizedBox(height: 32),
               _buildDivider(),
-              const SizedBox(height: 28),
+              SizedBox(height: 28),
               _buildSectionHeader(
                 "4. Contenu & Musique",
                 Icons.music_note_outlined,
@@ -412,18 +438,18 @@ class _EditSourcePageState extends State<EditSourcePage> {
                 helpBody:
                     "Où trouver le texte des accords, ainsi que les métadonnées musicales (capo, tuning, etc.) dans l'objet de détails.",
               ),
-              const SizedBox(height: 14),
+              SizedBox(height: 14),
               _buildField("Clé Paroles & Accords", _contentPathCtrl,
                   "Le texte brut contenant [ch] ou les accords au-dessus"),
-              const SizedBox(height: 12),
+              SizedBox(height: 12),
               _buildRowFields("Clé Capo", _capoPathCtrl,
                   "Clé Accordage (Tuning)", _tuningPathCtrl),
-              const SizedBox(height: 12),
+              SizedBox(height: 12),
               _buildRowFields("Clé Difficulté", _difficultyPathCtrl,
                   "Clé Tonalité", _tonalityPathCtrl),
-              const SizedBox(height: 32),
+              SizedBox(height: 32),
               _buildDivider(),
-              const SizedBox(height: 28),
+              SizedBox(height: 28),
               _buildSectionHeader(
                 "5. Médias & Popularité",
                 Icons.star_outline_rounded,
@@ -431,15 +457,15 @@ class _EditSourcePageState extends State<EditSourcePage> {
                 helpBody:
                     "Permet de trier les résultats par popularité et d'afficher les pochettes d'album si l'API les fournit.",
               ),
-              const SizedBox(height: 14),
+              SizedBox(height: 14),
               _buildRowFields("Clé Votes (Nombre)", _votesPathCtrl,
                   "Clé Note sur 5", _ratingPathCtrl),
-              const SizedBox(height: 12),
+              SizedBox(height: 12),
               _buildRowFields("Cover Album (URL)", _albumCoverPathCtrl,
                   "Cover Artiste (URL)", _artistCoverPathCtrl),
-              const SizedBox(height: 32),
+              SizedBox(height: 32),
               _buildDivider(),
-              const SizedBox(height: 28),
+              SizedBox(height: 28),
               _buildSectionHeader(
                 "6. Données Avancées",
                 Icons.explore_outlined,
@@ -447,18 +473,18 @@ class _EditSourcePageState extends State<EditSourcePage> {
                 helpBody:
                     "Extraction de gros objets JSON pour des fonctionnalités futures (générateur de grilles d'accords in-app, chansons similaires, etc.).",
               ),
-              const SizedBox(height: 14),
+              SizedBox(height: 14),
               _buildField("Dictionnaire d'accords", _chordsDictPathCtrl,
                   "Objet JSON contenant le placement des doigts"),
-              const SizedBox(height: 12),
+              SizedBox(height: 12),
               _buildRowFields("Versions alternatives", _versionsPathCtrl,
                   "Top de l'Artiste", _artistTopTabsPathCtrl),
-              const SizedBox(height: 36),
+              SizedBox(height: 36),
               _buildDivider(),
-              const SizedBox(height: 28),
+              SizedBox(height: 28),
               OutlinedButton.icon(
                 onPressed: _openTestPage,
-                icon: const Icon(Icons.science_outlined, size: 20),
+                icon: Icon(Icons.science_outlined, size: 20),
                 label: const Text("Tester la connexion",
                     style: TextStyle(
                         fontFamily: 'Cormorant',
@@ -467,17 +493,17 @@ class _EditSourcePageState extends State<EditSourcePage> {
                 style: OutlinedButton.styleFrom(
                   foregroundColor: Colors.blue.shade700,
                   side: BorderSide(color: Colors.blue.shade300),
-                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  padding: EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12)),
                 ),
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16),
               ElevatedButton(
                 onPressed: _save,
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
-                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    backgroundColor: Theme.of(context).primaryColor,
+                    padding: EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12))),
                 child: const Text("Enregistrer la source",
@@ -487,7 +513,7 @@ class _EditSourcePageState extends State<EditSourcePage> {
                         color: Colors.white,
                         fontWeight: FontWeight.bold)),
               ),
-              const SizedBox(height: 40),
+              SizedBox(height: 40),
             ],
           ),
         ),
@@ -499,15 +525,15 @@ class _EditSourcePageState extends State<EditSourcePage> {
       {required String helpTitle, required String helpBody}) {
     return Row(
       children: [
-        Icon(icon, size: 20, color: Colors.red),
-        const SizedBox(width: 8),
+        Icon(icon, size: 20, color: Theme.of(context).primaryColor),
+        SizedBox(width: 8),
         Expanded(
           child: Text(title,
-              style: const TextStyle(
+              style: TextStyle(
                   fontFamily: 'Cormorant',
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Colors.red)),
+                  color: Theme.of(context).primaryColor)),
         ),
         GestureDetector(
           onTap: () => _showSectionHelp(helpTitle, helpBody),
@@ -515,11 +541,18 @@ class _EditSourcePageState extends State<EditSourcePage> {
             width: 28,
             height: 28,
             decoration: BoxDecoration(
-              color: Colors.grey.shade100,
+              color: Theme.of(context)
+                  .colorScheme
+                  .onSurface
+                  .withValues(alpha: 0.05),
               shape: BoxShape.circle,
             ),
             child: Icon(Icons.help_outline_rounded,
-                size: 16, color: Colors.grey.shade500),
+                size: 16,
+                color: Theme.of(context)
+                    .colorScheme
+                    .onSurface
+                    .withValues(alpha: 0.4)),
           ),
         ),
       ],
@@ -527,7 +560,9 @@ class _EditSourcePageState extends State<EditSourcePage> {
   }
 
   Widget _buildDivider() {
-    return Divider(color: Colors.grey.shade200, thickness: 1);
+    return Divider(
+        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.1),
+        thickness: 1);
   }
 
   Widget _buildField(
@@ -536,23 +571,29 @@ class _EditSourcePageState extends State<EditSourcePage> {
     return TextFormField(
       controller: controller,
       maxLines: maxLines,
-      style: const TextStyle(fontFamily: 'UbuntuMono', fontSize: 14),
+      style: TextStyle(fontFamily: 'UbuntuMono', fontSize: 14),
       decoration: InputDecoration(
         labelText: label,
         hintText: hint,
         labelStyle: TextStyle(
-            fontFamily: 'Cormorant', color: Colors.grey.shade700, fontSize: 16),
+            fontFamily: 'Cormorant',
+            color: Theme.of(context).colorScheme.onSurface.withAlpha(180),
+            fontSize: 16),
         hintStyle: TextStyle(
             fontFamily: 'UbuntuMono',
-            color: Colors.grey.shade400,
+            color: Theme.of(context).colorScheme.onSurface.withAlpha(100),
             fontSize: 13),
         filled: true,
-        fillColor: Colors.grey.shade50,
+        fillColor: Theme.of(context).colorScheme.onSurface.withAlpha(15),
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide.none),
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            borderSide: BorderSide(
+                color: Theme.of(context).colorScheme.onSurface.withAlpha(30))),
+        enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(
+                color: Theme.of(context).colorScheme.onSurface.withAlpha(30))),
+        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       ),
       validator: (val) =>
           val!.isEmpty && label.contains("Nom") ? "Requis" : null,
@@ -565,25 +606,31 @@ class _EditSourcePageState extends State<EditSourcePage> {
     return Row(
       children: [
         Expanded(child: _buildField(label1, ctrl1, "")),
-        const SizedBox(width: 10),
+        SizedBox(width: 10),
         Expanded(
             child: TextFormField(
           controller: ctrl2,
           obscureText: obscure,
-          style: const TextStyle(fontFamily: 'UbuntuMono', fontSize: 14),
+          style: TextStyle(fontFamily: 'UbuntuMono', fontSize: 14),
           decoration: InputDecoration(
             labelText: label2,
             labelStyle: TextStyle(
                 fontFamily: 'Cormorant',
-                color: Colors.grey.shade700,
+                color: Theme.of(context).colorScheme.onSurface.withAlpha(180),
                 fontSize: 16),
             filled: true,
-            fillColor: Colors.grey.shade50,
+            fillColor: Theme.of(context).colorScheme.onSurface.withAlpha(15),
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide.none),
-            contentPadding:
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                borderSide: BorderSide(
+                    color:
+                        Theme.of(context).colorScheme.onSurface.withAlpha(30))),
+            enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide(
+                    color:
+                        Theme.of(context).colorScheme.onSurface.withAlpha(30))),
+            contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
           ),
         )),
       ],
@@ -592,12 +639,12 @@ class _EditSourcePageState extends State<EditSourcePage> {
 
   Widget _buildDocCard() {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
-          color: Colors.blue.shade50,
+          color: Colors.blue.withAlpha(25),
           borderRadius: BorderRadius.circular(14),
           border: Border.all(color: Colors.blue.shade200)),
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(children: [
@@ -873,19 +920,16 @@ class _TestSourcePageState extends State<_TestSourcePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text("Tester la connexion",
             style: TextStyle(
                 fontFamily: 'Cormorant',
                 fontWeight: FontWeight.bold,
                 fontSize: 22)),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
         elevation: 0,
       ),
       body: ListView(
-        padding: const EdgeInsets.fromLTRB(24, 8, 24, 40),
+        padding: EdgeInsets.fromLTRB(24, 8, 24, 40),
         children: [
           Text(
               widget.source.name.isNotEmpty
@@ -894,8 +938,9 @@ class _TestSourcePageState extends State<_TestSourcePage> {
               style: TextStyle(
                   fontFamily: 'Cormorant',
                   fontSize: 15,
-                  color: Colors.grey.shade500)),
-          const SizedBox(height: 20),
+                  color:
+                      Theme.of(context).colorScheme.onSurface.withAlpha(150))),
+          SizedBox(height: 20),
           Row(
             children: [
               Expanded(
@@ -903,27 +948,35 @@ class _TestSourcePageState extends State<_TestSourcePage> {
                   controller: _queryCtrl,
                   textInputAction: TextInputAction.search,
                   onSubmitted: (_) => _runTest(),
-                  style: const TextStyle(fontFamily: 'Cormorant', fontSize: 16),
+                  style: TextStyle(fontFamily: 'Cormorant', fontSize: 16),
                   decoration: InputDecoration(
                     hintText: "Ex: Imagine, Yesterday...",
                     hintStyle: TextStyle(
                         fontFamily: 'Cormorant',
-                        color: Colors.grey.shade400,
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withAlpha(100),
                         fontSize: 15),
                     filled: true,
-                    fillColor: Colors.grey.shade50,
+                    fillColor:
+                        Theme.of(context).colorScheme.onSurface.withAlpha(15),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide.none,
                     ),
-                    contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 14),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                     prefixIcon: Icon(Icons.search_rounded,
-                        color: Colors.grey.shade400, size: 20),
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withAlpha(100),
+                        size: 20),
                   ),
                 ),
               ),
-              const SizedBox(width: 10),
+              SizedBox(width: 10),
               SizedBox(
                 height: 48,
                 child: ElevatedButton(
@@ -932,59 +985,59 @@ class _TestSourcePageState extends State<_TestSourcePage> {
                       ? null
                       : _runTest,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
-                    disabledBackgroundColor: Colors.red.shade200,
+                    backgroundColor: Theme.of(context).primaryColor,
+                    disabledBackgroundColor: Theme.of(context).primaryColor,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12)),
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    padding: EdgeInsets.symmetric(horizontal: 20),
                   ),
-                  child: const Text("Tester",
+                  child: Text("Tester",
                       style: TextStyle(
                           fontFamily: 'Cormorant',
-                          color: Colors.white,
+                          color: Theme.of(context).colorScheme.onPrimary,
                           fontSize: 16,
                           fontWeight: FontWeight.bold)),
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 28),
+          SizedBox(height: 28),
           if (_step != _TestStep.idle) ...[
             _buildStepIndicator(),
-            const SizedBox(height: 24),
+            SizedBox(height: 24),
           ],
           if (_step == _TestStep.error && _error != null) ...[
             _buildErrorCard(),
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
           ],
           if (_step == _TestStep.done && _isAnySlow) ...[
             _buildSlowWarningCard(),
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
           ],
           if (_results.isNotEmpty) ...[
             _buildSectionTitle("Résultats de recherche",
                 "$_totalRawResults trouvé${_totalRawResults > 1 ? 's' : ''}, ${_results.length} affiché${_results.length > 1 ? 's' : ''}"),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
             _buildResultsCard(),
-            const SizedBox(height: 24),
+            SizedBox(height: 24),
           ],
           if (_detailFields.isNotEmpty) ...[
             _buildSectionTitle("Informations extraites",
                 "Lecture automatique du 1er résultat"),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
             _buildDetailCard(),
-            const SizedBox(height: 24),
+            SizedBox(height: 24),
           ],
           if (_previewLyrics.isNotEmpty) ...[
             _buildSectionTitle("Aperçu de la tablature", "Premières lignes"),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
             _buildLyricsCard(),
-            const SizedBox(height: 24),
+            SizedBox(height: 24),
           ],
           if (_step == _TestStep.done && _extraFields.isNotEmpty) ...[
             _buildSectionTitle("Champs supplémentaires",
                 "$_extraFieldsFoundCount / ${_extraFields.length} champ${_extraFields.length > 1 ? 's' : ''} détecté${_extraFieldsFoundCount > 1 ? 's' : ''}"),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
             _buildExtraFieldsCard(),
           ],
           if (_step == _TestStep.idle) _buildIdleHint(),
@@ -1002,9 +1055,9 @@ class _TestSourcePageState extends State<_TestSourcePage> {
     final isLoadingDetails = _step == _TestStep.loadingDetails;
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(14),
         boxShadow: [
           BoxShadow(
@@ -1031,7 +1084,10 @@ class _TestSourcePageState extends State<_TestSourcePage> {
                   ? (_isSearchSlow
                       ? Colors.orange.shade300
                       : Colors.green.shade300)
-                  : Colors.grey.shade200,
+                  : Theme.of(context)
+                      .colorScheme
+                      .onSurface
+                      .withValues(alpha: 0.1),
             ),
           ),
           _buildStepDot(
@@ -1050,9 +1106,12 @@ class _TestSourcePageState extends State<_TestSourcePage> {
                     ? (_extraFieldsFoundCount == _extraFields.length
                         ? Colors.green.shade300
                         : _extraFieldsFoundCount == 0
-                            ? Colors.red.shade300
+                            ? Theme.of(context).primaryColor
                             : Colors.orange.shade300)
-                    : Colors.grey.shade200,
+                    : Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withValues(alpha: 0.1),
               ),
             ),
             _buildStepDot(
@@ -1087,9 +1146,9 @@ class _TestSourcePageState extends State<_TestSourcePage> {
     }
 
     return Container(
-      padding: const EdgeInsets.all(14),
+      padding: EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: Colors.orange.shade50,
+        color: Colors.orange.withAlpha(25),
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: Colors.orange.shade200),
       ),
@@ -1097,7 +1156,7 @@ class _TestSourcePageState extends State<_TestSourcePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Icon(Icons.speed_rounded, color: Colors.orange.shade700, size: 22),
-          const SizedBox(width: 12),
+          SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1108,7 +1167,7 @@ class _TestSourcePageState extends State<_TestSourcePage> {
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
                         color: Colors.orange.shade800)),
-                const SizedBox(height: 4),
+                SizedBox(height: 4),
                 Text(
                     "Votre base de données fonctionne correctement, mais les temps de réponse sont lents (> 1,5s). "
                     "Cela peut entraîner une expérience utilisateur dégradée lors de la recherche.",
@@ -1117,7 +1176,7 @@ class _TestSourcePageState extends State<_TestSourcePage> {
                         fontSize: 13,
                         color: Colors.orange.shade900,
                         height: 1.4)),
-                const SizedBox(height: 6),
+                SizedBox(height: 6),
                 Text(timing,
                     style: TextStyle(
                         fontFamily: 'UbuntuMono',
@@ -1143,20 +1202,24 @@ class _TestSourcePageState extends State<_TestSourcePage> {
     Widget dotChild;
 
     if (isError) {
-      dotColor = Colors.red;
-      dotChild = const Icon(Icons.close_rounded, size: 14, color: Colors.white);
+      dotColor = Theme.of(context).primaryColor;
+      dotChild = Icon(Icons.close_rounded,
+          size: 14, color: Theme.of(context).colorScheme.onPrimary);
     } else if (isDone && isSlow) {
       dotColor = Colors.orange;
-      dotChild = const Icon(Icons.check_rounded, size: 14, color: Colors.white);
+      dotChild = Icon(Icons.check_rounded,
+          size: 14, color: Theme.of(context).colorScheme.onPrimary);
     } else if (isDone) {
       dotColor = Colors.green;
-      dotChild = const Icon(Icons.check_rounded, size: 14, color: Colors.white);
+      dotChild = Icon(Icons.check_rounded,
+          size: 14, color: Theme.of(context).colorScheme.onPrimary);
     } else if (isActive) {
-      dotColor = Colors.red.shade100;
-      dotChild = CustomLoader(size: 18, color: Colors.red.shade400);
+      dotColor = Theme.of(context).primaryColor;
+      dotChild =
+          CustomLoader(size: 18, color: Theme.of(context).colorScheme.error);
     } else {
-      dotColor = Colors.grey.shade200;
-      dotChild = const SizedBox.shrink();
+      dotColor = Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.1);
+      dotChild = SizedBox.shrink();
     }
 
     final durationText = duration.inMilliseconds > 0
@@ -1171,7 +1234,7 @@ class _TestSourcePageState extends State<_TestSourcePage> {
           decoration: BoxDecoration(shape: BoxShape.circle, color: dotColor),
           child: Center(child: dotChild),
         ),
-        const SizedBox(height: 6),
+        SizedBox(height: 6),
         Text(label,
             style: TextStyle(
                 fontFamily: 'Cormorant',
@@ -1179,8 +1242,11 @@ class _TestSourcePageState extends State<_TestSourcePage> {
                 color: isDone
                     ? (isSlow ? Colors.orange.shade700 : Colors.green.shade700)
                     : isError
-                        ? Colors.red
-                        : Colors.grey.shade500,
+                        ? Theme.of(context).primaryColor
+                        : Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withValues(alpha: 0.4),
                 fontWeight: FontWeight.bold)),
         if (durationText.isNotEmpty)
           Text(durationText,
@@ -1195,24 +1261,24 @@ class _TestSourcePageState extends State<_TestSourcePage> {
 
   Widget _buildErrorCard() {
     return Container(
-      padding: const EdgeInsets.all(14),
+      padding: EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: Colors.red.shade200),
+        border: Border.all(color: Theme.of(context).colorScheme.error),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Icon(Icons.warning_amber_rounded,
-              color: Colors.red.shade400, size: 20),
-          const SizedBox(width: 10),
+              color: Theme.of(context).colorScheme.error, size: 20),
+          SizedBox(width: 10),
           Expanded(
             child: Text(_error!,
                 style: TextStyle(
                     fontFamily: 'Cormorant',
                     fontSize: 14,
-                    color: Colors.red.shade700,
+                    color: Theme.of(context).primaryColor,
                     height: 1.4),
                 maxLines: 5,
                 overflow: TextOverflow.ellipsis),
@@ -1227,16 +1293,19 @@ class _TestSourcePageState extends State<_TestSourcePage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(title,
-            style: const TextStyle(
+            style: TextStyle(
                 fontFamily: 'Cormorant',
                 fontSize: 18,
                 fontWeight: FontWeight.bold)),
-        const SizedBox(height: 2),
+        SizedBox(height: 2),
         Text(subtitle,
             style: TextStyle(
                 fontFamily: 'Cormorant',
                 fontSize: 13,
-                color: Colors.grey.shade500)),
+                color: Theme.of(context)
+                    .colorScheme
+                    .onSurface
+                    .withValues(alpha: 0.4))),
       ],
     );
   }
@@ -1244,7 +1313,7 @@ class _TestSourcePageState extends State<_TestSourcePage> {
   Widget _buildResultsCard() {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(14),
         boxShadow: [
           BoxShadow(
@@ -1261,67 +1330,82 @@ class _TestSourcePageState extends State<_TestSourcePage> {
           return Column(
             children: [
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 child: Row(
                   children: [
                     Container(
                       width: 32,
                       height: 32,
                       decoration: BoxDecoration(
-                        color: Colors.red.withValues(alpha: 0.1),
+                        color: Theme.of(context)
+                            .primaryColor
+                            .withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Center(
                         child: Text("${i + 1}",
-                            style: const TextStyle(
+                            style: TextStyle(
                                 fontFamily: 'Cormorant',
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.red)),
+                                color: Theme.of(context).primaryColor)),
                       ),
                     ),
-                    const SizedBox(width: 12),
+                    SizedBox(width: 12),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(r['title'] ?? '',
-                              style: const TextStyle(
+                              style: TextStyle(
                                   fontFamily: 'Cormorant',
                                   fontSize: 15,
                                   fontWeight: FontWeight.bold),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis),
-                          const SizedBox(height: 2),
+                          SizedBox(height: 2),
                           Text(r['artist'] ?? '',
                               style: TextStyle(
                                   fontFamily: 'Cormorant',
                                   fontSize: 13,
-                                  color: Colors.grey.shade600),
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSurface
+                                      .withValues(alpha: 0.5)),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis),
                         ],
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 3),
+                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                       decoration: BoxDecoration(
-                        color: Colors.grey.shade100,
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withValues(alpha: 0.05),
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: Text(r['type'] ?? '',
                           style: TextStyle(
                               fontFamily: 'Cormorant',
                               fontSize: 11,
-                              color: Colors.grey.shade600)),
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurface
+                                  .withValues(alpha: 0.5))),
                     ),
                   ],
                 ),
               ),
               if (i < _results.length - 1)
-                Divider(height: 1, indent: 60, color: Colors.grey.shade100),
+                Divider(
+                    height: 1,
+                    indent: 60,
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withValues(alpha: 0.05)),
             ],
           );
         }).toList(),
@@ -1331,9 +1415,9 @@ class _TestSourcePageState extends State<_TestSourcePage> {
 
   Widget _buildDetailCard() {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(14),
         boxShadow: [
           BoxShadow(
@@ -1349,7 +1433,7 @@ class _TestSourcePageState extends State<_TestSourcePage> {
               entry.value != 'Non' &&
               entry.value.isNotEmpty;
           return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 6),
+            padding: EdgeInsets.symmetric(vertical: 6),
             child: Row(
               children: [
                 SizedBox(
@@ -1358,7 +1442,10 @@ class _TestSourcePageState extends State<_TestSourcePage> {
                       style: TextStyle(
                           fontFamily: 'Cormorant',
                           fontSize: 14,
-                          color: Colors.grey.shade500)),
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSurface
+                              .withValues(alpha: 0.4))),
                 ),
                 Expanded(
                   child: Text(
@@ -1368,7 +1455,12 @@ class _TestSourcePageState extends State<_TestSourcePage> {
                         fontSize: 15,
                         fontWeight:
                             isFound ? FontWeight.bold : FontWeight.normal,
-                        color: isFound ? Colors.black : Colors.grey.shade400,
+                        color: isFound
+                            ? Theme.of(context).colorScheme.onSurface
+                            : Theme.of(context)
+                                .colorScheme
+                                .onSurface
+                                .withValues(alpha: 0.25),
                         fontStyle:
                             isFound ? FontStyle.normal : FontStyle.italic),
                     maxLines: 1,
@@ -1380,7 +1472,12 @@ class _TestSourcePageState extends State<_TestSourcePage> {
                       ? Icons.check_circle_rounded
                       : Icons.remove_circle_outline,
                   size: 16,
-                  color: isFound ? Colors.green.shade400 : Colors.grey.shade300,
+                  color: isFound
+                      ? Colors.green.shade400
+                      : Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withValues(alpha: 0.15),
                 ),
               ],
             ),
@@ -1393,25 +1490,30 @@ class _TestSourcePageState extends State<_TestSourcePage> {
   Widget _buildLyricsCard() {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.grey.shade50,
+        color: Theme.of(context).colorScheme.onSurface.withAlpha(10),
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: Colors.grey.shade200),
+        border: Border.all(
+            color:
+                Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.1)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(_previewLyrics,
-              style: const TextStyle(
+              style: TextStyle(
                   fontFamily: 'UbuntuMono', fontSize: 12, height: 1.5)),
-          const SizedBox(height: 8),
+          SizedBox(height: 8),
           Center(
             child: Text("···",
                 style: TextStyle(
                     fontFamily: 'Cormorant',
                     fontSize: 20,
-                    color: Colors.grey.shade400,
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withValues(alpha: 0.25),
                     letterSpacing: 4)),
           ),
         ],
@@ -1422,7 +1524,7 @@ class _TestSourcePageState extends State<_TestSourcePage> {
   Widget _buildExtraFieldsCard() {
     final found = _extraFieldsFoundCount;
     final total = _extraFields.length;
-    final MaterialColor headerColor;
+    final Color headerColor;
     final IconData headerIcon;
     final String headerText;
 
@@ -1431,7 +1533,7 @@ class _TestSourcePageState extends State<_TestSourcePage> {
       headerIcon = Icons.check_circle_rounded;
       headerText = 'Tous les champs supplémentaires sont détectés';
     } else if (found == 0) {
-      headerColor = Colors.red;
+      headerColor = Theme.of(context).primaryColor;
       headerIcon = Icons.cancel_rounded;
       headerText = 'Aucun champ supplémentaire détecté';
     } else {
@@ -1443,7 +1545,7 @@ class _TestSourcePageState extends State<_TestSourcePage> {
 
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: headerColor.withValues(alpha: 0.3)),
         boxShadow: [
@@ -1457,23 +1559,22 @@ class _TestSourcePageState extends State<_TestSourcePage> {
       child: Column(
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
               color: headerColor.withValues(alpha: 0.08),
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(13)),
+              borderRadius: BorderRadius.vertical(top: Radius.circular(13)),
             ),
             child: Row(
               children: [
                 Icon(headerIcon, size: 18, color: headerColor),
-                const SizedBox(width: 10),
+                SizedBox(width: 10),
                 Expanded(
                   child: Text(headerText,
                       style: TextStyle(
                           fontFamily: 'Cormorant',
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
-                          color: headerColor.shade700)),
+                          color: headerColor)),
                 ),
               ],
             ),
@@ -1487,7 +1588,7 @@ class _TestSourcePageState extends State<_TestSourcePage> {
                 ? '${displayValue.substring(0, 57)}...'
                 : displayValue;
             return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
               child: Row(
                 children: [
                   SizedBox(
@@ -1496,7 +1597,10 @@ class _TestSourcePageState extends State<_TestSourcePage> {
                         style: TextStyle(
                             fontFamily: 'Cormorant',
                             fontSize: 14,
-                            color: Colors.grey.shade500)),
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSurface
+                                .withValues(alpha: 0.4))),
                   ),
                   Expanded(
                     child: Text(
@@ -1506,7 +1610,12 @@ class _TestSourcePageState extends State<_TestSourcePage> {
                           fontSize: 14,
                           fontWeight:
                               isFound ? FontWeight.bold : FontWeight.normal,
-                          color: isFound ? Colors.black : Colors.grey.shade400,
+                          color: isFound
+                              ? Theme.of(context).colorScheme.onSurface
+                              : Theme.of(context)
+                                  .colorScheme
+                                  .onSurface
+                                  .withValues(alpha: 0.25),
                           fontStyle:
                               isFound ? FontStyle.normal : FontStyle.italic),
                       maxLines: 1,
@@ -1518,14 +1627,15 @@ class _TestSourcePageState extends State<_TestSourcePage> {
                         ? Icons.check_circle_rounded
                         : Icons.remove_circle_outline,
                     size: 16,
-                    color:
-                        isFound ? Colors.green.shade400 : Colors.red.shade300,
+                    color: isFound
+                        ? Colors.green.shade400
+                        : Theme.of(context).primaryColor,
                   ),
                 ],
               ),
             );
           }),
-          const SizedBox(height: 8),
+          SizedBox(height: 8),
         ],
       ),
     );
@@ -1533,29 +1643,39 @@ class _TestSourcePageState extends State<_TestSourcePage> {
 
   Widget _buildIdleHint() {
     return Padding(
-      padding: const EdgeInsets.only(top: 40),
+      padding: EdgeInsets.only(top: 40),
       child: Column(
         children: [
           Icon(Icons.electric_bolt_outlined,
-              size: 48, color: Colors.grey.shade200),
-          const SizedBox(height: 16),
+              size: 48,
+              color: Theme.of(context)
+                  .colorScheme
+                  .onSurface
+                  .withValues(alpha: 0.1)),
+          SizedBox(height: 16),
           Text(
             "Entrez un mot ou un titre de chanson, puis appuyez sur Tester.",
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontFamily: 'Cormorant',
                 fontSize: 15,
-                color: Colors.grey.shade400,
+                color: Theme.of(context)
+                    .colorScheme
+                    .onSurface
+                    .withValues(alpha: 0.25),
                 height: 1.4),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8),
           Text(
             "L'application va automatiquement chercher, récupérer les détails du premier résultat, et afficher un aperçu.",
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontFamily: 'Cormorant',
                 fontSize: 13,
-                color: Colors.grey.shade400,
+                color: Theme.of(context)
+                    .colorScheme
+                    .onSurface
+                    .withValues(alpha: 0.25),
                 height: 1.4),
           ),
         ],

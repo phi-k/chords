@@ -29,15 +29,15 @@ class ExportSongListPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(loc.exportListTitle,
-            style: const TextStyle(
+            style: TextStyle(
                 fontFamily: 'Cormorant',
                 fontWeight: FontWeight.bold,
                 fontSize: 22)),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        foregroundColor: Theme.of(context).colorScheme.onSurface,
         elevation: 0,
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: Stack(
         children: [
           const SingleChildScrollView(
@@ -47,7 +47,7 @@ class ExportSongListPage extends ConsumerWidget {
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: const EdgeInsets.all(24.0),
+              padding: EdgeInsets.all(24.0),
               child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton.icon(
@@ -61,20 +61,19 @@ class ExportSongListPage extends ConsumerWidget {
                                 message: loc.exportSongsLoading);
                           }
                         },
-                  icon:
-                      const Icon(Icons.download_outlined, color: Colors.white),
+                  icon: Icon(Icons.download_outlined,
+                      color: Theme.of(context).colorScheme.surface),
                   label: Text(
                       options.isLoading
                           ? loc.exportGenerating
                           : loc.exportExport,
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontFamily: 'Cormorant',
                           fontSize: 18,
-                          color: Colors.white)),
+                          color: Theme.of(context).colorScheme.surface)),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 32, vertical: 16),
+                    backgroundColor: Theme.of(context).primaryColor,
+                    padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30)),
                   ),

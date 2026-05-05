@@ -16,6 +16,7 @@ class ExportTabsPage extends ConsumerWidget {
   const ExportTabsPage({super.key});
 
   InputDecoration _buildInputDecoration({
+    required BuildContext context,
     required String label,
     required IconData icon,
   }) {
@@ -26,14 +27,15 @@ class ExportTabsPage extends ConsumerWidget {
         fontSize: 16,
         color: Colors.grey.shade600,
       ),
-      floatingLabelStyle: const TextStyle(
+      floatingLabelStyle: TextStyle(
         fontFamily: 'Cormorant',
         fontSize: 18,
-        color: Colors.red,
+        color: Theme.of(context).primaryColor,
         fontWeight: FontWeight.bold,
       ),
-      prefixIcon: Icon(icon, color: Colors.red.withValues(alpha: 0.7)),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+      prefixIcon: Icon(icon,
+          color: Theme.of(context).primaryColor.withValues(alpha: 0.7)),
+      contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
         borderSide: BorderSide(color: Colors.grey.shade300),
@@ -44,7 +46,7 @@ class ExportTabsPage extends ConsumerWidget {
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: Colors.red, width: 2),
+        borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2),
       ),
       filled: true,
       fillColor: Colors.grey.shade50,
@@ -52,6 +54,7 @@ class ExportTabsPage extends ConsumerWidget {
   }
 
   Widget _buildSwitch({
+    required BuildContext context,
     required String title,
     required bool value,
     required Function(bool) onChanged,
@@ -59,24 +62,25 @@ class ExportTabsPage extends ConsumerWidget {
     return SwitchListTile(
       title: Text(
         title,
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: 'Cormorant',
           fontSize: 18,
           fontWeight: FontWeight.w500,
-          color: Colors.black87,
+          color: Theme.of(context).colorScheme.onSurface,
         ),
       ),
       value: value,
       onChanged: onChanged,
-      activeThumbColor: Colors.white,
-      activeTrackColor: Colors.red,
-      inactiveThumbColor: Colors.grey.shade400,
-      inactiveTrackColor: Colors.white,
+      activeThumbColor: Theme.of(context).colorScheme.onPrimary,
+      activeTrackColor: Theme.of(context).primaryColor,
+      inactiveThumbColor:
+          Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.4),
+      inactiveTrackColor: Theme.of(context).colorScheme.surface,
       trackOutlineColor: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
           return Colors.transparent;
         }
-        return Colors.grey.shade300;
+        return Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.3);
       }),
       contentPadding: EdgeInsets.zero,
     );
@@ -94,12 +98,12 @@ class ExportTabsPage extends ConsumerWidget {
       context: context,
       builder: (context) {
         return AlertDialog(
-          backgroundColor: Colors.white,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           title: Text(
             loc.exportTabsSetCount,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Cormorant',
               fontWeight: FontWeight.bold,
             ),
@@ -110,18 +114,19 @@ class ExportTabsPage extends ConsumerWidget {
             children: [
               Text(
                 loc.exportTabsCountHint(maxCount),
-                style: const TextStyle(fontFamily: 'Cormorant', fontSize: 16),
+                style: TextStyle(fontFamily: 'Cormorant', fontSize: 16),
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: 10),
               TextField(
                 controller: controller,
                 keyboardType: TextInputType.number,
                 autofocus: true,
-                cursorColor: Colors.red,
-                style: const TextStyle(fontFamily: 'Cormorant', fontSize: 18),
+                cursorColor: Theme.of(context).primaryColor,
+                style: TextStyle(fontFamily: 'Cormorant', fontSize: 18),
                 decoration: InputDecoration(
-                  focusedBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.red),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Theme.of(context).primaryColor),
                   ),
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey.shade400),
@@ -136,14 +141,14 @@ class ExportTabsPage extends ConsumerWidget {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text(loc.commonCancel,
-                  style: const TextStyle(color: Colors.black)),
+              child:
+                  Text(loc.commonCancel, style: TextStyle(color: Colors.black)),
             ),
             ElevatedButton(
               onPressed: () =>
                   _submitCount(controller.text, maxCount, notifier, context),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
+                backgroundColor: Theme.of(context).primaryColor,
                 foregroundColor: Colors.white,
               ),
               child: const Text("OK"),
@@ -177,17 +182,17 @@ class ExportTabsPage extends ConsumerWidget {
       appBar: AppBar(
         title: Text(
           loc.exportTabsTitle,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Cormorant',
             fontWeight: FontWeight.bold,
             fontSize: 22,
           ),
         ),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        foregroundColor: Theme.of(context).colorScheme.onSurface,
         elevation: 0,
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: allSongsAsync.when(
         loading: () => const CustomLoader(),
         error: (e, s) => Center(child: Text(loc.commonError(e.toString()))),
@@ -197,47 +202,50 @@ class ExportTabsPage extends ConsumerWidget {
           }
 
           return SingleChildScrollView(
-            padding: const EdgeInsets.all(24.0),
+            padding: EdgeInsets.all(24.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _buildSectionTitle(loc.exportTabsContentTitle),
-                const SizedBox(height: 15),
-                _buildModeSelector(state, notifier, loc),
+                SizedBox(height: 15),
+                _buildModeSelector(context, state, notifier, loc),
                 if (state.selectionMode != 'all') ...[
-                  const SizedBox(height: 25),
+                  SizedBox(height: 25),
                   _buildConditionalSelectors(context, ref, state, notifier,
                       allSongs, playlistsAsync, artistsAsync, loc),
                 ],
-                const SizedBox(height: 35),
+                SizedBox(height: 35),
                 _buildSectionTitle(loc.exportTabsCustomTitle),
-                const SizedBox(height: 15),
+                SizedBox(height: 15),
                 TextField(
                   onChanged: notifier.setSongbookTitle,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Cormorant',
                     fontSize: 18,
                     color: Colors.black,
                   ),
-                  cursorColor: Colors.red,
+                  cursorColor: Theme.of(context).primaryColor,
                   decoration: _buildInputDecoration(
+                    context: context,
                     label: loc.exportTabsSongbookTitle,
                     icon: Icons.book_outlined,
                   ),
                   controller: TextEditingController(text: state.songbookTitle),
                 ),
-                const SizedBox(height: 15),
+                SizedBox(height: 15),
                 _buildSwitch(
+                  context: context,
                   title: loc.exportTabsCoverPage,
                   value: state.withCoverPage,
                   onChanged: notifier.toggleCoverPage,
                 ),
                 _buildSwitch(
+                  context: context,
                   title: loc.exportTabsToc,
                   value: state.withTableOfContents,
                   onChanged: notifier.toggleTableOfContents,
                 ),
-                const SizedBox(height: 40),
+                SizedBox(height: 40),
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton.icon(
@@ -250,20 +258,20 @@ class ExportTabsPage extends ConsumerWidget {
                           },
                     icon: state.isLoading
                         ? const CustomLoader(size: 20, color: Colors.white)
-                        : const Icon(Icons.picture_as_pdf, color: Colors.white),
+                        : Icon(Icons.picture_as_pdf, color: Colors.white),
                     label: Text(
                       state.isLoading
                           ? loc.exportTabsGenerating
                           : loc.exportTabsGeneratePdf,
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontFamily: 'Cormorant',
                           fontSize: 18,
                           color: Colors.white),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 32, vertical: 16),
+                      backgroundColor: Theme.of(context).primaryColor,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -271,14 +279,14 @@ class ExportTabsPage extends ConsumerWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: 20),
                 Center(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    padding: EdgeInsets.symmetric(horizontal: 20.0),
                     child: Text(
                       loc.exportTabsFooter,
                       textAlign: TextAlign.center,
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontFamily: 'Cormorant',
                           color: Colors.grey,
                           fontSize: 14,
@@ -296,10 +304,10 @@ class ExportTabsPage extends ConsumerWidget {
 
   Widget _buildSectionTitle(String title) {
     return Padding(
-      padding: const EdgeInsets.only(left: 4.0),
+      padding: EdgeInsets.only(left: 4.0),
       child: Text(
         title,
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: 'Cormorant',
           fontSize: 20,
           fontWeight: FontWeight.bold,
@@ -309,8 +317,8 @@ class ExportTabsPage extends ConsumerWidget {
     );
   }
 
-  Widget _buildModeSelector(ExportTabsState state, ExportTabsNotifier notifier,
-      AppLocalizations loc) {
+  Widget _buildModeSelector(BuildContext context, ExportTabsState state,
+      ExportTabsNotifier notifier, AppLocalizations loc) {
     final modes = {
       'all': loc.exportTabsAll,
       'playlist': loc.exportTabsPlaylist,
@@ -331,20 +339,23 @@ class ExportTabsPage extends ConsumerWidget {
             label: Text(entry.value),
             selected: isSelected,
             onSelected: (_) => notifier.setSelectionMode(entry.key),
-            selectedColor: Colors.red.withValues(alpha: 0.1),
-            backgroundColor: Colors.white,
+            selectedColor:
+                Theme.of(context).primaryColor.withValues(alpha: 0.1),
+            backgroundColor: Theme.of(context).colorScheme.surface,
             labelStyle: TextStyle(
               fontFamily: 'Cormorant',
               fontSize: 16,
-              color: isSelected ? Colors.red : Colors.black,
+              color: isSelected ? Theme.of(context).primaryColor : Colors.black,
               fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
             ),
             shape: StadiumBorder(
                 side: BorderSide(
-              color: isSelected ? Colors.red : Colors.grey.shade300,
+              color: isSelected
+                  ? Theme.of(context).primaryColor
+                  : Colors.grey.shade300,
               width: isSelected ? 1.5 : 1.0,
             )),
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
           );
         }).toList(),
       ),
@@ -367,28 +378,31 @@ class ExportTabsPage extends ConsumerWidget {
           if (playlists.isEmpty) return Text(loc.exportTabsNoPlaylist);
           return DropdownButtonFormField<String>(
             decoration: _buildInputDecoration(
-                label: loc.exportTabsChoosePlaylist, icon: Icons.queue_music),
+                context: context,
+                label: loc.exportTabsChoosePlaylist,
+                icon: Icons.queue_music),
             initialValue: state.selectedPlaylistId,
             items: playlists.map<DropdownMenuItem<String>>((p) {
               return DropdownMenuItem(
                   value: p.uuid,
                   child: Text(p.name ?? loc.exportTabsUnnamed,
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontFamily: 'Cormorant',
                           fontSize: 18,
                           color: Colors.black)));
             }).toList(),
             onChanged: (val) => notifier.setSelectedPlaylist(val),
-            dropdownColor: Colors.white,
-            icon: const Icon(Icons.keyboard_arrow_down, color: Colors.red),
+            dropdownColor: Theme.of(context).colorScheme.surface,
+            icon: Icon(Icons.keyboard_arrow_down,
+                color: Theme.of(context).primaryColor),
             borderRadius: BorderRadius.circular(12),
           );
         },
-        loading: () => const Padding(
+        loading: () => Padding(
           padding: EdgeInsets.symmetric(vertical: 8),
           child: Center(child: CustomLoader(size: 30)),
         ),
-        error: (_, __) => const SizedBox(),
+        error: (_, __) => SizedBox(),
       );
     }
 
@@ -398,28 +412,31 @@ class ExportTabsPage extends ConsumerWidget {
           final sortedArtists = artistsMap.keys.toList()..sort();
           return DropdownButtonFormField<String>(
             decoration: _buildInputDecoration(
-                label: loc.exportTabsChooseArtist, icon: Icons.person_outline),
+                context: context,
+                label: loc.exportTabsChooseArtist,
+                icon: Icons.person_outline),
             initialValue: state.selectedArtistName,
             items: sortedArtists.map<DropdownMenuItem<String>>((a) {
               return DropdownMenuItem(
                   value: a,
                   child: Text(a,
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontFamily: 'Cormorant',
                           fontSize: 18,
                           color: Colors.black)));
             }).toList(),
             onChanged: (val) => notifier.setSelectedArtist(val),
-            dropdownColor: Colors.white,
-            icon: const Icon(Icons.keyboard_arrow_down, color: Colors.red),
+            dropdownColor: Theme.of(context).colorScheme.surface,
+            icon: Icon(Icons.keyboard_arrow_down,
+                color: Theme.of(context).primaryColor),
             borderRadius: BorderRadius.circular(12),
           );
         },
-        loading: () => const Padding(
+        loading: () => Padding(
           padding: EdgeInsets.symmetric(vertical: 8),
           child: Center(child: CustomLoader(size: 30)),
         ),
-        error: (_, __) => const SizedBox(),
+        error: (_, __) => SizedBox(),
       );
     }
 
@@ -436,6 +453,7 @@ class ExportTabsPage extends ConsumerWidget {
         borderRadius: BorderRadius.circular(12),
         child: InputDecorator(
           decoration: _buildInputDecoration(
+            context: context,
             label: loc.exportTabsManualSelection,
             icon: Icons.checklist,
           ),
@@ -447,13 +465,13 @@ class ExportTabsPage extends ConsumerWidget {
                     ? loc.exportTabsClickToChoose
                     : loc
                         .exportTabsSongsChosen(state.manualSelectionIds.length),
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Cormorant',
                   fontSize: 18,
                   color: Colors.black,
                 ),
               ),
-              const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
+              Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
             ],
           ),
         ),
@@ -470,7 +488,7 @@ class ExportTabsPage extends ConsumerWidget {
       final double sliderVal = currentCount.toDouble().clamp(1.0, maxVal);
 
       return Container(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
@@ -484,11 +502,13 @@ class ExportTabsPage extends ConsumerWidget {
                 Row(
                   children: [
                     Icon(Icons.history,
-                        color: Colors.red.withValues(alpha: 0.7)),
-                    const SizedBox(width: 10),
+                        color: Theme.of(context)
+                            .primaryColor
+                            .withValues(alpha: 0.7)),
+                    SizedBox(width: 10),
                     Text(
                       loc.exportTabsSongCount,
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontFamily: 'Cormorant',
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -501,41 +521,43 @@ class ExportTabsPage extends ConsumerWidget {
                       context, currentCount, totalSongs, notifier),
                   borderRadius: BorderRadius.circular(8),
                   child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     child: Text(
                       "${currentCount.toInt()}",
                       style: TextStyle(
                           fontFamily: 'Cormorant',
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
-                          color: Colors.red,
+                          color: Theme.of(context).primaryColor,
                           decoration: TextDecoration.underline,
-                          decorationColor: Colors.red.withValues(alpha: 0.3)),
+                          decorationColor: Theme.of(context)
+                              .primaryColor
+                              .withValues(alpha: 0.3)),
                     ),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 5),
+            SizedBox(height: 5),
             Text(
               loc.exportTabsRecentDesc,
-              style: const TextStyle(
+              style: TextStyle(
                   fontFamily: 'Cormorant',
                   fontSize: 15,
                   color: Colors.grey,
                   fontStyle: FontStyle.italic),
             ),
-            const SizedBox(height: 15),
+            SizedBox(height: 15),
             SliderTheme(
               data: SliderTheme.of(context).copyWith(
-                activeTrackColor: Colors.red,
+                activeTrackColor: Theme.of(context).primaryColor,
                 inactiveTrackColor: Colors.grey.shade200,
                 thumbColor: Colors.white,
                 trackHeight: 4,
                 thumbShape: const RoundSliderThumbShape(
                     enabledThumbRadius: 10, elevation: 3, pressedElevation: 6),
-                overlayColor: Colors.red.withValues(alpha: 0.1),
+                overlayColor:
+                    Theme.of(context).primaryColor.withValues(alpha: 0.1),
                 overlayShape: const RoundSliderOverlayShape(overlayRadius: 20),
               ),
               child: Slider(
@@ -552,6 +574,6 @@ class ExportTabsPage extends ConsumerWidget {
         ),
       );
     }
-    return const SizedBox.shrink();
+    return SizedBox.shrink();
   }
 }

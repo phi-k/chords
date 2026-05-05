@@ -3,18 +3,20 @@
 
 import 'package:flutter/material.dart';
 
-Widget buildSectionTitle(String title) {
+Widget buildSectionTitle(BuildContext context, String title) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 12.0),
     child: Text(title,
-        style: const TextStyle(
+        style: TextStyle(
             fontFamily: 'Cormorant',
             fontSize: 18,
-            fontWeight: FontWeight.bold)),
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).colorScheme.onSurface,
+        )),
   );
 }
 
-Widget buildChoiceChip(List<String> labels, List<String> values,
+Widget buildChoiceChip(BuildContext context, List<String> labels, List<String> values,
     String groupValue, Function(String) onSelected) {
   return Wrap(
     spacing: 8.0,
@@ -25,41 +27,41 @@ Widget buildChoiceChip(List<String> labels, List<String> values,
         onSelected: (bool selected) {
           if (selected) onSelected(values[index]);
         },
-        selectedColor: Colors.red.withAlpha(26),
-        backgroundColor: Colors.grey.shade100,
+        selectedColor: Theme.of(context).primaryColor.withAlpha(26),
+        backgroundColor: Theme.of(context).colorScheme.surface,
         labelStyle: TextStyle(
             fontFamily: 'Cormorant',
-            color: groupValue == values[index] ? Colors.red : Colors.black,
+            color: groupValue == values[index] ? Theme.of(context).primaryColor : Theme.of(context).colorScheme.onSurface,
             fontWeight: groupValue == values[index]
                 ? FontWeight.bold
                 : FontWeight.normal),
         shape: StadiumBorder(
             side: BorderSide(
                 color: groupValue == values[index]
-                    ? Colors.red
-                    : Colors.grey.shade300)),
+                    ? Theme.of(context).primaryColor
+                    : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.3))),
       );
     }),
   );
 }
 
 Widget buildSwitchOption(
-    String title, String subtitle, bool value, Function(bool) onChanged) {
+    BuildContext context, String title, String subtitle, bool value, Function(bool) onChanged) {
   return SwitchListTile(
     title: Text(title,
-        style: const TextStyle(
-            fontFamily: 'Cormorant', fontWeight: FontWeight.bold)),
+        style: TextStyle(
+            fontFamily: 'Cormorant', fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface)),
     subtitle: subtitle.isNotEmpty
-        ? Text(subtitle, style: const TextStyle(fontFamily: 'Cormorant'))
+        ? Text(subtitle, style: TextStyle(fontFamily: 'Cormorant', color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7)))
         : null,
     value: value,
     onChanged: onChanged,
-    activeThumbColor: Colors.red,
+    activeThumbColor: Theme.of(context).primaryColor,
     contentPadding: EdgeInsets.zero,
   );
 }
 
-Widget buildRadioGroup(Map<String, String> options, String groupValue,
+Widget buildRadioGroup(BuildContext context, Map<String, String> options, String groupValue,
     Function(String?) onChanged) {
   return RadioGroup<String>(
     groupValue: groupValue,
@@ -68,9 +70,9 @@ Widget buildRadioGroup(Map<String, String> options, String groupValue,
       children: options.entries.map((entry) {
         return RadioListTile<String>(
           title: Text(entry.value,
-              style: const TextStyle(fontFamily: 'Cormorant')),
+              style: TextStyle(fontFamily: 'Cormorant', color: Theme.of(context).colorScheme.onSurface)),
           value: entry.key,
-          activeColor: Colors.red,
+          activeColor: Theme.of(context).primaryColor,
         );
       }).toList(),
     ),

@@ -30,13 +30,6 @@ class _EmptyLibraryViewState extends State<EmptyLibraryView>
       duration: const Duration(milliseconds: 600),
       vsync: this,
     );
-    _colorAnimation = ColorTween(
-      begin: Colors.red,
-      end: Colors.green,
-    ).animate(CurvedAnimation(
-      parent: _animController,
-      curve: Curves.easeInOut,
-    ));
     _fadeController = AnimationController(
       duration: const Duration(milliseconds: 600),
       vsync: this,
@@ -49,6 +42,18 @@ class _EmptyLibraryViewState extends State<EmptyLibraryView>
       if (mounted) _fadeController.forward();
     });
     _checkSources();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _colorAnimation = ColorTween(
+      begin: Theme.of(context).primaryColor,
+      end: Colors.green,
+    ).animate(CurvedAnimation(
+      parent: _animController,
+      curve: Curves.easeInOut,
+    ));
   }
 
   @override
@@ -86,16 +91,20 @@ class _EmptyLibraryViewState extends State<EmptyLibraryView>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(Icons.library_music_outlined,
-                  size: 80, color: Colors.grey.shade300),
+                  size: 80,
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onSurface
+                      .withValues(alpha: 0.2)),
               const SizedBox(height: 24),
               Text(
                 loc.homeEmptyTitle,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Cormorant',
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+                  color: Theme.of(context).colorScheme.onSurface,
                 ),
               ),
               const SizedBox(height: 12),
@@ -111,7 +120,7 @@ class _EmptyLibraryViewState extends State<EmptyLibraryView>
                     fontFamily: 'Cormorant',
                     fontSize: 16,
                     height: 1.4,
-                    color: Colors.grey.shade600,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
                 ),
               ),
@@ -160,15 +169,16 @@ class _EmptyLibraryViewState extends State<EmptyLibraryView>
                             MaterialPageRoute(
                                 builder: (_) => const CreationPage()));
                       },
-                      icon: const Icon(Icons.edit_note,
-                          color: Colors.black, size: 18),
+                      icon: Icon(Icons.edit_note,
+                          color: Theme.of(context).colorScheme.onSurface,
+                          size: 18),
                       label: Text(loc.homeEmptyBtnWrite,
-                          style: const TextStyle(
-                              color: Colors.black,
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurface,
                               fontFamily: 'Cormorant',
                               fontSize: 16)),
                       style: OutlinedButton.styleFrom(
-                        side: BorderSide(color: Colors.grey.shade400),
+                        side: BorderSide(color: Theme.of(context).dividerColor),
                         padding: const EdgeInsets.symmetric(
                             vertical: 14, horizontal: 24),
                         shape: RoundedRectangleBorder(
@@ -183,11 +193,14 @@ class _EmptyLibraryViewState extends State<EmptyLibraryView>
                             MaterialPageRoute(
                                 builder: (_) => const SettingsPage()));
                       },
-                      icon: const Icon(Icons.settings,
-                          color: Colors.black54, size: 18),
+                      icon: Icon(Icons.settings,
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          size: 18),
                       label: Text(loc.settingsTitle,
-                          style: const TextStyle(
-                              color: Colors.black54,
+                          style: TextStyle(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurfaceVariant,
                               fontFamily: 'Cormorant',
                               fontSize: 16)),
                       style: TextButton.styleFrom(

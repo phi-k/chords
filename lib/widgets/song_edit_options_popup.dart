@@ -12,7 +12,7 @@ Future<String?> showSongEditOptionsPopup(BuildContext context) async {
     builder: (BuildContext ctx) {
       return Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(10),
             topRight: Radius.circular(10),
@@ -23,22 +23,26 @@ Future<String?> showSongEditOptionsPopup(BuildContext context) async {
           mainAxisSize: MainAxisSize.min,
           children: [
             ListTile(
-              leading: const Icon(Icons.edit_attributes, color: Colors.black),
+              leading: Icon(Icons.edit_attributes,
+                  color: Theme.of(context).colorScheme.onSurface),
               title: Text(
                 loc.editOptionsMetadata,
-                style: const TextStyle(
-                    fontFamily: 'Cormorant', color: Colors.black),
+                style: TextStyle(
+                    fontFamily: 'Cormorant',
+                    color: Theme.of(context).colorScheme.onSurface),
               ),
               onTap: () {
                 Navigator.pop(ctx, 'metadata');
               },
             ),
             ListTile(
-              leading: const Icon(Icons.music_note, color: Colors.black),
+              leading: Icon(Icons.music_note,
+                  color: Theme.of(context).colorScheme.onSurface),
               title: Text(
                 loc.editOptionsLyrics,
-                style: const TextStyle(
-                    fontFamily: 'Cormorant', color: Colors.black),
+                style: TextStyle(
+                    fontFamily: 'Cormorant',
+                    color: Theme.of(context).colorScheme.onSurface),
               ),
               onTap: () {
                 Navigator.pop(ctx, 'lyrics');

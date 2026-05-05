@@ -24,7 +24,7 @@ class LanguageSelectionPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -35,7 +35,7 @@ class LanguageSelectionPage extends ConsumerWidget {
               style: GoogleFonts.cormorant(
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.onSurface,
               ),
             ),
             const SizedBox(height: 50),
@@ -69,7 +69,7 @@ class LanguageSelectionPage extends ConsumerWidget {
         width: 200,
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey.shade300),
+          border: Border.all(color: Theme.of(context).colorScheme.outline),
           borderRadius: BorderRadius.circular(15),
         ),
         child: Row(
@@ -82,7 +82,7 @@ class LanguageSelectionPage extends ConsumerWidget {
               style: GoogleFonts.cormorant(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.onSurface,
               ),
             ),
           ],

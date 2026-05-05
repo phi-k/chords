@@ -166,19 +166,19 @@ class _CreationPageState extends ConsumerState<CreationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         elevation: 0,
         scrolledUnderElevation: 0,
-        iconTheme: const IconThemeData(color: Colors.black),
+        iconTheme: IconThemeData(color: Theme.of(context).colorScheme.onSurface),
         title: Text(
           AppLocalizations.of(context)!.creationTitle,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Cormorant',
             fontWeight: FontWeight.bold,
             fontSize: 22,
-            color: Colors.black,
+            color: Theme.of(context).colorScheme.onSurface,
           ),
         ),
         actions: [
@@ -188,18 +188,18 @@ class _CreationPageState extends ConsumerState<CreationPage> {
                 ? const CustomLoader(size: 24)
                 : TextButton.icon(
                     onPressed: _saveSong,
-                    icon: const Icon(Icons.check, color: Colors.red),
+                    icon: Icon(Icons.check, color: Theme.of(context).colorScheme.primary),
                     label: Text(
                       AppLocalizations.of(context)!.commonSave,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Cormorant',
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
-                        color: Colors.red,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                     ),
                     style: TextButton.styleFrom(
-                      backgroundColor: Colors.grey.shade50,
+                      backgroundColor: Theme.of(context).colorScheme.onSurface.withAlpha(15),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
@@ -216,15 +216,15 @@ class _CreationPageState extends ConsumerState<CreationPage> {
               children: [
                 TextField(
                   controller: _titleController,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Cormorant',
                     fontWeight: FontWeight.bold,
                     fontSize: 24,
-                    color: Colors.black,
+                    color: Theme.of(context).colorScheme.onSurface,
                   ),
                   decoration: InputDecoration(
                     hintText: AppLocalizations.of(context)!.creationTitleHint,
-                    hintStyle: const TextStyle(color: Colors.grey),
+                    hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface.withAlpha(100)),
                     border: InputBorder.none,
                     contentPadding: EdgeInsets.zero,
                   ),
@@ -235,17 +235,17 @@ class _CreationPageState extends ConsumerState<CreationPage> {
                   style: TextStyle(
                     fontFamily: 'Cormorant',
                     fontSize: 18,
-                    color: Colors.grey.shade800,
+                    color: Theme.of(context).colorScheme.onSurface.withAlpha(200),
                   ),
                   decoration: InputDecoration(
                     hintText: AppLocalizations.of(context)!.creationArtistHint,
-                    hintStyle: const TextStyle(color: Colors.grey),
+                    hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface.withAlpha(100)),
                     border: InputBorder.none,
                     contentPadding: const EdgeInsets.only(top: 2, bottom: 0),
-                    prefixIcon: const Icon(
+                    prefixIcon: Icon(
                       Icons.person_outline,
                       size: 18,
-                      color: Colors.grey,
+                      color: Theme.of(context).colorScheme.onSurface.withAlpha(100),
                     ),
                     prefixIconConstraints: const BoxConstraints(minWidth: 25),
                   ),
@@ -257,7 +257,7 @@ class _CreationPageState extends ConsumerState<CreationPage> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
             decoration: BoxDecoration(
-              border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
+              border: Border(bottom: BorderSide(color: Theme.of(context).colorScheme.onSurface.withAlpha(30))),
             ),
             child: Theme(
               data: Theme.of(context).copyWith(
@@ -268,67 +268,67 @@ class _CreationPageState extends ConsumerState<CreationPage> {
                 childrenPadding: const EdgeInsets.only(bottom: 8),
                 title: Text(
                   AppLocalizations.of(context)!.creationMetadata,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Cormorant',
                     fontSize: 16,
-                    color: Colors.black,
+                    color: Theme.of(context).colorScheme.onSurface,
                   ),
                 ),
                 children: [
                   TextField(
                     controller: _capoController,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Cormorant',
-                      color: Colors.black,
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                     decoration: InputDecoration(
                       labelText: AppLocalizations.of(context)!.creationCapo,
-                      labelStyle: const TextStyle(
+                      labelStyle: TextStyle(
                         fontFamily: 'Cormorant',
-                        color: Colors.black,
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
                     ),
                   ),
                   TextField(
                     controller: _tonalityController,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Cormorant',
-                      color: Colors.black,
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                     decoration: InputDecoration(
                       labelText: AppLocalizations.of(context)!.creationTonality,
-                      labelStyle: const TextStyle(
+                      labelStyle: TextStyle(
                         fontFamily: 'Cormorant',
-                        color: Colors.black,
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
                     ),
                   ),
                   TextField(
                     controller: _difficultyController,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Cormorant',
-                      color: Colors.black,
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                     decoration: InputDecoration(
                       labelText:
                           AppLocalizations.of(context)!.creationDifficulty,
-                      labelStyle: const TextStyle(
+                      labelStyle: TextStyle(
                         fontFamily: 'Cormorant',
-                        color: Colors.black,
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
                     ),
                   ),
                   TextField(
                     controller: _tuningController,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Cormorant',
-                      color: Colors.black,
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                     decoration: InputDecoration(
                       labelText: AppLocalizations.of(context)!.creationTuning,
-                      labelStyle: const TextStyle(
+                      labelStyle: TextStyle(
                         fontFamily: 'Cormorant',
-                        color: Colors.black,
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
                     ),
                   ),
@@ -345,18 +345,18 @@ class _CreationPageState extends ConsumerState<CreationPage> {
                     controller: _contentController,
                     maxLines: null,
                     expands: true,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'UbuntuMono',
                       fontSize: 16,
                       height: 1.5,
-                      color: Colors.black,
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                     decoration: InputDecoration(
                       hintText:
                           AppLocalizations.of(context)!.creationContentHint,
                       hintStyle: TextStyle(
                         fontFamily: 'UbuntuMono',
-                        color: Colors.grey.shade400,
+                        color: Theme.of(context).colorScheme.onSurface.withAlpha(100),
                       ),
                       border: InputBorder.none,
                       contentPadding: const EdgeInsets.only(
@@ -378,10 +378,10 @@ class _CreationPageState extends ConsumerState<CreationPage> {
                       icon: Icon(
                         _showUndoPaste ? Icons.undo : Icons.content_paste,
                         size: 18,
-                        color: Colors.black.withValues(alpha: 0.6),
+                        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                       ),
                       style: IconButton.styleFrom(
-                        backgroundColor: Colors.black.withValues(alpha: 0.04),
+                        backgroundColor: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.04),
                         padding: const EdgeInsets.all(6),
                       ),
                     ),

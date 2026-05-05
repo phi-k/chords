@@ -228,7 +228,7 @@ class _SongPageState extends ConsumerState<SongPage> {
   Widget _buildToolButtons() {
     List<Widget> buttons = [
       IconButton(
-        icon: const Icon(Icons.download, color: Colors.black, size: 20),
+        icon: Icon(Icons.download, color: Theme.of(context).colorScheme.onSurface, size: 20),
         onPressed: () async {
           await PdfExportService.exportSongToPdf(
             title:
@@ -243,7 +243,7 @@ class _SongPageState extends ConsumerState<SongPage> {
         },
       ),
       IconButton(
-        icon: const Icon(Icons.link, color: Colors.black, size: 20),
+        icon: Icon(Icons.link, color: Theme.of(context).colorScheme.onSurface, size: 20),
         onPressed: () {
           ClipboardUtils.copyLinkToClipboard(songData.songUrl);
         },
@@ -251,7 +251,7 @@ class _SongPageState extends ConsumerState<SongPage> {
       IconButton(
         icon: Icon(
           Icons.elderly,
-          color: songData.simplified ? Colors.red : Colors.black,
+          color: songData.simplified ? Theme.of(context).primaryColor : Theme.of(context).colorScheme.onSurface,
           size: 20,
         ),
         onPressed: toggleSimplify,
@@ -262,7 +262,7 @@ class _SongPageState extends ConsumerState<SongPage> {
       buttons.insert(
         1,
         IconButton(
-          icon: const Icon(Icons.edit, color: Colors.black, size: 20),
+          icon: Icon(Icons.edit, color: Theme.of(context).colorScheme.onSurface, size: 20),
           onPressed: _handleEditButtonPress,
         ),
       );
@@ -282,7 +282,7 @@ class _SongPageState extends ConsumerState<SongPage> {
         getDynamicTextStyle(songData.artist ?? "", artistStyle);
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Padding(
         padding: const EdgeInsets.all(30.0),
         child: NotificationListener<ScrollNotification>(
@@ -322,7 +322,7 @@ class _SongPageState extends ConsumerState<SongPage> {
                           _songIsSavedInDb
                               ? Icons.favorite
                               : Icons.favorite_border,
-                          color: Colors.red,
+                          color: Theme.of(context).primaryColor,
                         ),
                         onPressed: _toggleSave,
                       ),
@@ -366,13 +366,13 @@ class _SongPageState extends ConsumerState<SongPage> {
                               onStep: () => transposeChords(1),
                             ),
                             IconButton(
-                              icon: const Icon(Icons.restart_alt,
-                                  color: Colors.black, size: 20),
+                              icon: Icon(Icons.restart_alt,
+                                  color: Theme.of(context).colorScheme.onSurface, size: 20),
                               onPressed: resetTranspose,
                             ),
                             IconButton(
-                              icon: const Icon(Icons.close,
-                                  color: Colors.black, size: 20),
+                              icon: Icon(Icons.close,
+                                  color: Theme.of(context).colorScheme.onSurface, size: 20),
                               onPressed: () =>
                                   setState(() => isTransposing = false),
                             ),
@@ -393,8 +393,8 @@ class _SongPageState extends ConsumerState<SongPage> {
                           style: GoogleFonts.cormorant(
                             fontSize: 16,
                             color: songData.transpose != 0
-                                ? Colors.red
-                                : Colors.black,
+                                ? Theme.of(context).primaryColor
+                                : Theme.of(context).colorScheme.onSurface,
                             fontWeight: songData.transpose != 0
                                 ? FontWeight.bold
                                 : FontWeight.normal,
@@ -423,12 +423,12 @@ class _SongPageState extends ConsumerState<SongPage> {
                       fontFamily: 'UbuntuMono',
                       fontSize: 16 * _scale,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                     lyricStyle: TextStyle(
                       fontFamily: 'UbuntuMono',
                       fontSize: 16 * _scale,
-                      color: Colors.black,
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
                 ),
@@ -468,8 +468,8 @@ class _SongPageState extends ConsumerState<SongPage> {
                               ),
                             ),
                           ),
-                          const Icon(Icons.chevron_right,
-                              color: Colors.black, size: 24),
+                          Icon(Icons.chevron_right,
+                              color: Theme.of(context).colorScheme.onSurface, size: 24),
                         ],
                       ),
                     ),
@@ -569,7 +569,7 @@ class _TransposeHoldButtonState extends State<_TransposeHoldButton> {
           padding: const EdgeInsets.all(8.0),
           child: Icon(
             widget.icon,
-            color: Colors.black,
+            color: Theme.of(context).colorScheme.onSurface,
             size: 20,
           ),
         ),

@@ -21,27 +21,27 @@ class ExportOptionsView extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        buildSectionTitle(loc.exportOptDisplayContent),
-        buildChoiceChip(
+        buildSectionTitle(context, loc.exportOptDisplayContent),
+        buildChoiceChip(context, 
             [loc.exportOptSongs, loc.exportOptAuthors, loc.exportOptBoth],
             ['morceaux', 'auteurs', 'both'],
             options.displayChoice,
             notifier.setDisplayChoice),
         const SizedBox(height: 24),
         if (isArtistMode) ...[
-          buildSwitchOption(
+          buildSwitchOption(context, 
               loc.exportOptShowSongCount,
               loc.exportOptShowSongCountDesc,
               options.showArtistSongCount,
               notifier.setShowArtistSongCount),
-          buildSwitchOption(
+          buildSwitchOption(context, 
               loc.exportOptIncludePlayStats,
               loc.exportOptIncludePlayStatsDescArtist,
               options.withArtistStats,
               notifier.setWithArtistStats),
           const SizedBox(height: 24),
-          buildSectionTitle(loc.exportOptArtistSelection),
-          buildRadioGroup({
+          buildSectionTitle(context, loc.exportOptArtistSelection),
+          buildRadioGroup(context, {
             'all': loc.exportOptAllArtists,
             'filtered': loc.exportOptFilteredArtists
           }, options.artistSelection,
@@ -49,38 +49,38 @@ class ExportOptionsView extends ConsumerWidget {
           if (options.artistSelection == 'filtered')
             const ExportFilterSection(),
           const SizedBox(height: 24),
-          buildSectionTitle(loc.exportOptSortOrder),
-          buildRadioGroup({
+          buildSectionTitle(context, loc.exportOptSortOrder),
+          buildRadioGroup(context, {
             'alpha': loc.exportOptSortAlpha,
             'chrono': loc.exportOptSortLastPlayed,
             'appearance': loc.exportOptSortAppearance
           }, options.artistSortOrder,
               (value) => notifier.setArtistSortOrder(value!)),
         ] else ...[
-          buildSwitchOption(
+          buildSwitchOption(context, 
               loc.exportOptIncludeStats,
               loc.exportOptIncludeStatsDesc,
               options.withStats,
               notifier.setWithStats),
           const SizedBox(height: 24),
-          buildSectionTitle(loc.exportOptSongSelection),
-          buildRadioGroup({
+          buildSectionTitle(context, loc.exportOptSongSelection),
+          buildRadioGroup(context, {
             'all': loc.exportOptAllSongs,
             'filtered': loc.exportOptFilteredSongs
           }, options.songSelection,
               (value) => notifier.setSongSelection(value!)),
           if (options.songSelection == 'filtered') const ExportFilterSection(),
           const SizedBox(height: 24),
-          buildSectionTitle(loc.exportOptSortOrder),
-          buildRadioGroup({
+          buildSectionTitle(context, loc.exportOptSortOrder),
+          buildRadioGroup(context, {
             'alpha': loc.exportOptSortAlpha,
             'chrono': loc.exportOptSortChrono
           }, options.songSortOrder,
               (value) => notifier.setSongSortOrder(value!)),
         ],
         const SizedBox(height: 24),
-        buildSectionTitle(loc.exportOptExportFormat),
-        buildChoiceChip(['TXT', 'PDF'], ['txt', 'pdf'], options.exportFormat,
+        buildSectionTitle(context, loc.exportOptExportFormat),
+        buildChoiceChip(context, ['TXT', 'PDF'], ['txt', 'pdf'], options.exportFormat,
             notifier.setExportFormat),
         const SizedBox(height: 100),
       ],

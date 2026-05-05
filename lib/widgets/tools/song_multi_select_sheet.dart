@@ -37,78 +37,81 @@ class _SongMultiSelectSheetState extends ConsumerState<SongMultiSelectSheet> {
 
     return Container(
       height: MediaQuery.of(context).size.height * 0.85,
-      decoration: const BoxDecoration(
-        color: Colors.white,
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: EdgeInsets.all(20.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(loc.multiSelectTitle,
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontFamily: 'Cormorant',
                         fontSize: 24,
                         fontWeight: FontWeight.bold)),
                 IconButton(
                   onPressed: () => Navigator.pop(context),
-                  icon: const Icon(Icons.close, color: Colors.black),
+                  icon: Icon(Icons.close,
+                      color: Theme.of(context).colorScheme.onSurface),
                 )
               ],
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
             child: TextField(
-              cursorColor: Colors.red,
-              style: const TextStyle(fontFamily: 'Cormorant', fontSize: 18),
+              cursorColor: Theme.of(context).primaryColor,
+              style: TextStyle(fontFamily: 'Cormorant', fontSize: 18),
               decoration: InputDecoration(
                 hintText: loc.multiSelectSearchHint,
                 hintStyle: TextStyle(
                     fontFamily: 'Cormorant', color: Colors.grey.shade500),
-                prefixIcon: const Icon(Icons.search, color: Colors.grey),
+                prefixIcon: Icon(Icons.search, color: Colors.grey),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                   borderSide: BorderSide(color: Colors.grey.shade300),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: Colors.red, width: 2),
+                  borderSide: BorderSide(
+                      color: Theme.of(context).primaryColor, width: 2),
                 ),
                 contentPadding:
-                    const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                    EdgeInsets.symmetric(vertical: 0, horizontal: 10),
                 filled: true,
                 fillColor: Colors.grey.shade50,
               ),
               onChanged: (val) => setState(() => searchQuery = val),
             ),
           ),
-          const SizedBox(height: 10),
+          SizedBox(height: 10),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
+            padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
             child: Row(
               children: [
                 Text(
                   "${state.manualSelectionIds.length} ${loc.multiSelectCount}",
-                  style: const TextStyle(
+                  style: TextStyle(
                       fontFamily: 'Cormorant',
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
-                      color: Colors.red),
+                      color: Theme.of(context).primaryColor),
                 ),
                 const Spacer(),
                 IconButton(
                   onPressed: () => notifier.selectAllManual(widget.allSongs),
-                  icon:
-                      const Icon(Icons.playlist_add_check, color: Colors.black),
+                  icon: Icon(Icons.playlist_add_check,
+                      color: Theme.of(context).colorScheme.onSurface),
                   tooltip: loc.multiSelectAll,
                 ),
                 IconButton(
                   onPressed: () => notifier.clearManualSelection(),
-                  icon: const Icon(Icons.playlist_remove, color: Colors.black),
+                  icon: Icon(Icons.playlist_remove,
+                      color: Theme.of(context).colorScheme.onSurface),
                   tooltip: loc.multiSelectNone,
                 ),
               ],
@@ -117,16 +120,16 @@ class _SongMultiSelectSheetState extends ConsumerState<SongMultiSelectSheet> {
           const Divider(height: 1),
           Expanded(
             child: ListView.builder(
-              padding: const EdgeInsets.symmetric(vertical: 10),
+              padding: EdgeInsets.symmetric(vertical: 10),
               itemCount: filteredSongs.length,
               itemBuilder: (context, index) {
                 final song = filteredSongs[index];
                 final isSelected = state.manualSelectionIds.contains(song.id);
                 return CheckboxListTile(
                   contentPadding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                      EdgeInsets.symmetric(horizontal: 20, vertical: 4),
                   value: isSelected,
-                  activeColor: Colors.red,
+                  activeColor: Theme.of(context).primaryColor,
                   onChanged: (_) => notifier.toggleManualSelection(song.id),
                   secondary: AppImage(
                     url: song.coverUrl,
@@ -140,7 +143,7 @@ class _SongMultiSelectSheetState extends ConsumerState<SongMultiSelectSheet> {
                           fontSize: 18,
                           fontWeight:
                               isSelected ? FontWeight.bold : FontWeight.normal,
-                          color: Colors.black)),
+                          color: Theme.of(context).colorScheme.onSurface)),
                   subtitle: Text(song.artist ?? "",
                       style: TextStyle(
                           fontFamily: 'Cormorant',

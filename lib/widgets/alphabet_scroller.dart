@@ -114,7 +114,7 @@ class _AlphabetScrollerState extends State<AlphabetScroller> {
                 child: Container(
                   width: 40,
                   decoration: BoxDecoration(
-                    color: Colors.white.withAlpha(128),
+                    color: Colors.transparent,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Column(
@@ -143,7 +143,11 @@ class _AlphabetScrollerState extends State<AlphabetScroller> {
                                     : FontWeight.normal,
                                 color: isDots
                                     ? Colors.grey
-                                    : (isSelected ? Colors.red : Colors.black),
+                                    : (isSelected
+                                        ? Theme.of(context).primaryColor
+                                        : Theme.of(context)
+                                            .colorScheme
+                                            .onSurface),
                               ),
                             ),
                           ),
