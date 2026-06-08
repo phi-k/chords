@@ -209,6 +209,7 @@ class _SongResultGroupWidgetState extends State<_SongResultGroupWidget> {
                     lyricsWithChords: offlineLyrics,
                     originalLyricsWithChords: offlineLyrics,
                     savedDate: null,
+                    coverUrl: songDetailsMap['album_cover']?.toString() ?? widget.songGroup.coverUrl,
                   );
 
                   Navigator.push(

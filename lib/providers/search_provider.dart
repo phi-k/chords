@@ -98,6 +98,7 @@ class SearchNotifier extends StateNotifier<SearchState> {
           "source_id": (r['source_id'] ?? '') as String,
           "votes": int.tryParse(votesStr) ?? 0,
           "rating": rating,
+          "album_cover": r['album_cover'],
         };
       }).toList();
 
@@ -147,6 +148,7 @@ class SearchNotifier extends StateNotifier<SearchState> {
           title: parsedTitle['title'] as String,
           artist: result['artiste'] as String,
           versions: [newVersion],
+          coverUrl: result['album_cover']?.toString(),
         );
       }
     }

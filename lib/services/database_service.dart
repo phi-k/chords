@@ -88,8 +88,12 @@ class DatabaseService {
     } else {
       final DateTime now = DateTime.now();
       final String formattedDate = DateFormat('yyyy-MM-dd').format(now);
-      final String? coverUrl = await GeniusService.fetchCoverUrl(
-          songData['title'], songData['artist']);
+
+      String? coverUrl = songData['coverUrl'];
+
+      if (coverUrl == null || coverUrl.isEmpty) {
+        coverUrl = await GeniusService.fetchCoverUrl(songData['title'], songData['artist']);
+      }
 
       final newSong = Song.fromMap(songData)
         ..addedDate = now
