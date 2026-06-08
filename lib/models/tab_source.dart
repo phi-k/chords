@@ -8,6 +8,7 @@ class TabSource {
   final String id;
   final String name;
   final String baseUrl;
+  final bool isStaticJson;
 
   // Endpoints
   final String searchPath;
@@ -41,6 +42,7 @@ class TabSource {
     String? id,
     required this.name,
     required this.baseUrl,
+    this.isStaticJson = false,
     this.searchPath =
         '/songs?select=id,artist,title,type,song_url,votes,rating&or=(title.ilike.*{query}*,artist.ilike.*{query}*)&order=votes.desc.nullslast&limit=50',
     this.detailsPath = '/songs?song_url=eq.{url}',
@@ -68,6 +70,7 @@ class TabSource {
   TabSource copyWith({
     String? name,
     String? baseUrl,
+    bool? isStaticJson,
     String? searchPath,
     String? detailsPath,
     String? listPath,
@@ -94,6 +97,7 @@ class TabSource {
       id: id,
       name: name ?? this.name,
       baseUrl: baseUrl ?? this.baseUrl,
+      isStaticJson: isStaticJson ?? this.isStaticJson,
       searchPath: searchPath ?? this.searchPath,
       detailsPath: detailsPath ?? this.detailsPath,
       listPath: listPath ?? this.listPath,
@@ -123,6 +127,7 @@ class TabSource {
       'id': id,
       'name': name,
       'baseUrl': baseUrl,
+      'isStaticJson': isStaticJson,
       'searchPath': searchPath,
       'detailsPath': detailsPath,
       'listPath': listPath,
@@ -152,6 +157,7 @@ class TabSource {
       id: map['id'],
       name: map['name'] ?? '',
       baseUrl: map['baseUrl'] ?? '',
+      isStaticJson: map['isStaticJson'] ?? false,
       searchPath: map['searchPath'] ?? '',
       detailsPath: map['detailsPath'] ?? '',
       listPath: map['listPath'] ?? '',

@@ -142,14 +142,14 @@ class ExportTabsPage extends ConsumerWidget {
             TextButton(
               onPressed: () => Navigator.pop(context),
               child:
-                  Text(loc.commonCancel, style: TextStyle(color: Colors.black)),
+                  Text(loc.commonCancel, style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant)),
             ),
             ElevatedButton(
               onPressed: () =>
                   _submitCount(controller.text, maxCount, notifier, context),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Theme.of(context).primaryColor,
-                foregroundColor: Colors.white,
+                foregroundColor: Theme.of(context).colorScheme.onPrimary,
               ),
               child: const Text("OK"),
             ),
@@ -257,21 +257,21 @@ class ExportTabsPage extends ConsumerWidget {
                             await notifier.export(allSongs, playlists);
                           },
                     icon: state.isLoading
-                        ? const CustomLoader(size: 20, color: Colors.white)
-                        : Icon(Icons.picture_as_pdf, color: Colors.white),
+                        ? CustomLoader(size: 20, color: Theme.of(context).colorScheme.onPrimary)
+                        : const Icon(Icons.picture_as_pdf),
                     label: Text(
                       state.isLoading
                           ? loc.exportTabsGenerating
                           : loc.exportTabsGeneratePdf,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontFamily: 'Cormorant',
-                          fontSize: 18,
-                          color: Colors.white),
+                          fontSize: 18),
                     ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).primaryColor,
+                      foregroundColor: Theme.of(context).colorScheme.onPrimary,
                       padding:
-                          EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                          const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),

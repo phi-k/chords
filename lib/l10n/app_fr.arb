@@ -30,12 +30,24 @@
   "homePlaylists": "Playlists",
   "homeRecent": "Récents",
   "homeTags": "Tags",
-  "homeEmptyTitle": "Votre bibliothèque est vide",
-  "homeEmptySubtitle": "Pour commencer, connectez une source de données dans les Paramètres ou notez votre premier morceau manuellement.",
+  "homeEmptyTitle": "Votre bibliothèque est vide.",
+  "homeEmptySubtitle": "Découvrez notre catalogue de plus de 1 000 morceaux du domaine public ou notez vos chansons favorites.",
+  "homeEmptyBrowseIntro": "Appuyez sur un morceau populaire pour commencer à jouer :",
+  "homeEmptyBrowseAllBtn": "Explorer tout le catalogue",
+  "homeOnboardingTitle": "Votre bibliothèque",
+  "homeOnboardingMessage": "Voici votre collection. Utilisez la barre de recherche ci-dessous pour filtrer vos chansons ou explorer le catalogue open-source.",
+  "homeOnboardingDismiss": "J'ai compris",
+  "exploreAllTitle": "Catalogue Open-Source",
+  "exploreAllSearchHint": "Rechercher parmi plus de 1 000 morceaux...",
   "homeEmptyBtnSource": "Configurer une source",
   "homeEmptyBtnSourceDone": "Source configurée",
   "homeEmptySourceDoneSubtitle": "Votre source est prête ! Essayez la recherche pour trouver vos premiers morceaux.",
   "homeEmptyBtnWrite": "Noter un morceau",
+  "homeEmptySuggestionsTitle": "Suggestions de recherche :",
+  "homeEmptyFolk": "Folk 🪵",
+  "homeEmptyClassic": "Classique 🎻",
+  "homeEmptyChristmas": "Noël 🎄",
+  "homeEmptyTraditional": "Traditionnel 🪕",
   "homeNoSongs": "Aucun morceau sauvegardé.",
   "homeSongCount": "{count, plural, =0{0 morceau} =1{1 morceau} other{{count} morceaux}}",
   "homeUpdateSuccess": "Mise à jour réussie !",
@@ -97,6 +109,11 @@
   "settingsImportLibDesc": "Importer un fichier JSON de chansons",
   "settingsExportLib": "Exporter la bibliothèque",
   "settingsExportLibDesc": "Sauvegarder vos chansons dans un fichier JSON",
+  "settingsClearLib": "Effacer la bibliothèque",
+  "settingsClearLibDesc": "Supprimer toutes les chansons et playlists enregistrées",
+  "settingsClearLibTitle": "Tout effacer ?",
+  "settingsClearLibConfirm": "Cela supprimera définitivement toutes vos chansons et playlists enregistrées. Cette action est irréversible. Continuer ?",
+  "settingsClearLibSuccess": "Bibliothèque effacée avec succès",
   "settingsAbout": "À propos",
   "settingsDevBy": "Développé avec passion par",
   "settingsDataSources": "Sources de données",
@@ -129,6 +146,44 @@
   "dsUnderstood": "Compris",
   "dsDeleteConfirm": "Supprimer cette source ?",
   "dsDeleteMessage": "La source « {name} » sera définitivement supprimée.",
+  "dsTestConnection": "Tester la connexion",
+  "dsUnnamedSource": "Source sans nom",
+  "dsTestBtn": "Tester",
+  "dsTestSearchResults": "Résultats de recherche",
+  "dsTestResultsSummary": "{rawCount} trouvé(s), {count} affiché(s)",
+  "@dsTestResultsSummary": {
+    "placeholders": {
+      "rawCount": {
+        "type": "int"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "dsTestExtractedInfo": "Informations extraites",
+  "dsTestAutoReadFirst": "Lecture automatique du 1er résultat",
+  "dsTestTabPreview": "Aperçu de la tablature",
+  "dsTestFirstLines": "Premières lignes",
+  "dsTestExtraFields": "Champs supplémentaires",
+  "dsTestExtraFieldsSummary": "{foundCount} / {totalCount} champ(s) détecté(s)",
+  "@dsTestExtraFieldsSummary": {
+    "placeholders": {
+      "foundCount": {
+        "type": "int"
+      },
+      "totalCount": {
+        "type": "int"
+      }
+    }
+  },
+  "dsTestStepSearch": "Recherche",
+  "dsTestStepDetails": "Détails",
+  "dsTestStepExtras": "Extras",
+  "dsTestSlowWarningTitle": "Temps de réponse élevé",
+  "dsTestSlowWarningBody": "Votre base de données fonctionne correctement, mais les temps de réponse sont lents (> 1,5s). Cela peut entraîner une expérience utilisateur dégradée lors de la recherche.",
+  "dsTestIdleHint1": "Entrez un mot ou un titre de chanson, puis appuyez sur Tester.",
+  "dsTestIdleHint2": "L'application va automatiquement chercher, récupérer les détails du premier résultat, et afficher un aperçu.",
   "dsExportError": "Erreur lors de l'export : {error}",
   "dsImportConfirm": "Importer cette source ?",
   "dsImportName": "Nom",
@@ -149,6 +204,8 @@
   "dsScanSubtitle": "Importer depuis la caméra d'un autre appareil",
   "dsImportFileSubtitle": "Charger un fichier JSON de configuration",
   "dsManualSubtitle": "Renseigner les informations de connexion à la main",
+  "dsStaticJsonTitle": "Source statique (JSON local)",
+  "dsStaticJsonDesc": "Télécharge un fichier JSON complet et effectue la recherche localement.",
   "dsSourceCount": "{count, plural, =1{1 source configurée} other{{count} sources configurées}}",
   "dsConnected": "Connectée",
   "dsShare": "Partager",
@@ -195,6 +252,9 @@
   "blindTestSongNumber": "Chanson {number}",
   "blindTestTitleHidden": "Vue du titre désactivée",
   "blindTestViewSong": "Voir la chanson",
+  "blindTestOnboardingTitle": "Mode Blind Test",
+  "blindTestOnboardingMessage": "Lancez rapidement vos morceaux pour défier vos amis ! Vous pouvez mélanger l'ordre des chansons avec l'icône de mélange, ou masquer les titres et artistes en appuyant sur l'icône d'œil.",
+  "blindTestOnboardingDismiss": "J'ai compris",
   "blindTestCancelTooltip": "Annuler",
   "playlistNotFound": "Playlist non trouvée.",
   "playlistNoSongs": "Aucun morceau dans cette playlist",

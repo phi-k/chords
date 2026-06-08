@@ -281,14 +281,56 @@ abstract class AppLocalizations {
   /// No description provided for @homeEmptyTitle.
   ///
   /// In en, this message translates to:
-  /// **'Your library is empty'**
+  /// **'Your library is empty.'**
   String get homeEmptyTitle;
 
   /// No description provided for @homeEmptySubtitle.
   ///
   /// In en, this message translates to:
-  /// **'To get started, you can connect a data source to search for tabs, or write your first song manually.'**
+  /// **'Explore our catalog of over 1,000 public domain songs or write down your own tracks.'**
   String get homeEmptySubtitle;
+
+  /// No description provided for @homeEmptyBrowseIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap a popular song to play it instantly:'**
+  String get homeEmptyBrowseIntro;
+
+  /// No description provided for @homeEmptyBrowseAllBtn.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore the full catalog'**
+  String get homeEmptyBrowseAllBtn;
+
+  /// No description provided for @homeOnboardingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Library'**
+  String get homeOnboardingTitle;
+
+  /// No description provided for @homeOnboardingMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Here is your collection. Use the search bar below to filter your songs or search the open-source database.'**
+  String get homeOnboardingMessage;
+
+  /// No description provided for @homeOnboardingDismiss.
+  ///
+  /// In en, this message translates to:
+  /// **'Got it'**
+  String get homeOnboardingDismiss;
+
+  /// No description provided for @exploreAllTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Open-Source Catalog'**
+  String get exploreAllTitle;
+
+  /// No description provided for @exploreAllSearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search among over 1,000 songs...'**
+  String get exploreAllSearchHint;
 
   /// No description provided for @homeEmptyBtnSource.
   ///
@@ -313,6 +355,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Write a song'**
   String get homeEmptyBtnWrite;
+
+  /// No description provided for @homeEmptySuggestionsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggested searches:'**
+  String get homeEmptySuggestionsTitle;
+
+  /// No description provided for @homeEmptyFolk.
+  ///
+  /// In en, this message translates to:
+  /// **'Folk 🪵'**
+  String get homeEmptyFolk;
+
+  /// No description provided for @homeEmptyClassic.
+  ///
+  /// In en, this message translates to:
+  /// **'Classical 🎻'**
+  String get homeEmptyClassic;
+
+  /// No description provided for @homeEmptyChristmas.
+  ///
+  /// In en, this message translates to:
+  /// **'Christmas 🎄'**
+  String get homeEmptyChristmas;
+
+  /// No description provided for @homeEmptyTraditional.
+  ///
+  /// In en, this message translates to:
+  /// **'Traditional 🪕'**
+  String get homeEmptyTraditional;
 
   /// No description provided for @homeNoSongs.
   ///
@@ -680,6 +752,36 @@ abstract class AppLocalizations {
   /// **'Save your songs to a JSON file'**
   String get settingsExportLibDesc;
 
+  /// No description provided for @settingsClearLib.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear library'**
+  String get settingsClearLib;
+
+  /// No description provided for @settingsClearLibDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete all saved songs and playlists'**
+  String get settingsClearLibDesc;
+
+  /// No description provided for @settingsClearLibTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear all data?'**
+  String get settingsClearLibTitle;
+
+  /// No description provided for @settingsClearLibConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'This will permanently delete all your saved songs and playlists. This action is irreversible. Continue?'**
+  String get settingsClearLibConfirm;
+
+  /// No description provided for @settingsClearLibSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Library cleared successfully'**
+  String get settingsClearLibSuccess;
+
   /// No description provided for @settingsAbout.
   ///
   /// In en, this message translates to:
@@ -872,6 +974,114 @@ abstract class AppLocalizations {
   /// **'The source \"{name}\" will be permanently deleted.'**
   String dsDeleteMessage(String name);
 
+  /// No description provided for @dsTestConnection.
+  ///
+  /// In en, this message translates to:
+  /// **'Test Connection'**
+  String get dsTestConnection;
+
+  /// No description provided for @dsUnnamedSource.
+  ///
+  /// In en, this message translates to:
+  /// **'Unnamed source'**
+  String get dsUnnamedSource;
+
+  /// No description provided for @dsTestBtn.
+  ///
+  /// In en, this message translates to:
+  /// **'Test'**
+  String get dsTestBtn;
+
+  /// No description provided for @dsTestSearchResults.
+  ///
+  /// In en, this message translates to:
+  /// **'Search results'**
+  String get dsTestSearchResults;
+
+  /// No description provided for @dsTestResultsSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'{rawCount} found, {count} displayed'**
+  String dsTestResultsSummary(int rawCount, int count);
+
+  /// No description provided for @dsTestExtractedInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Extracted information'**
+  String get dsTestExtractedInfo;
+
+  /// No description provided for @dsTestAutoReadFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic reading of the 1st result'**
+  String get dsTestAutoReadFirst;
+
+  /// No description provided for @dsTestTabPreview.
+  ///
+  /// In en, this message translates to:
+  /// **'Tablature preview'**
+  String get dsTestTabPreview;
+
+  /// No description provided for @dsTestFirstLines.
+  ///
+  /// In en, this message translates to:
+  /// **'First lines'**
+  String get dsTestFirstLines;
+
+  /// No description provided for @dsTestExtraFields.
+  ///
+  /// In en, this message translates to:
+  /// **'Additional fields'**
+  String get dsTestExtraFields;
+
+  /// No description provided for @dsTestExtraFieldsSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'{foundCount} / {totalCount} fields detected'**
+  String dsTestExtraFieldsSummary(int foundCount, int totalCount);
+
+  /// No description provided for @dsTestStepSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get dsTestStepSearch;
+
+  /// No description provided for @dsTestStepDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Details'**
+  String get dsTestStepDetails;
+
+  /// No description provided for @dsTestStepExtras.
+  ///
+  /// In en, this message translates to:
+  /// **'Extras'**
+  String get dsTestStepExtras;
+
+  /// No description provided for @dsTestSlowWarningTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'High response time'**
+  String get dsTestSlowWarningTitle;
+
+  /// No description provided for @dsTestSlowWarningBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your database works correctly, but response times are slow (> 1.5s). This may lead to a degraded user experience during search.'**
+  String get dsTestSlowWarningBody;
+
+  /// No description provided for @dsTestIdleHint1.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a word or song title, then press Test.'**
+  String get dsTestIdleHint1;
+
+  /// No description provided for @dsTestIdleHint2.
+  ///
+  /// In en, this message translates to:
+  /// **'The application will automatically search, retrieve the details of the first result, and display a preview.'**
+  String get dsTestIdleHint2;
+
   /// No description provided for @dsExportError.
   ///
   /// In en, this message translates to:
@@ -991,6 +1201,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Enter connection information manually'**
   String get dsManualSubtitle;
+
+  /// No description provided for @dsStaticJsonTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Static source (local JSON)'**
+  String get dsStaticJsonTitle;
+
+  /// No description provided for @dsStaticJsonDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloads a complete JSON file and searches locally.'**
+  String get dsStaticJsonDesc;
 
   /// No description provided for @dsSourceCount.
   ///
@@ -1267,6 +1489,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'View song'**
   String get blindTestViewSong;
+
+  /// No description provided for @blindTestOnboardingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Blind Test Mode'**
+  String get blindTestOnboardingTitle;
+
+  /// No description provided for @blindTestOnboardingMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Play your songs quickly to challenge your friends! You can shuffle the tracks randomly using the shuffle icon, or hide the song titles and artists by tapping the eye icon.'**
+  String get blindTestOnboardingMessage;
+
+  /// No description provided for @blindTestOnboardingDismiss.
+  ///
+  /// In en, this message translates to:
+  /// **'Got it'**
+  String get blindTestOnboardingDismiss;
 
   /// No description provided for @blindTestCancelTooltip.
   ///

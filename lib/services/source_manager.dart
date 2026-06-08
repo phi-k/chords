@@ -1,12 +1,50 @@
 // Copyright (C) 2026 phi-k
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import 'dart:async';
 import 'dart:developer' as dev;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/tab_source.dart';
+import 'song_service.dart';
 
 class SourceManager {
   static const String _key = 'chords_tab_sources';
+  static final TabSource _defaultStaticSource = TabSource(
+    id: 'default_open_source_library',
+    name: 'Open-Source Database',
+    baseUrl:
+        'https://raw.githubusercontent.com/phi-k/chords-demo-library/main/chords_demo_library.json',
+    isStaticJson: true,
+    isActive: true,
+    titlePath: 'title',
+    artistPath: 'artist',
+    urlPath: 'songUrl',
+    typePath: 'type',
+    contentPath: 'lyrics_with_chords',
+    capoPath: 'capo',
+    tuningPath: 'tuning',
+    difficultyPath: 'difficulty',
+    tonalityPath: 'tonality',
+    chordsDictPath: 'chords_dict',
+    versionsPath: 'versions',
+    artistTopTabsPath: 'top_tabs',
+  );
+
+  static Future<TabSource?> ensureDefaultSource() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.containsKey(_key)) {
+      final sources = await getSources();
+      return sources.isNotEmpty ? sources.first : null;
+    }
+
+    dev.log(
+      '📂 Aucune source enregistrée. Création de la source statique par défaut.',
+      name: 'SourceManager',
+    );
+    await _saveAll([_defaultStaticSource]);
+    unawaited(SongService.cacheStaticSource(_defaultStaticSource));
+    return _defaultStaticSource;
+  }
 
   static Future<List<TabSource>> getSources() async {
     final prefs = await SharedPreferences.getInstance();
@@ -54,6 +92,9 @@ class SourceManager {
     }
 
     await _saveAll(sources);
+    if (newSource.isStaticJson) {
+      unawaited(SongService.cacheStaticSource(newSource));
+    }
     dev.log('✅ Source sauvegardée avec succès', name: 'SourceManager');
   }
 

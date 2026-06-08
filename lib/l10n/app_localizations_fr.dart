@@ -105,11 +105,35 @@ class AppLocalizationsFr extends AppLocalizations {
   String get homeTags => 'Tags';
 
   @override
-  String get homeEmptyTitle => 'Votre bibliothèque est vide';
+  String get homeEmptyTitle => 'Votre bibliothèque est vide.';
 
   @override
   String get homeEmptySubtitle =>
-      'Pour commencer, connectez une source de données dans les Paramètres ou notez votre premier morceau manuellement.';
+      'Découvrez notre catalogue de plus de 1 000 morceaux du domaine public ou notez vos chansons favorites.';
+
+  @override
+  String get homeEmptyBrowseIntro =>
+      'Appuyez sur un morceau populaire pour commencer à jouer :';
+
+  @override
+  String get homeEmptyBrowseAllBtn => 'Explorer tout le catalogue';
+
+  @override
+  String get homeOnboardingTitle => 'Votre bibliothèque';
+
+  @override
+  String get homeOnboardingMessage =>
+      'Voici votre collection. Utilisez la barre de recherche ci-dessous pour filtrer vos chansons ou explorer le catalogue open-source.';
+
+  @override
+  String get homeOnboardingDismiss => 'J\'ai compris';
+
+  @override
+  String get exploreAllTitle => 'Catalogue Open-Source';
+
+  @override
+  String get exploreAllSearchHint =>
+      'Rechercher parmi plus de 1 000 morceaux...';
 
   @override
   String get homeEmptyBtnSource => 'Configurer une source';
@@ -123,6 +147,21 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get homeEmptyBtnWrite => 'Noter un morceau';
+
+  @override
+  String get homeEmptySuggestionsTitle => 'Suggestions de recherche :';
+
+  @override
+  String get homeEmptyFolk => 'Folk 🪵';
+
+  @override
+  String get homeEmptyClassic => 'Classique 🎻';
+
+  @override
+  String get homeEmptyChristmas => 'Noël 🎄';
+
+  @override
+  String get homeEmptyTraditional => 'Traditionnel 🪕';
 
   @override
   String get homeNoSongs => 'Aucun morceau sauvegardé.';
@@ -336,6 +375,23 @@ class AppLocalizationsFr extends AppLocalizations {
       'Sauvegarder vos chansons dans un fichier JSON';
 
   @override
+  String get settingsClearLib => 'Effacer la bibliothèque';
+
+  @override
+  String get settingsClearLibDesc =>
+      'Supprimer toutes les chansons et playlists enregistrées';
+
+  @override
+  String get settingsClearLibTitle => 'Tout effacer ?';
+
+  @override
+  String get settingsClearLibConfirm =>
+      'Cela supprimera définitivement toutes vos chansons et playlists enregistrées. Cette action est irréversible. Continuer ?';
+
+  @override
+  String get settingsClearLibSuccess => 'Bibliothèque effacée avec succès';
+
+  @override
   String get settingsAbout => 'À propos';
 
   @override
@@ -446,6 +502,67 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String get dsTestConnection => 'Tester la connexion';
+
+  @override
+  String get dsUnnamedSource => 'Source sans nom';
+
+  @override
+  String get dsTestBtn => 'Tester';
+
+  @override
+  String get dsTestSearchResults => 'Résultats de recherche';
+
+  @override
+  String dsTestResultsSummary(int rawCount, int count) {
+    return '$rawCount trouvé(s), $count affiché(s)';
+  }
+
+  @override
+  String get dsTestExtractedInfo => 'Informations extraites';
+
+  @override
+  String get dsTestAutoReadFirst => 'Lecture automatique du 1er résultat';
+
+  @override
+  String get dsTestTabPreview => 'Aperçu de la tablature';
+
+  @override
+  String get dsTestFirstLines => 'Premières lignes';
+
+  @override
+  String get dsTestExtraFields => 'Champs supplémentaires';
+
+  @override
+  String dsTestExtraFieldsSummary(int foundCount, int totalCount) {
+    return '$foundCount / $totalCount champ(s) détecté(s)';
+  }
+
+  @override
+  String get dsTestStepSearch => 'Recherche';
+
+  @override
+  String get dsTestStepDetails => 'Détails';
+
+  @override
+  String get dsTestStepExtras => 'Extras';
+
+  @override
+  String get dsTestSlowWarningTitle => 'Temps de réponse élevé';
+
+  @override
+  String get dsTestSlowWarningBody =>
+      'Votre base de données fonctionne correctement, mais les temps de réponse sont lents (> 1,5s). Cela peut entraîner une expérience utilisateur dégradée lors de la recherche.';
+
+  @override
+  String get dsTestIdleHint1 =>
+      'Entrez un mot ou un titre de chanson, puis appuyez sur Tester.';
+
+  @override
+  String get dsTestIdleHint2 =>
+      'L\'application va automatiquement chercher, récupérer les détails du premier résultat, et afficher un aperçu.';
+
+  @override
   String dsExportError(String error) {
     return 'Erreur lors de l\'export : $error';
   }
@@ -514,6 +631,13 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get dsManualSubtitle =>
       'Renseigner les informations de connexion à la main';
+
+  @override
+  String get dsStaticJsonTitle => 'Source statique (JSON local)';
+
+  @override
+  String get dsStaticJsonDesc =>
+      'Télécharge un fichier JSON complet et effectue la recherche localement.';
 
   @override
   String dsSourceCount(int count) {
@@ -681,6 +805,16 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get blindTestViewSong => 'Voir la chanson';
+
+  @override
+  String get blindTestOnboardingTitle => 'Mode Blind Test';
+
+  @override
+  String get blindTestOnboardingMessage =>
+      'Lancez rapidement vos morceaux pour défier vos amis ! Vous pouvez mélanger l\'ordre des chansons avec l\'icône de mélange, ou masquer les titres et artistes en appuyant sur l\'icône d\'œil.';
+
+  @override
+  String get blindTestOnboardingDismiss => 'J\'ai compris';
 
   @override
   String get blindTestCancelTooltip => 'Annuler';

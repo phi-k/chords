@@ -37,12 +37,24 @@
   "homePlaylists": "Playlists",
   "homeRecent": "Recent",
   "homeTags": "Tags",
-  "homeEmptyTitle": "Your library is empty",
-  "homeEmptySubtitle": "To get started, you can connect a data source to search for tabs, or write your first song manually.",
+  "homeEmptyTitle": "Your library is empty.",
+  "homeEmptySubtitle": "Explore our catalog of over 1,000 public domain songs or write down your own tracks.",
+  "homeEmptyBrowseIntro": "Tap a popular song to play it instantly:",
+  "homeEmptyBrowseAllBtn": "Explore the full catalog",
+  "homeOnboardingTitle": "Your Library",
+  "homeOnboardingMessage": "Here is your collection. Use the search bar below to filter your songs or search the open-source database.",
+  "homeOnboardingDismiss": "Got it",
+  "exploreAllTitle": "Open-Source Catalog",
+  "exploreAllSearchHint": "Search among over 1,000 songs...",
   "homeEmptyBtnSource": "Configure a source",
   "homeEmptyBtnSourceDone": "Source configured",
   "homeEmptySourceDoneSubtitle": "Your source is ready! Try the search to find your first songs.",
   "homeEmptyBtnWrite": "Write a song",
+  "homeEmptySuggestionsTitle": "Suggested searches:",
+  "homeEmptyFolk": "Folk 🪵",
+  "homeEmptyClassic": "Classical 🎻",
+  "homeEmptyChristmas": "Christmas 🎄",
+  "homeEmptyTraditional": "Traditional 🪕",
   "homeNoSongs": "No songs saved yet.",
   "homeSongCount": "{count, plural, =0{0 songs} =1{1 song} other{{count} songs}}",
   "@homeSongCount": {
@@ -149,6 +161,11 @@
   "settingsImportLibDesc": "Import a JSON file containing saved songs",
   "settingsExportLib": "Export library",
   "settingsExportLibDesc": "Save your songs to a JSON file",
+  "settingsClearLib": "Clear library",
+  "settingsClearLibDesc": "Delete all saved songs and playlists",
+  "settingsClearLibTitle": "Clear all data?",
+  "settingsClearLibConfirm": "This will permanently delete all your saved songs and playlists. This action is irreversible. Continue?",
+  "settingsClearLibSuccess": "Library cleared successfully",
   "settingsAbout": "About",
   "settingsDevBy": "Developed with passion by",
   "settingsDataSources": "Data sources",
@@ -209,6 +226,44 @@
       }
     }
   },
+  "dsTestConnection": "Test Connection",
+  "dsUnnamedSource": "Unnamed source",
+  "dsTestBtn": "Test",
+  "dsTestSearchResults": "Search results",
+  "dsTestResultsSummary": "{rawCount} found, {count} displayed",
+  "@dsTestResultsSummary": {
+    "placeholders": {
+      "rawCount": {
+        "type": "int"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "dsTestExtractedInfo": "Extracted information",
+  "dsTestAutoReadFirst": "Automatic reading of the 1st result",
+  "dsTestTabPreview": "Tablature preview",
+  "dsTestFirstLines": "First lines",
+  "dsTestExtraFields": "Additional fields",
+  "dsTestExtraFieldsSummary": "{foundCount} / {totalCount} fields detected",
+  "@dsTestExtraFieldsSummary": {
+    "placeholders": {
+      "foundCount": {
+        "type": "int"
+      },
+      "totalCount": {
+        "type": "int"
+      }
+    }
+  },
+  "dsTestStepSearch": "Search",
+  "dsTestStepDetails": "Details",
+  "dsTestStepExtras": "Extras",
+  "dsTestSlowWarningTitle": "High response time",
+  "dsTestSlowWarningBody": "Your database works correctly, but response times are slow (> 1.5s). This may lead to a degraded user experience during search.",
+  "dsTestIdleHint1": "Enter a word or song title, then press Test.",
+  "dsTestIdleHint2": "The application will automatically search, retrieve the details of the first result, and display a preview.",
   "dsExportError": "Export error: {error}",
   "@dsExportError": {
     "placeholders": {
@@ -257,6 +312,8 @@
   "dsScanSubtitle": "Import from another device's camera",
   "dsImportFileSubtitle": "Load a JSON configuration file",
   "dsManualSubtitle": "Enter connection information manually",
+  "dsStaticJsonTitle": "Static source (local JSON)",
+  "dsStaticJsonDesc": "Downloads a complete JSON file and searches locally.",
   "dsSourceCount": "{count, plural, =1{1 source configured} other{{count} sources configured}}",
   "@dsSourceCount": {
     "placeholders": {
@@ -345,6 +402,9 @@
   },
   "blindTestTitleHidden": "Title view disabled",
   "blindTestViewSong": "View song",
+  "blindTestOnboardingTitle": "Blind Test Mode",
+  "blindTestOnboardingMessage": "Play your songs quickly to challenge your friends! You can shuffle the tracks randomly using the shuffle icon, or hide the song titles and artists by tapping the eye icon.",
+  "blindTestOnboardingDismiss": "Got it",
   "blindTestCancelTooltip": "Cancel",
   "playlistNotFound": "Playlist not found.",
   "playlistNoSongs": "No songs in this playlist",

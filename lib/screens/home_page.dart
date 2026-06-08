@@ -16,6 +16,7 @@ import '../services/update_service.dart';
 import '../widgets/update_dialog.dart';
 import '../l10n/app_localizations.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import '../widgets/common/onboarding_popup.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -25,9 +26,13 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
+  bool _showOnboardingPopup = false;
+  bool _onboardingLoaded = false;
+
   @override
   void initState() {
     super.initState();
+    _loadOnboardingStatus();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await _checkPostUpdate();
       _checkForUpdates();
@@ -178,6 +183,48 @@ class _HomePageState extends ConsumerState<HomePage> {
     }
   }
 
+  Future<void> _loadOnboardingStatus() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final hasSeen = prefs.getBool('has_seen_search_onboarding') ?? false;
+      if (mounted) {
+        setState(() {
+          _showOnboardingPopup = !hasSeen;
+          _onboardingLoaded = true;
+        });
+      }
+    } catch (_) {
+      if (mounted) {
+        setState(() {
+          _onboardingLoaded = true;
+        });
+      }
+    }
+  }
+
+  Future<void> _dismissOnboarding() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('has_seen_search_onboarding', true);
+    } catch (_) {}
+    if (mounted) {
+      setState(() {
+        _showOnboardingPopup = false;
+      });
+    }
+  }
+
+  Widget _buildOnboardingPopup(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
+
+    return OnboardingPopup(
+      title: loc.homeOnboardingTitle,
+      message: loc.homeOnboardingMessage,
+      dismissText: loc.homeOnboardingDismiss,
+      onDismiss: _dismissOnboarding,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final filterState = ref.watch(homeFilterProvider);
@@ -185,6 +232,14 @@ class _HomePageState extends ConsumerState<HomePage> {
 
     const horizontalPadding = EdgeInsets.symmetric(horizontal: 40);
     const songListPadding = EdgeInsets.only(left: 40, right: 0);
+
+    final asyncSongs = ref.watch(allSongsProvider);
+    final asyncSources = ref.watch(tabSourcesProvider);
+
+    final bool isLibraryEmpty = asyncSongs.hasValue && asyncSongs.value!.isEmpty;
+    final sourcesList = asyncSources.value ?? [];
+    final bool hasCustomSource = sourcesList.any((s) => s.id != 'default_open_source_library');
+    final bool hideSearchBar = isLibraryEmpty && !hasCustomSource;
 
     return PopScope(
       canPop: filterState.selectedArtist == null &&
@@ -395,18 +450,21 @@ class _HomePageState extends ConsumerState<HomePage> {
                     },
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Focus(
-                    onFocusChange: filterNotifier.setSearchFocused,
-                    child: SearchBarWidget(
-                      onTextChanged: filterNotifier.setFilterText,
-                      filterText: filterState.filterText,
-                      filteredCount:
-                          ref.watch(allSongsProvider).value?.length ?? 0,
+                if (!hideSearchBar) ...[
+                  if (_onboardingLoaded && _showOnboardingPopup && !isLibraryEmpty)
+                    _buildOnboardingPopup(context),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Focus(
+                      onFocusChange: filterNotifier.setSearchFocused,
+                      child: SearchBarWidget(
+                        onTextChanged: filterNotifier.setFilterText,
+                        filterText: filterState.filterText,
+                        filteredCount: asyncSongs.value?.length ?? 0,
+                      ),
                     ),
                   ),
-                ),
+                ],
               ],
             );
           },

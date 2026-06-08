@@ -118,7 +118,7 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
                 onPressed: () => Navigator.pop(ctx, false),
                 child: Text(loc.commonCancel,
                     style: TextStyle(
-                        fontFamily: 'Cormorant', color: Colors.black54)),
+                        fontFamily: 'Cormorant', color: Theme.of(context).colorScheme.onSurfaceVariant)),
               ),
               TextButton(
                 onPressed: () => Navigator.pop(ctx, true),
@@ -203,7 +203,7 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
                 onPressed: () => Navigator.pop(ctx, false),
                 child: Text(loc.commonCancel,
                     style: TextStyle(
-                        fontFamily: 'Cormorant', color: Colors.black54)),
+                        fontFamily: 'Cormorant', color: Theme.of(context).colorScheme.onSurfaceVariant)),
               ),
               TextButton(
                 onPressed: () => Navigator.pop(ctx, true),
@@ -713,17 +713,16 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
             SizedBox(height: 32),
             ElevatedButton.icon(
               onPressed: _showAddSourceOptions,
-              icon: Icon(Icons.add,
-                  size: 20, color: Theme.of(context).colorScheme.surface),
+              icon: const Icon(Icons.add, size: 20),
               label: Text(loc.dsAddSource,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontFamily: 'Cormorant',
                       fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.surface)),
+                      fontWeight: FontWeight.bold)),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Theme.of(context).primaryColor,
-                padding: EdgeInsets.symmetric(horizontal: 28, vertical: 16),
+                foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 16),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14)),
               ),
@@ -766,12 +765,15 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
     final hasHeaders = source.headers.isNotEmpty;
     final endpointCount = (source.searchPath.isNotEmpty ? 1 : 0) +
         (source.detailsPath.isNotEmpty ? 1 : 0);
+    final isDefaultSource = source.id == 'default_open_source_library';
 
     return Padding(
       padding: EdgeInsets.only(bottom: 14),
       child: Dismissible(
         key: Key(source.id),
-        direction: DismissDirection.endToStart,
+        direction: isDefaultSource
+            ? DismissDirection.none
+            : DismissDirection.endToStart,
         confirmDismiss: (_) => _confirmDelete(source),
         onDismissed: (_) async {
           await SourceManager.deleteSource(source.id);
@@ -990,49 +992,52 @@ class _DataSourcesPageState extends State<DataSourcesPage> {
                         minimumSize: const Size(0, 36),
                       ),
                     ),
-                    Container(
-                      width: 1,
-                      height: 20,
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onSurface
-                          .withValues(alpha: 0.5),
-                    ),
-                    TextButton.icon(
-                      onPressed: () => _showShareOptions(source),
-                      icon: Icon(Icons.share_outlined,
-                          size: 16,
-                          color: Theme.of(context)
-                              .colorScheme
-                              .onSurface
-                              .withValues(alpha: 0.5)),
-                      label: Text(loc.dsShare,
-                          style: TextStyle(
-                              fontFamily: 'Cormorant',
-                              fontSize: 13,
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onSurface
-                                  .withValues(alpha: 0.5))),
-                      style: TextButton.styleFrom(
-                        padding: EdgeInsets.symmetric(horizontal: 12),
-                        minimumSize: const Size(0, 36),
+                    if (!isDefaultSource) ...[
+                      Container(
+                        width: 1,
+                        height: 20,
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withValues(alpha: 0.5),
                       ),
-                    ),
+                      TextButton.icon(
+                        onPressed: () => _showShareOptions(source),
+                        icon: Icon(Icons.share_outlined,
+                            size: 16,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSurface
+                                .withValues(alpha: 0.5)),
+                        label: Text(loc.dsShare,
+                            style: TextStyle(
+                                fontFamily: 'Cormorant',
+                                fontSize: 13,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSurface
+                                    .withValues(alpha: 0.5))),
+                        style: TextButton.styleFrom(
+                          padding: EdgeInsets.symmetric(horizontal: 12),
+                          minimumSize: const Size(0, 36),
+                        ),
+                      ),
+                    ],
                     const Spacer(),
-                    IconButton(
-                      icon: Icon(Icons.delete_outline_rounded,
-                          size: 18, color: Theme.of(context).primaryColor),
-                      onPressed: () async {
-                        final confirmed = await _confirmDelete(source);
-                        if (confirmed) {
-                          await SourceManager.deleteSource(source.id);
-                          _loadSources();
-                        }
-                      },
-                      tooltip: loc.commonDelete,
-                      splashRadius: 20,
-                    ),
+                    if (!isDefaultSource)
+                      IconButton(
+                        icon: Icon(Icons.delete_outline_rounded,
+                            size: 18, color: Theme.of(context).primaryColor),
+                        onPressed: () async {
+                          final confirmed = await _confirmDelete(source);
+                          if (confirmed) {
+                            await SourceManager.deleteSource(source.id);
+                            _loadSources();
+                          }
+                        },
+                        tooltip: loc.commonDelete,
+                        splashRadius: 20,
+                      ),
                   ],
                 ),
               ),
@@ -1119,7 +1124,7 @@ class _QrScannerPageState extends State<_QrScannerPage> {
               onPressed: () => Navigator.pop(ctx, false),
               child: Text("Annuler",
                   style: TextStyle(
-                      fontFamily: 'Cormorant', color: Colors.black54)),
+                      fontFamily: 'Cormorant', color: Theme.of(context).colorScheme.onSurfaceVariant)),
             ),
             TextButton(
               onPressed: () => Navigator.pop(ctx, true),

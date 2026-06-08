@@ -168,13 +168,16 @@ class ChordTransposer {
     bool preferFlats = lyricsWithChords.contains(RegExp(r'[A-G]b'));
 
     for (final line in lines) {
-      if (ChordDetector.isChordLine(line)) {
-        final matches = RegExp(r'\S+').allMatches(line);
+      final normalizedLine = line
+          .replaceAll(RegExp(r'[\u00A0\u2007\u202F]'), ' ')
+          .replaceAll('\t', '    ');
+      if (ChordDetector.isChordLine(normalizedLine)) {
+        final matches = RegExp(r'\S+').allMatches(normalizedLine);
         var newLine = StringBuffer();
         int currentPos = 0;
 
         for (var match in matches) {
-          newLine.write(line.substring(currentPos, match.start));
+          newLine.write(normalizedLine.substring(currentPos, match.start));
           var token = match.group(0)!;
 
           if (token.contains('-')) {
@@ -190,8 +193,8 @@ class ChordTransposer {
 
           currentPos = match.end;
         }
-        if (currentPos < line.length) {
-          newLine.write(line.substring(currentPos));
+        if (currentPos < normalizedLine.length) {
+          newLine.write(normalizedLine.substring(currentPos));
         }
         transposedLines.add(newLine.toString());
       } else {

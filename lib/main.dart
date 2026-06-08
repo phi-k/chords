@@ -14,6 +14,8 @@ import 'l10n/app_localizations.dart';
 import 'data/collections/playlist.dart' as isar_playlist;
 import 'data/collections/song.dart' as isar_song;
 import 'providers/settings_provider.dart';
+import 'services/song_service.dart';
+import 'services/source_manager.dart';
 import 'screens/home_page.dart';
 import 'screens/playlist_detail_page.dart';
 import 'screens/splash_page.dart';
@@ -136,6 +138,7 @@ void main() async {
   );
 
   await _migrateJsonToIsar(isarInstance);
+  await SourceManager.ensureDefaultSource();
 
   await initializeDateFormatting('fr_FR', null);
   Intl.defaultLocale = 'fr_FR';
@@ -178,6 +181,10 @@ class _MyAppState extends ConsumerState<MyApp> {
   void initState() {
     super.initState();
     ref.read(settingsProvider.notifier).loadSettings();
+
+    SourceManager.getSources().then((_) {
+      SongService.updateStaticSourcesInBackground();
+    });
   }
 
   @override

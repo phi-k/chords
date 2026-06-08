@@ -7,9 +7,11 @@ import '../data/collections/song.dart';
 import '../providers/song_provider.dart';
 import '../widgets/chords_lyrics_display.dart';
 import '../screens/song_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../utils/blind_test_utils.dart';
 import '../widgets/common/app_image.dart';
 import '../widgets/common/custom_loader.dart';
+import '../widgets/common/onboarding_popup.dart';
 import '../l10n/app_localizations.dart';
 
 class BlindTestPage extends ConsumerStatefulWidget {
@@ -25,6 +27,45 @@ class _BlindTestPageState extends ConsumerState<BlindTestPage> {
   Map<int, bool> expandedItems = {};
   bool showTitlesAndArtists = true;
   int? songListHash;
+  bool _showOnboardingPopup = false;
+  bool _onboardingLoaded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadOnboardingStatus();
+  }
+
+  Future<void> _loadOnboardingStatus() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final hasSeen = prefs.getBool('has_seen_blind_test_onboarding') ?? false;
+      if (mounted) {
+        setState(() {
+          _showOnboardingPopup = !hasSeen;
+          _onboardingLoaded = true;
+        });
+      }
+    } catch (_) {
+      if (mounted) {
+        setState(() {
+          _onboardingLoaded = true;
+        });
+      }
+    }
+  }
+
+  Future<void> _dismissOnboarding() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('has_seen_blind_test_onboarding', true);
+    } catch (_) {}
+    if (mounted) {
+      setState(() {
+        _showOnboardingPopup = false;
+      });
+    }
+  }
 
   void _processSongs(List<Song> allSongs) {
     final shuffledSongs = BlindTestUtils.shuffleSongs(allSongs);
@@ -130,6 +171,16 @@ class _BlindTestPageState extends ConsumerState<BlindTestPage> {
             child: Container(
                 height: 1, color: Theme.of(context).colorScheme.onSurface, width: double.infinity),
           ),
+          if (_onboardingLoaded && _showOnboardingPopup) ...[
+            const SizedBox(height: 16),
+            OnboardingPopup(
+              title: loc.blindTestOnboardingTitle,
+              message: loc.blindTestOnboardingMessage,
+              dismissText: loc.blindTestOnboardingDismiss,
+              onDismiss: _dismissOnboarding,
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+            ),
+          ],
           const SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),

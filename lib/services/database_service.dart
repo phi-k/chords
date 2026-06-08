@@ -17,6 +17,13 @@ class DatabaseService {
     return await isar.songs.where().findAll();
   }
 
+  Future<void> clearLibrary() async {
+    await isar.writeTxn(() async {
+      await isar.songs.clear();
+      await isar.playlists.clear();
+    });
+  }
+
   Stream<List<Song>> watchSongs({
     String filterText = '',
     Sort titleSort = Sort.asc,

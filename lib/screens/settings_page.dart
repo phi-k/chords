@@ -16,6 +16,7 @@ import '../l10n/app_localizations.dart';
 import '../services/version_service.dart';
 import '../data/collections/song.dart';
 import '../providers/song_provider.dart';
+import '../providers/export_song_list_provider.dart';
 import '../providers/settings_provider.dart';
 import '../main.dart';
 import 'tools_page.dart';
@@ -109,6 +110,83 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
           },
         ) ??
         false;
+  }
+
+  Future<bool> _showDeleteCatalogConfirmation(BuildContext context) async {
+    return await showDialog<bool>(
+          context: context,
+          builder: (ctx) {
+            final loc = AppLocalizations.of(context)!;
+            return AlertDialog(
+              backgroundColor: Theme.of(context).colorScheme.surface,
+              title: Text(
+                loc.settingsClearLibTitle,
+                style: const TextStyle(
+                  fontFamily: 'Cormorant',
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              content: Text(
+                loc.settingsClearLibConfirm,
+                style: const TextStyle(fontFamily: 'Cormorant'),
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(ctx, false),
+                  style: TextButton.styleFrom(
+                    foregroundColor: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withValues(alpha: 0.54),
+                  ),
+                  child: Text(loc.commonCancel,
+                      style: const TextStyle(fontFamily: 'Cormorant')),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.pop(ctx, true),
+                  style: TextButton.styleFrom(
+                    foregroundColor: Theme.of(context).colorScheme.error,
+                  ),
+                  child: Text(loc.commonConfirm,
+                      style: const TextStyle(
+                        fontFamily: 'Cormorant',
+                        fontWeight: FontWeight.bold,
+                      )),
+                ),
+              ],
+            );
+          },
+        ) ??
+        false;
+  }
+
+  Future<void> _clearLibrary(BuildContext context) async {
+    final confirmed = await _showDeleteCatalogConfirmation(context);
+    if (!context.mounted || !confirmed) return;
+
+    try {
+      await ref.read(databaseServiceProvider).clearLibrary();
+      if (!context.mounted) return;
+
+      ref.invalidate(allSongsProvider);
+      ref.invalidate(playlistsProvider);
+
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(AppLocalizations.of(context)!.settingsClearLibSuccess),
+        backgroundColor: Colors.green,
+        duration: const Duration(seconds: 2),
+      ));
+    } catch (e) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(AppLocalizations.of(context)!.commonError(e.toString())),
+        backgroundColor: Theme.of(context).colorScheme.error,
+        duration: const Duration(seconds: 2),
+      ));
+    }
   }
 
   Future<void> _importJson(BuildContext context) async {
@@ -240,6 +318,18 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       'sauvegarde',
       'backup',
     ];
+    final clearLibKw = [
+      loc.settingsClearLib,
+      loc.settingsClearLibDesc,
+      'clear',
+      'reset',
+      'delete',
+      'effacer',
+      'réinitialiser',
+      'supprimer',
+      'vide',
+      'empty',
+    ];
 
     final themeKw = [
       loc.themeTitle,
@@ -367,9 +457,11 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     final List<Widget> searchResults = [];
     if (isSearching) {
       void addResult(
-          String title, String subtitle, IconData icon, VoidCallback onTap) {
-        searchResults
-            .add(_buildFeatureRow(context, title, subtitle, icon, onTap));
+          String title, String subtitle, IconData icon, VoidCallback onTap,
+          {bool isDanger = false}) {
+        searchResults.add(_buildFeatureRow(
+            context, title, subtitle, icon, onTap,
+            isDanger: isDanger));
       }
 
       if (_itemMatches(importKw)) {
@@ -379,6 +471,11 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       if (_itemMatches(exportKw)) {
         addResult(loc.settingsExportLib, loc.settingsExportLibDesc,
             Icons.file_download_outlined, () => _exportJson(context));
+      }
+      if (_itemMatches(clearLibKw)) {
+        addResult(loc.settingsClearLib, loc.settingsClearLibDesc,
+            Icons.delete_sweep_outlined, () => _clearLibrary(context),
+            isDanger: true);
       }
 
       if (_itemMatches(themeKw)) {
@@ -678,6 +775,15 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                         Icons.file_download_outlined,
                         () => _exportJson(context),
                       ),
+                      const Divider(height: 20),
+                      _buildFeatureRow(
+                        context,
+                        loc.settingsClearLib,
+                        loc.settingsClearLibDesc,
+                        Icons.delete_sweep_outlined,
+                        () => _clearLibrary(context),
+                        isDanger: true,
+                      ),
                     ],
                   ),
                 ),
@@ -893,13 +999,13 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 
-  Widget _buildFeatureRow(
-    BuildContext context,
-    String title,
-    String subtitle,
-    IconData icon,
-    VoidCallback onTap,
-  ) {
+  Widget _buildFeatureRow(BuildContext context, String title, String subtitle,
+      IconData icon, VoidCallback onTap,
+      {bool isDanger = false}) {
+    final primaryColor = isDanger
+        ? Theme.of(context).colorScheme.error
+        : Theme.of(context).primaryColor;
+
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(12),
@@ -910,12 +1016,12 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor.withAlpha(25),
+                color: primaryColor.withAlpha(25),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Icon(
                 icon,
-                color: Theme.of(context).primaryColor,
+                color: primaryColor,
                 size: 24,
               ),
             ),
@@ -930,7 +1036,9 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                       fontFamily: 'Cormorant',
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.onSurface,
+                      color: isDanger
+                          ? Theme.of(context).colorScheme.error
+                          : Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
                   const SizedBox(height: 4),

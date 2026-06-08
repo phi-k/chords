@@ -66,7 +66,10 @@ class ChordDetector {
   }
 
   static bool isChordLine(String line) {
-    final trimmed = line.replaceAll('\r', '').trim();
+    final normalized = line
+        .replaceAll(RegExp(r'[\u00A0\u2007\u202F]'), ' ')
+        .replaceAll('\t', '    ');
+    final trimmed = normalized.replaceAll('\r', '').trim();
     if (trimmed.isEmpty) return false;
     if (isPositionIndicator(trimmed)) return false;
 

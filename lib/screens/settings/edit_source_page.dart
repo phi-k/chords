@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../../models/tab_source.dart';
 import '../../services/source_manager.dart';
+import '../../services/song_service.dart';
 import '../../utils/chord_format_converter.dart';
 import '../../widgets/common/custom_loader.dart';
 import '../../l10n/app_localizations.dart';
@@ -20,6 +21,7 @@ class EditSourcePage extends StatefulWidget {
 
 class _EditSourcePageState extends State<EditSourcePage> {
   final _formKey = GlobalKey<FormState>();
+  bool _isStaticJson = false;
 
   late TextEditingController _nameCtrl;
   late TextEditingController _baseUrlCtrl;
@@ -56,6 +58,7 @@ class _EditSourcePageState extends State<EditSourcePage> {
   void initState() {
     super.initState();
     final s = widget.source ?? TabSource(name: '', baseUrl: '');
+    _isStaticJson = s.isStaticJson;
     _nameCtrl = TextEditingController(text: s.name);
     _baseUrlCtrl = TextEditingController(text: s.baseUrl);
     _searchPathCtrl = TextEditingController(text: s.searchPath);
@@ -157,11 +160,11 @@ class _EditSourcePageState extends State<EditSourcePage> {
             onPressed: () => Navigator.pop(ctx, 'save'),
             style: ElevatedButton.styleFrom(
               backgroundColor: Theme.of(context).primaryColor,
+              foregroundColor: Theme.of(context).colorScheme.onPrimary,
             ),
             child: Text(loc.commonSave,
-                style: TextStyle(
+                style: const TextStyle(
                     fontFamily: 'Cormorant',
-                    color: Theme.of(context).colorScheme.surface,
                     fontWeight: FontWeight.bold)),
           ),
         ],
@@ -195,8 +198,9 @@ class _EditSourcePageState extends State<EditSourcePage> {
       id: widget.source?.id,
       name: _nameCtrl.text.trim(),
       baseUrl: finalBaseUrl,
-      searchPath: _searchPathCtrl.text.trim(),
-      detailsPath: _detailsPathCtrl.text.trim(),
+      isStaticJson: _isStaticJson,
+      searchPath: _isStaticJson ? '' : _searchPathCtrl.text.trim(),
+      detailsPath: _isStaticJson ? '' : _detailsPathCtrl.text.trim(),
       listPath: _listPathCtrl.text.trim(),
       titlePath: _titlePathCtrl.text.trim(),
       artistPath: _artistPathCtrl.text.trim(),
@@ -228,27 +232,28 @@ class _EditSourcePageState extends State<EditSourcePage> {
   }
 
   Future<void> _deleteSource() async {
+    final loc = AppLocalizations.of(context)!;
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text("Supprimer cette source ?",
-            style: TextStyle(
+        title: Text(loc.dsDeleteConfirm,
+            style: const TextStyle(
                 fontFamily: 'Cormorant', fontWeight: FontWeight.bold)),
         content: Text(
-          "La source « ${widget.source!.name} » sera définitivement supprimée.",
-          style: TextStyle(fontFamily: 'Cormorant', fontSize: 15),
+          loc.dsDeleteMessage(widget.source!.name),
+          style: const TextStyle(fontFamily: 'Cormorant', fontSize: 15),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),
-            child: const Text("Annuler",
+            child: Text(loc.commonCancel,
                 style:
-                    TextStyle(fontFamily: 'Cormorant', color: Colors.black54)),
+                    TextStyle(fontFamily: 'Cormorant', color: Theme.of(context).colorScheme.onSurfaceVariant)),
           ),
           TextButton(
             onPressed: () => Navigator.pop(ctx, true),
-            child: Text("Supprimer",
+            child: Text(loc.commonDelete,
                 style: TextStyle(
                     fontFamily: 'Cormorant',
                     color: Theme.of(context).primaryColor,
@@ -315,7 +320,8 @@ class _EditSourcePageState extends State<EditSourcePage> {
 
   void _openTestPage() {
     final source = _buildSourceFromForm();
-    if (source.baseUrl.isEmpty || source.searchPath.isEmpty) {
+    if (source.baseUrl.isEmpty ||
+        (!source.isStaticJson && source.searchPath.isEmpty)) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(AppLocalizations.of(context)!.editSourceFillRequired,
@@ -332,6 +338,7 @@ class _EditSourcePageState extends State<EditSourcePage> {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, _) async {
@@ -376,11 +383,32 @@ class _EditSourcePageState extends State<EditSourcePage> {
                     "• URL de base : l'adresse racine de l'API\n"
                     "• Headers : en-têtes HTTP optionnels pour l'authentification (ex: tokens Cloudflare).",
               ),
+              SwitchListTile(
+                contentPadding: EdgeInsets.zero,
+                title: Text(
+                  AppLocalizations.of(context)!.dsStaticJsonTitle,
+                  style: const TextStyle(
+                    fontFamily: 'Cormorant',
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                subtitle: Text(
+                  AppLocalizations.of(context)!.dsStaticJsonDesc,
+                  style: const TextStyle(fontFamily: 'Cormorant'),
+                ),
+                value: _isStaticJson,
+                onChanged: (value) => setState(() => _isStaticJson = value),
+                activeThumbColor  : Theme.of(context).primaryColor,
+              ),
               SizedBox(height: 14),
               _buildField("Nom de la source", _nameCtrl, "Ex: Base Locale"),
               SizedBox(height: 12),
               _buildField(
-                  "URL de base", _baseUrlCtrl, "Ex: api.monserveur.com"),
+                  "URL de base",
+                  _baseUrlCtrl,
+                  _isStaticJson
+                      ? "Ex: https://.../songs.json"
+                      : "Ex: api.monserveur.com"),
               SizedBox(height: 12),
               _buildRowFields("Header 1 (Clé)", _header1KeyCtrl,
                   "Header 1 (Valeur)", _header1ValCtrl,
@@ -391,25 +419,27 @@ class _EditSourcePageState extends State<EditSourcePage> {
                   obscure: true),
               SizedBox(height: 32),
               _buildDivider(),
-              SizedBox(height: 28),
-              _buildSectionHeader(
-                "2. Endpoints",
-                Icons.route_outlined,
-                helpTitle: "Endpoints (Requêtes)",
-                helpBody: "Chemins ajoutés à l'URL de base.\n\n"
-                    "• Recherche : utilisez {query} là où le texte cherché doit apparaître.\n"
-                    "• Détails : utilisez {url} là où l'identifiant (ID ou URL de la chanson) doit apparaître.",
-              ),
-              SizedBox(height: 14),
-              _buildField("Chemin de recherche", _searchPathCtrl,
-                  "Ex: /songs?title=ilike.*{query}*",
-                  maxLines: 2),
-              SizedBox(height: 12),
-              _buildField("Chemin des détails", _detailsPathCtrl,
-                  "Ex: /songs?song_url=eq.{url}",
-                  maxLines: 2),
-              SizedBox(height: 32),
-              _buildDivider(),
+              if (!_isStaticJson) ...[
+                SizedBox(height: 28),
+                _buildSectionHeader(
+                  "2. Endpoints",
+                  Icons.route_outlined,
+                  helpTitle: "Endpoints (Requêtes)",
+                  helpBody: "Chemins ajoutés à l'URL de base.\n\n"
+                      "• Recherche : utilisez {query} là où le texte cherché doit apparaître.\n"
+                      "• Détails : utilisez {url} là où l'identifiant (ID ou URL de la chanson) doit apparaître.",
+                ),
+                SizedBox(height: 14),
+                _buildField("Chemin de recherche", _searchPathCtrl,
+                    "Ex: /songs?title=ilike.*{query}*",
+                    maxLines: 2),
+                SizedBox(height: 12),
+                _buildField("Chemin des détails", _detailsPathCtrl,
+                    "Ex: /songs?song_url=eq.{url}",
+                    maxLines: 2),
+                SizedBox(height: 32),
+                _buildDivider(),
+              ],
               SizedBox(height: 28),
               _buildSectionHeader(
                 "3. Infos Générales",
@@ -485,8 +515,8 @@ class _EditSourcePageState extends State<EditSourcePage> {
               OutlinedButton.icon(
                 onPressed: _openTestPage,
                 icon: Icon(Icons.science_outlined, size: 20),
-                label: const Text("Tester la connexion",
-                    style: TextStyle(
+                label: Text(loc.dsTestConnection,
+                    style: const TextStyle(
                         fontFamily: 'Cormorant',
                         fontSize: 16,
                         fontWeight: FontWeight.bold)),
@@ -503,14 +533,14 @@ class _EditSourcePageState extends State<EditSourcePage> {
                 onPressed: _save,
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).primaryColor,
-                    padding: EdgeInsets.symmetric(vertical: 16),
+                    foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12))),
                 child: const Text("Enregistrer la source",
                     style: TextStyle(
                         fontFamily: 'Cormorant',
                         fontSize: 18,
-                        color: Colors.white,
                         fontWeight: FontWeight.bold)),
               ),
               SizedBox(height: 40),
@@ -750,6 +780,91 @@ class _TestSourcePageState extends State<_TestSourcePage> {
 
     try {
       final source = widget.source;
+
+      if (source.isStaticJson) {
+        final searchStopwatch = Stopwatch()..start();
+        final results = await SongService.searchStaticSource(source, query);
+        searchStopwatch.stop();
+        _searchDuration = searchStopwatch.elapsed;
+
+        _totalRawResults = results.length;
+
+        final mapped = results.take(3).map((r) {
+          return <String, dynamic>{
+            "title": r['title'] ?? "Sans titre",
+            "artist": r['artist'] ?? "Inconnu",
+            "url": r['song_url'] ?? "",
+            "type": r['type'] ?? "Chords",
+            "votes": r['votes'] ?? "",
+            "rating": r['rating'] ?? "",
+          };
+        }).toList();
+
+        final Map<String, String> searchExtras = {};
+        if (mapped.isNotEmpty) {
+          searchExtras['Votes'] = mapped[0]['votes']?.toString() ?? '';
+          searchExtras['Rating'] = mapped[0]['rating']?.toString() ?? '';
+        }
+
+        setState(() {
+          _results = mapped;
+          _step = _TestStep.searchDone;
+        });
+
+        await Future.delayed(const Duration(milliseconds: 400));
+
+        if (mapped.isEmpty) {
+          setState(() {
+            _extraFields = searchExtras;
+            _step = _TestStep.done;
+          });
+          return;
+        }
+
+        setState(() => _step = _TestStep.loadingDetails);
+
+        final detailsStopwatch = Stopwatch()..start();
+        final detailResult = await SongService.fetchStaticSourceDetails(
+          source,
+          mapped.first['url']?.toString() ?? '',
+        );
+        detailsStopwatch.stop();
+        _detailsDuration = detailsStopwatch.elapsed;
+
+        if (detailResult == null) {
+          setState(() {
+            _extraFields = searchExtras;
+            _step = _TestStep.done;
+          });
+          return;
+        }
+
+        final content = (detailResult['lyrics_with_chords'] ?? '').toString();
+        final converted = ChordFormatConverter.convertOnlineToOffline(content);
+        final lines = converted.split('\n');
+
+        final dynamic chordsDict =
+            json.decode(detailResult['chords_dict'] ?? '{}');
+        final String chordsDictStatus =
+            chordsDict == null || (chordsDict is Map && chordsDict.isEmpty)
+                ? 'Non'
+                : 'Oui';
+
+        setState(() {
+          _detailFields = {
+            'Titre': detailResult['title']?.toString() ?? '—',
+            'Artiste': detailResult['artist']?.toString() ?? '—',
+            'Tonalité': detailResult['tonality']?.toString() ?? '—',
+            'Capo': detailResult['capo']?.toString() ?? '—',
+            'Dico Accords ?': chordsDictStatus,
+          };
+          _previewLyrics = lines.take(16).join('\n');
+          _extraFields = {...searchExtras};
+          _step = _TestStep.done;
+        });
+        return;
+      }
+
       final cleanQuery = Uri.encodeComponent(query.replaceAll(' ', '*'));
       final rawUrl = '${source.baseUrl}${source.searchPath}';
       final url = rawUrl.replaceAll('{query}', cleanQuery);
@@ -919,10 +1034,11 @@ class _TestSourcePageState extends State<_TestSourcePage> {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Tester la connexion",
-            style: TextStyle(
+        title: Text(loc.dsTestConnection,
+            style: const TextStyle(
                 fontFamily: 'Cormorant',
                 fontWeight: FontWeight.bold,
                 fontSize: 22)),
@@ -934,7 +1050,7 @@ class _TestSourcePageState extends State<_TestSourcePage> {
           Text(
               widget.source.name.isNotEmpty
                   ? widget.source.name
-                  : 'Source sans nom',
+                  : loc.dsUnnamedSource,
               style: TextStyle(
                   fontFamily: 'Cormorant',
                   fontSize: 15,
@@ -991,7 +1107,7 @@ class _TestSourcePageState extends State<_TestSourcePage> {
                         borderRadius: BorderRadius.circular(12)),
                     padding: EdgeInsets.symmetric(horizontal: 20),
                   ),
-                  child: Text("Tester",
+                  child: Text(loc.dsTestBtn,
                       style: TextStyle(
                           fontFamily: 'Cormorant',
                           color: Theme.of(context).colorScheme.onPrimary,
@@ -1015,28 +1131,28 @@ class _TestSourcePageState extends State<_TestSourcePage> {
             SizedBox(height: 20),
           ],
           if (_results.isNotEmpty) ...[
-            _buildSectionTitle("Résultats de recherche",
-                "$_totalRawResults trouvé${_totalRawResults > 1 ? 's' : ''}, ${_results.length} affiché${_results.length > 1 ? 's' : ''}"),
+            _buildSectionTitle(loc.dsTestSearchResults,
+                loc.dsTestResultsSummary(_totalRawResults, _results.length)),
             SizedBox(height: 10),
             _buildResultsCard(),
             SizedBox(height: 24),
           ],
           if (_detailFields.isNotEmpty) ...[
-            _buildSectionTitle("Informations extraites",
-                "Lecture automatique du 1er résultat"),
+            _buildSectionTitle(loc.dsTestExtractedInfo,
+                loc.dsTestAutoReadFirst),
             SizedBox(height: 10),
             _buildDetailCard(),
             SizedBox(height: 24),
           ],
           if (_previewLyrics.isNotEmpty) ...[
-            _buildSectionTitle("Aperçu de la tablature", "Premières lignes"),
+            _buildSectionTitle(loc.dsTestTabPreview, loc.dsTestFirstLines),
             SizedBox(height: 10),
             _buildLyricsCard(),
             SizedBox(height: 24),
           ],
           if (_step == _TestStep.done && _extraFields.isNotEmpty) ...[
-            _buildSectionTitle("Champs supplémentaires",
-                "$_extraFieldsFoundCount / ${_extraFields.length} champ${_extraFields.length > 1 ? 's' : ''} détecté${_extraFieldsFoundCount > 1 ? 's' : ''}"),
+            _buildSectionTitle(loc.dsTestExtraFields,
+                loc.dsTestExtraFieldsSummary(_extraFieldsFoundCount, _extraFields.length)),
             SizedBox(height: 10),
             _buildExtraFieldsCard(),
           ],
@@ -1047,6 +1163,7 @@ class _TestSourcePageState extends State<_TestSourcePage> {
   }
 
   Widget _buildStepIndicator() {
+    final loc = AppLocalizations.of(context)!;
     final searchDone = _step == _TestStep.searchDone ||
         _step == _TestStep.loadingDetails ||
         _step == _TestStep.done;
@@ -1070,7 +1187,7 @@ class _TestSourcePageState extends State<_TestSourcePage> {
       child: Row(
         children: [
           _buildStepDot(
-            label: "Recherche",
+            label: loc.dsTestStepSearch,
             isDone: searchDone,
             isActive: isSearching,
             isError: _step == _TestStep.error && !searchDone,
@@ -1091,7 +1208,7 @@ class _TestSourcePageState extends State<_TestSourcePage> {
             ),
           ),
           _buildStepDot(
-            label: "Détails",
+            label: loc.dsTestStepDetails,
             isDone: detailsDone,
             isActive: isLoadingDetails,
             isError: _step == _TestStep.error && searchDone,
@@ -1115,7 +1232,7 @@ class _TestSourcePageState extends State<_TestSourcePage> {
               ),
             ),
             _buildStepDot(
-              label: "Extras",
+              label: loc.dsTestStepExtras,
               isDone: detailsDone && _extraFields.isNotEmpty,
               isActive: isLoadingDetails,
               isError: detailsDone &&
@@ -1133,16 +1250,17 @@ class _TestSourcePageState extends State<_TestSourcePage> {
   }
 
   Widget _buildSlowWarningCard() {
+    final loc = AppLocalizations.of(context)!;
     final searchMs = _searchDuration.inMilliseconds;
     final detailsMs = _detailsDuration.inMilliseconds;
     String timing = '';
     if (_isSearchSlow && _isDetailsSlow) {
       timing =
-          'Recherche : ${(searchMs / 1000).toStringAsFixed(1)}s · Détails : ${(detailsMs / 1000).toStringAsFixed(1)}s';
+          '${loc.dsTestStepSearch} : ${(searchMs / 1000).toStringAsFixed(1)}s · ${loc.dsTestStepDetails} : ${(detailsMs / 1000).toStringAsFixed(1)}s';
     } else if (_isSearchSlow) {
-      timing = 'Recherche : ${(searchMs / 1000).toStringAsFixed(1)}s';
+      timing = '${loc.dsTestStepSearch} : ${(searchMs / 1000).toStringAsFixed(1)}s';
     } else {
-      timing = 'Détails : ${(detailsMs / 1000).toStringAsFixed(1)}s';
+      timing = '${loc.dsTestStepDetails} : ${(detailsMs / 1000).toStringAsFixed(1)}s';
     }
 
     return Container(
@@ -1161,7 +1279,7 @@ class _TestSourcePageState extends State<_TestSourcePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Temps de réponse élevé",
+                Text(loc.dsTestSlowWarningTitle,
                     style: TextStyle(
                         fontFamily: 'Cormorant',
                         fontSize: 15,
@@ -1169,8 +1287,7 @@ class _TestSourcePageState extends State<_TestSourcePage> {
                         color: Colors.orange.shade800)),
                 SizedBox(height: 4),
                 Text(
-                    "Votre base de données fonctionne correctement, mais les temps de réponse sont lents (> 1,5s). "
-                    "Cela peut entraîner une expérience utilisateur dégradée lors de la recherche.",
+                    loc.dsTestSlowWarningBody,
                     style: TextStyle(
                         fontFamily: 'Cormorant',
                         fontSize: 13,
@@ -1642,6 +1759,7 @@ class _TestSourcePageState extends State<_TestSourcePage> {
   }
 
   Widget _buildIdleHint() {
+    final loc = AppLocalizations.of(context)!;
     return Padding(
       padding: EdgeInsets.only(top: 40),
       child: Column(
@@ -1654,7 +1772,7 @@ class _TestSourcePageState extends State<_TestSourcePage> {
                   .withValues(alpha: 0.1)),
           SizedBox(height: 16),
           Text(
-            "Entrez un mot ou un titre de chanson, puis appuyez sur Tester.",
+            loc.dsTestIdleHint1,
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontFamily: 'Cormorant',
@@ -1667,7 +1785,7 @@ class _TestSourcePageState extends State<_TestSourcePage> {
           ),
           SizedBox(height: 8),
           Text(
-            "L'application va automatiquement chercher, récupérer les détails du premier résultat, et afficher un aperçu.",
+            loc.dsTestIdleHint2,
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontFamily: 'Cormorant',

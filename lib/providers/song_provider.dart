@@ -7,6 +7,8 @@ import '../data/collections/song.dart';
 import '../data/collections/playlist.dart';
 import '../widgets/filter_buttons.dart';
 import '../main.dart';
+import '../models/tab_source.dart';
+import '../services/source_manager.dart';
 
 final databaseServiceProvider = Provider<DatabaseService>((ref) {
   final isar = ref.watch(isarProvider);
@@ -156,3 +158,7 @@ class HomeFilterNotifier extends Notifier<HomeFilterState> {
         state.copyWith(clearSelectedArtist: true, clearSelectedPlaylist: true);
   }
 }
+
+final tabSourcesProvider = FutureProvider<List<TabSource>>((ref) async {
+  return SourceManager.getSources();
+});
