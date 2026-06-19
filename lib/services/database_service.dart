@@ -143,7 +143,8 @@ class DatabaseService {
     final newPlaylist = Playlist()
       ..name = name
       ..uuid = uuid.v4()
-      ..createdAt = DateTime.now();
+      ..createdAt = DateTime.now()
+      ..songOrder = const [];
 
     await isar.writeTxn(() async {
       await isar.playlists.put(newPlaylist);

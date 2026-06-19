@@ -26,6 +26,11 @@ final allSongsProvider = StreamProvider<List<Song>>((ref) {
   return dbService.watchSongs(filterText: filterText);
 });
 
+final hasSongsProvider = StreamProvider<bool>((ref) {
+  final dbService = ref.watch(databaseServiceProvider);
+  return dbService.watchSongs(filterText: '').map((songs) => songs.isNotEmpty);
+});
+
 final artistSongsProvider =
     StreamProvider.family<List<Song>, String>((ref, artistName) {
   final dbService = ref.watch(databaseServiceProvider);
@@ -64,7 +69,7 @@ class HomeFilterState {
   final Set<FilterMode> activeFilters;
   final bool recentFilterReversed;
   final String? selectedArtist;
-  final Playlist? selectedPlaylist;
+  final int? selectedPlaylistId;
 
   HomeFilterState({
     this.filterText = "",
@@ -72,7 +77,7 @@ class HomeFilterState {
     this.activeFilters = const {},
     this.recentFilterReversed = false,
     this.selectedArtist,
-    this.selectedPlaylist,
+    this.selectedPlaylistId,
   });
 
   HomeFilterState copyWith({
@@ -81,7 +86,7 @@ class HomeFilterState {
     Set<FilterMode>? activeFilters,
     bool? recentFilterReversed,
     String? selectedArtist,
-    Playlist? selectedPlaylist,
+    int? selectedPlaylistId,
     bool clearSelectedArtist = false,
     bool clearSelectedPlaylist = false,
   }) {
@@ -92,9 +97,9 @@ class HomeFilterState {
       recentFilterReversed: recentFilterReversed ?? this.recentFilterReversed,
       selectedArtist:
           clearSelectedArtist ? null : selectedArtist ?? this.selectedArtist,
-      selectedPlaylist: clearSelectedPlaylist
+      selectedPlaylistId: clearSelectedPlaylist
           ? null
-          : selectedPlaylist ?? this.selectedPlaylist,
+          : selectedPlaylistId ?? this.selectedPlaylistId,
     );
   }
 }
@@ -148,9 +153,9 @@ class HomeFilterNotifier extends Notifier<HomeFilterState> {
     state = state.copyWith(selectedArtist: artist, clearSelectedPlaylist: true);
   }
 
-  void selectPlaylist(Playlist playlist) {
+  void selectPlaylist(int playlistId) {
     state =
-        state.copyWith(selectedPlaylist: playlist, clearSelectedArtist: true);
+        state.copyWith(selectedPlaylistId: playlistId, clearSelectedArtist: true);
   }
 
   void clearSelections() {

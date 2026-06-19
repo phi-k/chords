@@ -19,12 +19,16 @@ class SongListWidget extends ConsumerStatefulWidget {
   final List<Song> songs;
   final Future<void> Function() onRefresh;
   final bool showAlphabetScroller;
+  final bool isPlaylist;
+  final ReorderCallback? onReorder;
 
   const SongListWidget({
     super.key,
     required this.songs,
     required this.onRefresh,
     required this.showAlphabetScroller,
+    this.isPlaylist = false,
+    this.onReorder,
   });
 
   @override
@@ -178,197 +182,245 @@ class _SongListWidgetState extends ConsumerState<SongListWidget>
 
   @override
   Widget build(BuildContext context) {
-    final loc = AppLocalizations.of(context)!;
-    Map<String, List<Song>> groupedSongs = _getGroupedSongs();
-    List<Widget> listItems = [];
+    try {
+      final loc = AppLocalizations.of(context)!;
 
-    List<String> sortedKeys = groupedSongs.keys.toList()
-      ..sort((a, b) {
-        if (a == "Autres") return 1;
-        if (b == "Autres") return -1;
-        return a.compareTo(b);
-      });
-
-    for (var key in sortedKeys) {
-      if (key == "Autres") continue;
-
-      listItems.add(_buildGroupHeader(key, loc));
-      for (var song in groupedSongs[key]!) {
-        listItems.add(
-          SongTile(
-            song: song,
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => SongPage(songData: song)),
-            ),
-            onLongPress: () => showSongOptionsPopup(context, ref, song),
-          ),
-        );
-      }
-    }
-
-    if (groupedSongs.containsKey("Autres")) {
-      listItems.add(_buildGroupHeader("Autres", loc));
-      for (var song in groupedSongs["Autres"]!) {
-        listItems.add(
-          SongTile(
-            song: song,
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => SongPage(songData: song)),
-            ),
-            onLongPress: () => showSongOptionsPopup(context, ref, song),
-          ),
-        );
-      }
-    }
-
-    listItems.add(
-      InkWell(
-        splashColor: Colors.transparent,
-        highlightColor: Colors.transparent,
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const CreationPage()),
-          );
-        },
-        child: Padding(
-          padding: const EdgeInsets.only(top: 30.0, bottom: 5.0, right: 10),
-          child: Row(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(5),
-                child: Container(
-                  width: 50,
-                  height: 50,
-                  color: Theme.of(context)
-                      .colorScheme
-                      .primary
-                      .withValues(alpha: 0.15),
-                  child: Icon(Icons.edit_note,
-                      color: Theme.of(context).colorScheme.primary),
+      if (widget.isPlaylist) {
+        return RefreshIndicator(
+          onRefresh: widget.onRefresh,
+          child: ReorderableListView.builder(
+            scrollController: _scrollController,
+            buildDefaultDragHandles: false,
+            itemCount: widget.songs.length,
+            onReorder: widget.onReorder ?? (oldIndex, newIndex) {},
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            itemBuilder: (context, index) {
+              final song = widget.songs[index];
+              return SongTile(
+                key: ValueKey(song.id),
+                song: song,
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => SongPage(songData: song)),
                 ),
-              ),
-              const SizedBox(width: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    loc.songListNoteSong,
-                    style: TextStyle(
-                      fontFamily: 'Cormorant',
-                      fontSize: 20,
-                      color: Theme.of(context).colorScheme.onSurface,
+                onLongPress: () => showSongOptionsPopup(context, ref, song),
+                trailing: ReorderableDragStartListener(
+                  index: index,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10.0, vertical: 10.0),
+                    child: Icon(
+                      Icons.drag_handle,
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withValues(alpha: 0.4),
                     ),
                   ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-
-    listItems.add(
-      InkWell(
-        splashColor: Colors.transparent,
-        highlightColor: Colors.transparent,
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const BlindTestPage()),
-          );
-        },
-        child: Padding(
-          padding: const EdgeInsets.only(top: 10.0, bottom: 5.0, right: 10),
-          child: Row(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(5),
-                child: Container(
-                  width: 50,
-                  height: 50,
-                  color: Theme.of(context)
-                      .colorScheme
-                      .primary
-                      .withValues(alpha: 0.225),
-                  child: Icon(Icons.music_note,
-                      color: Theme.of(context).colorScheme.primary),
                 ),
+              );
+            },
+          ),
+        );
+      }
+
+      Map<String, List<Song>> groupedSongs = _getGroupedSongs();
+      List<Widget> listItems = [];
+
+      List<String> sortedKeys = groupedSongs.keys.toList()
+        ..sort((a, b) {
+          if (a == "Autres") return 1;
+          if (b == "Autres") return -1;
+          return a.compareTo(b);
+        });
+
+      for (var key in sortedKeys) {
+        if (key == "Autres") continue;
+
+        listItems.add(_buildGroupHeader(key, loc));
+        for (var song in groupedSongs[key]!) {
+          listItems.add(
+            SongTile(
+              song: song,
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => SongPage(songData: song)),
               ),
-              const SizedBox(width: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    loc.songListBlindTest,
-                    style: TextStyle(
+              onLongPress: () => showSongOptionsPopup(context, ref, song),
+            ),
+          );
+        }
+      }
+
+      if (groupedSongs.containsKey("Autres")) {
+        listItems.add(_buildGroupHeader("Autres", loc));
+        for (var song in groupedSongs["Autres"]!) {
+          listItems.add(
+            SongTile(
+              song: song,
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => SongPage(songData: song)),
+              ),
+              onLongPress: () => showSongOptionsPopup(context, ref, song),
+            ),
+          );
+        }
+      }
+
+      listItems.add(
+        InkWell(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const CreationPage()),
+            );
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(top: 30.0, bottom: 5.0, right: 10),
+            child: Row(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(5),
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    color: Theme.of(context)
+                        .colorScheme
+                        .primary
+                        .withValues(alpha: 0.15),
+                    child: Icon(Icons.edit_note,
+                        color: Theme.of(context).colorScheme.primary),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      loc.songListNoteSong,
+                      style: TextStyle(
                         fontFamily: 'Cormorant',
                         fontSize: 20,
-                        color: Theme.of(context).colorScheme.onSurface),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-
-    listItems.add(
-      InkWell(
-        splashColor: Colors.transparent,
-        highlightColor: Colors.transparent,
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const SettingsPage()),
-          );
-        },
-        child: Padding(
-          padding: const EdgeInsets.only(top: 10.0, bottom: 0.0, right: 10),
-          child: Row(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(5),
-                child: Container(
-                  width: 50,
-                  height: 50,
-                  color: Theme.of(context)
-                      .colorScheme
-                      .primary
-                      .withValues(alpha: 0.30),
-                  child: Icon(Icons.settings,
-                      color: Theme.of(context).colorScheme.primary),
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              const SizedBox(width: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    loc.songListSettings,
-                    style: TextStyle(
-                        fontFamily: 'Cormorant',
-                        fontSize: 20,
-                        color: Theme.of(context).colorScheme.onSurface),
-                  ),
-                ],
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
 
-    return RefreshIndicator(
-      onRefresh: widget.onRefresh,
-      child: ListView(
-        controller: _scrollController,
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        children: listItems,
-      ),
-    );
+      listItems.add(
+        InkWell(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const BlindTestPage()),
+            );
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(top: 10.0, bottom: 5.0, right: 10),
+            child: Row(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(5),
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    color: Theme.of(context)
+                        .colorScheme
+                        .primary
+                        .withValues(alpha: 0.225),
+                    child: Icon(Icons.music_note,
+                        color: Theme.of(context).colorScheme.primary),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      loc.songListBlindTest,
+                      style: TextStyle(
+                          fontFamily: 'Cormorant',
+                          fontSize: 20,
+                          color: Theme.of(context).colorScheme.onSurface),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+
+      listItems.add(
+        InkWell(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const SettingsPage()),
+            );
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(top: 10.0, bottom: 0.0, right: 10),
+            child: Row(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(5),
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    color: Theme.of(context)
+                        .colorScheme
+                        .primary
+                        .withValues(alpha: 0.30),
+                    child: Icon(Icons.settings,
+                        color: Theme.of(context).colorScheme.primary),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      loc.songListSettings,
+                      style: TextStyle(
+                          fontFamily: 'Cormorant',
+                          fontSize: 20,
+                          color: Theme.of(context).colorScheme.onSurface),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+
+      return RefreshIndicator(
+        onRefresh: widget.onRefresh,
+        child: ListView(
+          controller: _scrollController,
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          children: listItems,
+        ),
+      );
+    } catch (e, s) {
+      print("[PLAYLIST_LOG] Error in SongListWidget.build: $e\n$s");
+      rethrow;
+    }
   }
 }

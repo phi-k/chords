@@ -28,6 +28,75 @@ class AppImage extends StatelessWidget {
       return _buildStaticPlaceholder();
     }
 
+    if (url!.startsWith('emoji://')) {
+      final content = url!.substring(8);
+      final parts = content.split('|');
+      final emoji = parts[0];
+      Color? bgColor;
+      if (parts.length > 1) {
+        final colorVal = int.tryParse(parts[1], radix: 16);
+        if (colorVal != null) {
+          bgColor = Color(colorVal);
+        }
+      }
+      bgColor ??= Theme.of(context).colorScheme.primary.withValues(alpha: 0.15);
+
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(borderRadius),
+        child: Container(
+          width: width,
+          height: height,
+          color: bgColor,
+          child: Center(
+            child: Text(
+              emoji,
+              style: TextStyle(fontSize: width * 0.5),
+            ),
+          ),
+        ),
+      );
+    }
+
+    if (url!.startsWith('icon://')) {
+      final content = url!.substring(7);
+      final parts = content.split('|');
+      final codePointStr = parts[0];
+      final codePoint = int.tryParse(codePointStr);
+      final iconData = codePoint != null
+          ? IconData(codePoint, fontFamily: 'MaterialIcons')
+          : Icons.folder;
+
+      Color? bgColor;
+      Color? iconColor;
+      if (parts.length > 1) {
+        final colorVal = int.tryParse(parts[1], radix: 16);
+        if (colorVal != null) {
+          bgColor = Color(colorVal);
+          iconColor = bgColor.computeLuminance() > 0.6
+              ? Colors.black87
+              : Colors.white;
+        }
+      }
+      bgColor ??= Theme.of(context).colorScheme.primary.withValues(alpha: 0.15);
+      iconColor ??= Theme.of(context).colorScheme.primary;
+
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(borderRadius),
+        child: Container(
+          width: width,
+          height: height,
+          color: bgColor,
+          child: Center(
+            child: Icon(
+              iconData,
+              color: iconColor,
+              size: width * 0.55,
+            ),
+          ),
+        ),
+      );
+    }
+
     if (url!.startsWith('local://')) {
       final localPath = url!.replaceFirst('local://', '');
       final file = File(localPath);

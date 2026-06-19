@@ -17,7 +17,6 @@ import 'providers/settings_provider.dart';
 import 'services/song_service.dart';
 import 'services/source_manager.dart';
 import 'screens/home_page.dart';
-import 'screens/playlist_detail_page.dart';
 import 'screens/splash_page.dart';
 import 'screens/playlist_edit_page.dart';
 import 'screens/welcome_page.dart';
@@ -243,12 +242,7 @@ class _MyAppState extends ConsumerState<MyApp> {
         '/welcome': (context) => const WelcomePage(),
       },
       onGenerateRoute: (settings) {
-        if (settings.name == '/playlist_detail') {
-          final playlistId = settings.arguments as int;
-          return MaterialPageRoute(
-            builder: (context) => PlaylistDetailPage(playlistId: playlistId),
-          );
-        } else if (settings.name == '/playlist_edit') {
+        if (settings.name == '/playlist_edit') {
           final playlistId = settings.arguments as int;
           return MaterialPageRoute(
             builder: (context) => PlaylistEditPage(playlistId: playlistId),

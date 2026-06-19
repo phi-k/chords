@@ -50,6 +50,17 @@ class _PlaylistEditPageState extends ConsumerState<PlaylistEditPage> {
       playlist.songs.clear();
       playlist.songs.addAll(songsToSave);
 
+      final existingOrder = playlist.songOrder ?? [];
+      final newIds = songsToSave.map((s) => s.id).toSet();
+      final updatedOrder =
+          existingOrder.where((id) => newIds.contains(id)).toList();
+      for (final song in songsToSave) {
+        if (!updatedOrder.contains(song.id)) {
+          updatedOrder.add(song.id);
+        }
+      }
+      playlist.songOrder = updatedOrder;
+
       await ref.read(databaseServiceProvider).updatePlaylist(playlist);
 
       if (mounted) {

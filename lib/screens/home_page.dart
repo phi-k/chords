@@ -6,6 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../providers/song_provider.dart';
+import '../data/collections/song.dart';
+import '../data/collections/playlist.dart';
 import '../widgets/search_bar.dart';
 import '../widgets/filter_buttons.dart';
 import '../widgets/filtered_content_view.dart';
@@ -234,16 +236,18 @@ class _HomePageState extends ConsumerState<HomePage> {
     const songListPadding = EdgeInsets.only(left: 40, right: 0);
 
     final asyncSongs = ref.watch(allSongsProvider);
+    final asyncHasSongs = ref.watch(hasSongsProvider);
     final asyncSources = ref.watch(tabSourcesProvider);
 
-    final bool isLibraryEmpty = asyncSongs.hasValue && asyncSongs.value!.isEmpty;
+    final bool isLibraryEmpty = asyncHasSongs.hasValue && !asyncHasSongs.value!;
     final sourcesList = asyncSources.value ?? [];
-    final bool hasCustomSource = sourcesList.any((s) => s.id != 'default_open_source_library');
+    final bool hasCustomSource =
+        sourcesList.any((s) => s.id != 'default_open_source_library');
     final bool hideSearchBar = isLibraryEmpty && !hasCustomSource;
 
     return PopScope(
       canPop: filterState.selectedArtist == null &&
-          filterState.selectedPlaylist == null,
+          filterState.selectedPlaylistId == null,
       onPopInvokedWithResult: (didPop, result) {
         if (!didPop) {
           filterNotifier.clearSelections();
@@ -306,11 +310,17 @@ class _HomePageState extends ConsumerState<HomePage> {
                         data: (savedSongs) {
                           final artistsCount = asyncArtists.value ?? {};
 
+                          final playlistId = filterState.selectedPlaylistId;
+                          Playlist? playlist;
+                          if (playlistId != null) {
+                            playlist =
+                                ref.watch(playlistProvider(playlistId)).value;
+                          }
+
                           String headerText = filterState.selectedArtist != null
                               ? loc.homeSongsOf(filterState.selectedArtist!)
-                              : filterState.selectedPlaylist != null
-                                  ? loc.homePlaylistLabel(
-                                      filterState.selectedPlaylist!.name ?? '')
+                              : playlist != null
+                                  ? loc.homePlaylistLabel(playlist.name ?? '')
                                   : FilteredContentView.getHeaderText(
                                       filterState.activeFilters,
                                       artistsCount,
@@ -342,42 +352,87 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 );
                               },
                             );
-                          } else if (filterState.selectedPlaylist != null) {
-                            final playlistSongIds = filterState
-                                .selectedPlaylist!.songs
-                                .map((s) => s.id)
-                                .toSet();
-                            final playlistSongs = savedSongs
-                                .where((s) => playlistSongIds.contains(s.id))
-                                .toList();
-                            contentView = Padding(
-                              padding: songListPadding,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 10),
-                                    child: Text(
-                                      loc.homePieceCount(playlistSongs.length),
-                                      style: TextStyle(
-                                          fontFamily: 'Cormorant',
-                                          fontSize: 14,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onSurface
-                                              .withValues(alpha: 0.6)),
-                                    ),
+                          } else if (playlist != null) {
+                            contentView = FutureBuilder<List<Song>>(
+                              future: Future(() async {
+                                try {
+                                  await playlist!.songs.load();
+                                  return playlist.getOrderedSongs();
+                                } catch (e, s) {
+                                  print("[PLAYLIST_LOG] Error in HomePage FutureBuilder: $e\n$s");
+                                  rethrow;
+                                }
+                              }),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return const Padding(
+                                    padding: songListPadding,
+                                    child: CustomLoader(),
+                                  );
+                                }
+                                if (snapshot.hasError) {
+                                  return Center(
+                                    child: Text(loc.commonError(
+                                        snapshot.error.toString())),
+                                  );
+                                }
+                                final playlistSongs = snapshot.data ?? [];
+                                return Padding(
+                                  padding: songListPadding,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 10),
+                                        child: Text(
+                                          loc.homePieceCount(
+                                              playlistSongs.length),
+                                          style: TextStyle(
+                                              fontFamily: 'Cormorant',
+                                              fontSize: 14,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onSurface
+                                                  .withValues(alpha: 0.6)),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: SongListWidget(
+                                          songs: playlistSongs,
+                                          onRefresh: () async =>
+                                              ref.invalidate(allSongsProvider),
+                                          showAlphabetScroller: false,
+                                          isPlaylist: true,
+                                          onReorder:
+                                              (oldIndex, newIndex) async {
+                                            if (oldIndex < newIndex) {
+                                              newIndex -= 1;
+                                            }
+                                            final List<Song> orderedSongs =
+                                                List.from(playlistSongs);
+                                            final Song movedSong =
+                                                orderedSongs.removeAt(oldIndex);
+                                            orderedSongs.insert(
+                                                newIndex, movedSong);
+
+                                            playlist!.songOrder = orderedSongs
+                                                .map((s) => s.id)
+                                                .toList();
+                                            filterNotifier
+                                                .selectPlaylist(playlist.id);
+                                            await ref
+                                                .read(databaseServiceProvider)
+                                                .updatePlaylist(playlist);
+                                          },
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  Expanded(
-                                    child: SongListWidget(
-                                      songs: playlistSongs,
-                                      onRefresh: () async =>
-                                          ref.invalidate(allSongsProvider),
-                                      showAlphabetScroller: false,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                );
+                              },
                             );
                           } else {
                             contentView = FilteredContentView(
@@ -451,7 +506,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ),
                 ),
                 if (!hideSearchBar) ...[
-                  if (_onboardingLoaded && _showOnboardingPopup && !isLibraryEmpty)
+                  if (_onboardingLoaded &&
+                      _showOnboardingPopup &&
+                      !isLibraryEmpty)
                     _buildOnboardingPopup(context),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
