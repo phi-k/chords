@@ -41,7 +41,7 @@ class SongTile extends StatelessWidget {
       onTap: onTap,
       onLongPress: onLongPress,
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 10),
+        padding: EdgeInsets.only(top: 10, bottom: 10, right: 16),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [

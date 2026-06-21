@@ -353,31 +353,18 @@ class _HomePageState extends ConsumerState<HomePage> {
                               },
                             );
                           } else if (playlist != null) {
-                            contentView = FutureBuilder<List<Song>>(
-                              future: Future(() async {
-                                try {
-                                  await playlist!.songs.load();
-                                  return playlist.getOrderedSongs();
-                                } catch (e, s) {
-                                  print("[PLAYLIST_LOG] Error in HomePage FutureBuilder: $e\n$s");
-                                  rethrow;
-                                }
-                              }),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return const Padding(
-                                    padding: songListPadding,
-                                    child: CustomLoader(),
-                                  );
-                                }
-                                if (snapshot.hasError) {
-                                  return Center(
-                                    child: Text(loc.commonError(
-                                        snapshot.error.toString())),
-                                  );
-                                }
-                                final playlistSongs = snapshot.data ?? [];
+                            final asyncPlaylistSongs =
+                                ref.watch(playlistSongsProvider(playlist.id));
+                            contentView = asyncPlaylistSongs.when(
+                              skipLoadingOnReload: true,
+                              loading: () => const Padding(
+                                padding: songListPadding,
+                                child: CustomLoader(),
+                              ),
+                              error: (err, stack) => Center(
+                                child: Text(loc.commonError(err.toString())),
+                              ),
+                              data: (playlistSongs) {
                                 return Padding(
                                   padding: songListPadding,
                                   child: Column(
@@ -402,12 +389,18 @@ class _HomePageState extends ConsumerState<HomePage> {
                                       Expanded(
                                         child: SongListWidget(
                                           songs: playlistSongs,
-                                          onRefresh: () async =>
-                                              ref.invalidate(allSongsProvider),
+                                          onRefresh: () async => ref.invalidate(
+                                              playlistSongsProvider(
+                                                  playlist!.id)),
                                           showAlphabetScroller: false,
                                           isPlaylist: true,
-                                          onReorder:
-                                              (oldIndex, newIndex) async {
+                                          onReorder: (oldIndex, newIndex) async {
+                                            ref
+                                                .read(playlistSongsProvider(
+                                                        playlist!.id)
+                                                    .notifier)
+                                                .reorder(oldIndex, newIndex);
+
                                             if (oldIndex < newIndex) {
                                               newIndex -= 1;
                                             }
@@ -418,11 +411,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                                             orderedSongs.insert(
                                                 newIndex, movedSong);
 
-                                            playlist!.songOrder = orderedSongs
+                                            playlist.songOrder = orderedSongs
                                                 .map((s) => s.id)
                                                 .toList();
-                                            filterNotifier
-                                                .selectPlaylist(playlist.id);
                                             await ref
                                                 .read(databaseServiceProvider)
                                                 .updatePlaylist(playlist);

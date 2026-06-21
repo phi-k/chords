@@ -194,6 +194,13 @@ class _SongListWidgetState extends ConsumerState<SongListWidget>
             itemCount: widget.songs.length,
             onReorder: widget.onReorder ?? (oldIndex, newIndex) {},
             padding: const EdgeInsets.symmetric(vertical: 10),
+            proxyDecorator: (Widget child, int index, Animation<double> animation) {
+              return Material(
+                color: Colors.transparent,
+                elevation: 0,
+                child: child,
+              );
+            },
             itemBuilder: (context, index) {
               final song = widget.songs[index];
               return SongTile(
@@ -208,8 +215,8 @@ class _SongListWidgetState extends ConsumerState<SongListWidget>
                 trailing: ReorderableDragStartListener(
                   index: index,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10.0, vertical: 10.0),
+                    padding: const EdgeInsets.only(
+                        left: 10.0, right: 24.0, top: 10.0, bottom: 10.0),
                     child: Icon(
                       Icons.drag_handle,
                       color: Theme.of(context)

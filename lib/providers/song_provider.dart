@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'dart:async';
 import '../services/database_service.dart';
 import '../data/collections/song.dart';
 import '../data/collections/playlist.dart';
@@ -62,6 +63,34 @@ final playlistProvider = StreamProvider.family<Playlist?, int>((ref, id) {
   final dbService = ref.watch(databaseServiceProvider);
   return dbService.watchPlaylist(id);
 });
+
+class PlaylistSongsNotifier extends FamilyAsyncNotifier<List<Song>, int> {
+  @override
+  FutureOr<List<Song>> build(int arg) async {
+    final playlistAsync = ref.watch(playlistProvider(arg));
+    final playlist = playlistAsync.value;
+    if (playlist == null) return [];
+    await playlist.songs.load();
+    return playlist.getOrderedSongs();
+  }
+
+  void reorder(int oldIndex, int newIndex) {
+    final songs = state.value;
+    if (songs == null) return;
+
+    if (oldIndex < newIndex) {
+      newIndex -= 1;
+    }
+    final List<Song> updated = List.from(songs);
+    final Song moved = updated.removeAt(oldIndex);
+    updated.insert(newIndex, moved);
+    state = AsyncData(updated);
+  }
+}
+
+final playlistSongsProvider = AsyncNotifierProvider.family<PlaylistSongsNotifier, List<Song>, int>(
+  PlaylistSongsNotifier.new,
+);
 
 class HomeFilterState {
   final String filterText;
